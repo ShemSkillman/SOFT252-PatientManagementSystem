@@ -3,7 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package patientmanagementsystem;
+package PatientManagementSystem;
+import PatientManagementSystem.Model.ModelMain;
 
 /**
  *
@@ -14,8 +15,9 @@ public class PatientManagementSystem {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
-        // TODO code application logic here
+    
+    public static void main(String[] args) {             
+        ModelMain main = new ModelMain();     
     }
     
 }

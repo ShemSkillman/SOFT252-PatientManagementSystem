@@ -3,8 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package patientmanagementsystem.model;
-import patientmanagementsystem.user.*;
+package PatientManagementSystem.Model.Data;
+import PatientManagementSystem.Model.User.*;
+import PatientManagementSystem.Model.Data.Account.*;
+
 import java.util.ArrayList;
 /**
  *
@@ -13,6 +15,9 @@ import java.util.ArrayList;
 public class ModelAccountSystem {
     
     ArrayList<Account> accounts = new ArrayList<Account>();
+
+    public ModelAccountSystem() {
+    }
     
     public boolean CreateAccount(User requestingUser, User userToAdd, String password)
     {
@@ -26,7 +31,7 @@ public class ModelAccountSystem {
             
         
         // Prevents a user from being registered more than once
-        if (userIsRegistered(userToAdd)) return false;
+        if (getUserAccount(userToAdd) != null) return false;
         
         Account newAccount = new Account(userToAdd, password);        
         accounts.add(newAccount);
@@ -45,46 +50,25 @@ public class ModelAccountSystem {
                 userPermissions == Role.Secretary && userToRemove.getRole() != Role.Patient)
             return false;
         
-        // Account cannot be removed if user is not registered
-        if (!userIsRegistered(userToRemove)) return false;        
+        Account userAccount = getUserAccount(userToRemove);
         
-        accounts.remove(userToRemove);
+        // Account cannot be removed if user is not registered
+        if (userAccount == null) return false;        
+        
+        accounts.remove(userAccount);
         
         // Account removal successfull
         return true;
     }
     
-    private boolean userIsRegistered(User user)
+    private Account getUserAccount(User user)
     {
         for (Account account : accounts)
         {
             if (account.getUser() == user)
-                return true;
+                return account;
         }
         
-        return false;
-    }
-    
-    private class Account {
-        private User user;
-        private String password;
-        
-        public Account(User user, String password)
-        {
-            this.user = user;
-            this.password = password;
-        }
-
-        public User getUser() {
-            return user;
-        }
-
-        public String getPassword() {
-            return password;
-        }
-
-        public void setPassword(String password) {
-            this.password = password;
-        }        
+        return null;
     }
 }

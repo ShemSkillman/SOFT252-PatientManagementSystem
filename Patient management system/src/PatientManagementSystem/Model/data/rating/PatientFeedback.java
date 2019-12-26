@@ -3,8 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package patientmanagementsystem.model.rating;
-import patientmanagementsystem.user.Patient;
+package PatientManagementSystem.Model.Data.Rating;
+import PatientManagementSystem.Model.User.Patient;
 
 /**
  *

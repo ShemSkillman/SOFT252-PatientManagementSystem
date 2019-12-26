@@ -3,16 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package patientmanagementsystem.user;
+package PatientManagementSystem.Model.Data;
 
 /**
  *
  * @author Shem
  */
-public class Doctor extends User {
+public class ModelBookingSystem {
     
-    public Doctor(String name, String surname, String address, String id)
-    {
-        super(name, surname, address, id);
-    }
 }

@@ -3,16 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package patientmanagementsystem.user;
+package PatientManagementSystem.Model.User;
 
 /**
  *
  * @author Shem
  */
-public class Secretary extends User {
-    
-    public Secretary(String name, String surname, String address, String id)
-    {
-        super(name, surname, address, id);
-    }
+public enum Role {
+    Administrator, 
+    Secretary,
+    Doctor,
+    Patient
 }

@@ -3,10 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package patientmanagementsystem.model.rating;
+package PatientManagementSystem.Model.Data.Rating;
 
+import PatientManagementSystem.Model.User.Doctor;
+import PatientManagementSystem.Model.User.Patient;
 import java.util.ArrayList;
-import patientmanagementsystem.user.*;
 
 /**
  *
