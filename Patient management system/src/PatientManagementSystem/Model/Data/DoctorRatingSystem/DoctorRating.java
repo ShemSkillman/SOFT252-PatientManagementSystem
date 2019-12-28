@@ -72,4 +72,15 @@ public class DoctorRating {
         public void setFeedbackSummary(String feedbackSummary) {
             this.feedbackSummary = feedbackSummary;
         }
+        
+        public PatientFeedback getPatientFeedbackForDoctor(Patient patient) {
+            
+            for(PatientFeedback feedback : allPatientFeedback)
+            {
+                if (feedback.getPatient() == patient)
+                    return feedback;
+            }
+            
+            return null;
+        }
 }

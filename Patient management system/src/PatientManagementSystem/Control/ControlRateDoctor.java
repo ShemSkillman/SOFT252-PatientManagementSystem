@@ -26,25 +26,9 @@ public class ControlRateDoctor {
         
         viewRateDoctor = new ViewRateDoctor();
         
-        this.modelMain = modelMain;
-        
-        getDoctorsOnSystem();      
+        this.modelMain = modelMain;     
         
         viewRateDoctor.setVisible(true);
-    }
-    
-    private void getDoctorsOnSystem() {
-        
-        allDoctorAccounts = modelMain.getModelAccountSystem().getAccountsOfTypeRole(Role.Doctor);
-        ArrayList<String> doctorNames = new ArrayList<String>();
-        
-        for(Account doctorAccount : allDoctorAccounts) 
-        {
-            String doctorName = doctorAccount.getUser().getName() + " " + doctorAccount.getUser().getSurname();
-            doctorNames.add(doctorName);
-        }
-        
-        viewRateDoctor.setDoctors(doctorNames);
     }
     
     public void setVisible(boolean isVisible){

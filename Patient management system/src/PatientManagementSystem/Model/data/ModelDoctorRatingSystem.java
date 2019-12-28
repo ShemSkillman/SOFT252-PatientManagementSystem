@@ -8,7 +8,9 @@ import PatientManagementSystem.Model.User.Doctor;
 import PatientManagementSystem.Model.User.Patient;
 import PatientManagementSystem.Model.Data.DoctorRatingSystem.PatientFeedback;
 import PatientManagementSystem.Model.Data.DoctorRatingSystem.DoctorRating;
+import PatientManagementSystem.Model.Data.AccountSystem.Account;
 import java.util.ArrayList;
+import PatientManagementSystem.Model.User.*;
 
 /**
  *
@@ -16,14 +18,21 @@ import java.util.ArrayList;
  */
 public class ModelDoctorRatingSystem {
     
-    ArrayList<DoctorRating> ratedDoctors = new ArrayList<DoctorRating>();
+    ArrayList<DoctorRating> ratedDoctors = new ArrayList<DoctorRating>();    
+    ArrayList<Account> doctorAccounts = new ArrayList<Account>();
+    
+    private final ModelAccountSystem modelAccountSystem;
+
+    public ModelDoctorRatingSystem(ModelAccountSystem modelAccountSystem) {
+        this.modelAccountSystem = modelAccountSystem;
+    }   
     
     // Add feedback from patient to a specific doctor
     public boolean addPatientFeedback(Patient patientGivingRating, Doctor doctorToRate, int fiveStarRating, String message)
     {        
         PatientFeedback patientFeedback = new PatientFeedback(patientGivingRating, fiveStarRating, message);        
         
-        DoctorRating doctorRating = FindDoctorRating(doctorToRate);
+        DoctorRating doctorRating = findDoctorRating(doctorToRate);
         
         // New doctor rating is created if doctor received no feedback previously
         // Otherwise patient feedback is added alongside other patient feedback
@@ -40,10 +49,33 @@ public class ModelDoctorRatingSystem {
         return true;
     }
     
+    public ArrayList<String> getDoctorNames() {
+        
+        doctorAccounts = modelAccountSystem.getAccountsOfTypeRole(Role.Doctor);
+        
+        ArrayList<String> doctorNames = new ArrayList<String>();
+        
+        for(Account doctorAccount : doctorAccounts) 
+        {
+            String doctorName = doctorAccount.getId() + " " + doctorAccount.getUser().getName() + 
+                    " " + doctorAccount.getUser().getSurname();
+            doctorNames.add(doctorName);
+        }
+        
+        return doctorNames;
+    }
+    
+    public Account getDoctorAccount(int index) {
+        
+        if (doctorAccounts == null) return null;
+        
+        return doctorAccounts.get(index);
+    }
+    
     // Doctor rating needs to be wiped if admin removes doctor account from the system
     public void removeRatedDoctor(Doctor doctorToRemove) {
         
-        DoctorRating doctorRating = FindDoctorRating(doctorToRemove);
+        DoctorRating doctorRating = findDoctorRating(doctorToRemove);
         
         // Doctor has no rating anyway
         if (doctorRating == null) return;
@@ -52,7 +84,7 @@ public class ModelDoctorRatingSystem {
     }
     
     // Checks if doctor has received ratings before
-    private DoctorRating FindDoctorRating(Doctor doctor){
+    public DoctorRating findDoctorRating(Doctor doctor){
         
         for (DoctorRating ratedDoctor : ratedDoctors)
         {

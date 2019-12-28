@@ -25,6 +25,19 @@ public class ModelAccountSystem {
         accountNumberOfDigits = 4;
     }
     
+    public ArrayList<Account> getAccountsOfTypeRole(Role role) {
+        
+        ArrayList<Account> accountsOfRole = new ArrayList<Account>();
+        
+        for (Account account : accounts)
+        {
+            if (role == account.getUser().getRole())
+                accountsOfRole.add(account);
+        }
+        
+        return accountsOfRole;
+    }
+    
     public boolean CreateAccount(User userToAdd, String password)
     {
         Role userPermissions;
@@ -145,17 +158,8 @@ public class ModelAccountSystem {
         return null;
     }
     
-    public ArrayList<Account> getAccountsOfTypeRole(Role role) {
-        
-        ArrayList<Account> accountsOfRole = new ArrayList<Account>();
-        
-        for (Account account : accounts)
-        {
-            if (role == account.getUser().getRole())
-                accountsOfRole.add(account);
-        }
-        
-        return accountsOfRole;
+    public Account getLoggedInAccount() {
+        return loggedInAccount;
     }
     
     public Role getAccountRole(String userId){

@@ -160,6 +160,18 @@ public class ViewRateDoctor extends javax.swing.JFrame {
         onChangeDoctor.invoke();
     }    
     
+    public int getSelectedDoctorIndex() {
+        return cboxDoctor.getSelectedIndex();
+    }
+    
+    public void setDoctorRatingSlider(int value) {
+        sliderRating.setValue(value);
+    }
+    
+    public void setFeedbackText(String text) {
+        txtFeedback.setText(text);
+    }
+    
     /**
      * @param args the command line arguments
      */
