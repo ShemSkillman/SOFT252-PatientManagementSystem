@@ -6,8 +6,8 @@
 package PatientManagementSystem.Model.Data;
 import PatientManagementSystem.Model.User.Doctor;
 import PatientManagementSystem.Model.User.Patient;
-import PatientManagementSystem.Model.Data.Rating.PatientFeedback;
-import PatientManagementSystem.Model.Data.Rating.DoctorRating;
+import PatientManagementSystem.Model.Data.DoctorRatingSystem.PatientFeedback;
+import PatientManagementSystem.Model.Data.DoctorRatingSystem.DoctorRating;
 import java.util.ArrayList;
 
 /**

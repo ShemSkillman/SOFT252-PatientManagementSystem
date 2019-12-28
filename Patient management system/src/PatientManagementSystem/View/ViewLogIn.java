@@ -5,6 +5,8 @@
  */
 package PatientManagementSystem.View;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Shem
@@ -15,11 +17,13 @@ public class ViewLogIn extends javax.swing.JFrame{
      * Creates new form ViewLogIn
      */
     
-    public Event onCreateAdminAccount;
+    public Event onCreateAdminAccount, onRequestPatientAccount, onLogIn;
     
     public ViewLogIn() {
         initComponents();
         onCreateAdminAccount = new Event();
+        onRequestPatientAccount = new Event();
+        onLogIn = new Event();
     }
 
     /**
@@ -37,8 +41,8 @@ public class ViewLogIn extends javax.swing.JFrame{
         lblPassword = new javax.swing.JLabel();
         txtPassword = new javax.swing.JTextField();
         btnLogIn = new javax.swing.JButton();
-        btnCreateAccount = new javax.swing.JButton();
-        btnCreateAccount1 = new javax.swing.JButton();
+        btnCreateAdminAccount = new javax.swing.JButton();
+        btnRequestPatientAccount = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -67,17 +71,16 @@ public class ViewLogIn extends javax.swing.JFrame{
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(btnLogIn)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addComponent(lblUserID)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(txtUserID, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addComponent(lblPassword)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(lblUserID)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(txtUserID, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(lblPassword)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -96,21 +99,21 @@ public class ViewLogIn extends javax.swing.JFrame{
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        btnCreateAccount.setBackground(new java.awt.Color(255, 255, 255));
-        btnCreateAccount.setForeground(new java.awt.Color(0, 0, 153));
-        btnCreateAccount.setText("Register as administrator");
-        btnCreateAccount.addActionListener(new java.awt.event.ActionListener() {
+        btnCreateAdminAccount.setBackground(new java.awt.Color(255, 255, 255));
+        btnCreateAdminAccount.setForeground(new java.awt.Color(0, 0, 153));
+        btnCreateAdminAccount.setText("Register as administrator");
+        btnCreateAdminAccount.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCreateAccountActionPerformed(evt);
+                btnCreateAdminAccountActionPerformed(evt);
             }
         });
 
-        btnCreateAccount1.setBackground(new java.awt.Color(255, 255, 255));
-        btnCreateAccount1.setForeground(new java.awt.Color(0, 0, 153));
-        btnCreateAccount1.setText("Register as patient");
-        btnCreateAccount1.addActionListener(new java.awt.event.ActionListener() {
+        btnRequestPatientAccount.setBackground(new java.awt.Color(255, 255, 255));
+        btnRequestPatientAccount.setForeground(new java.awt.Color(0, 0, 153));
+        btnRequestPatientAccount.setText("Register as patient");
+        btnRequestPatientAccount.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCreateAccount1ActionPerformed(evt);
+                btnRequestPatientAccountActionPerformed(evt);
             }
         });
 
@@ -122,8 +125,8 @@ public class ViewLogIn extends javax.swing.JFrame{
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(btnCreateAccount1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnCreateAccount, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(btnRequestPatientAccount, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnCreateAdminAccount, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -133,9 +136,9 @@ public class ViewLogIn extends javax.swing.JFrame{
                 .addGap(12, 12, 12)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnCreateAccount)
+                .addComponent(btnCreateAdminAccount)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnCreateAccount1)
+                .addComponent(btnRequestPatientAccount)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -147,17 +150,29 @@ public class ViewLogIn extends javax.swing.JFrame{
     }//GEN-LAST:event_txtPasswordActionPerformed
 
     private void btnLogInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogInActionPerformed
-        // TODO add your handling code here:
+        onLogIn.invoke();
     }//GEN-LAST:event_btnLogInActionPerformed
 
-    private void btnCreateAccountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateAccountActionPerformed
+    private void btnCreateAdminAccountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateAdminAccountActionPerformed
         onCreateAdminAccount.invoke();
-    }//GEN-LAST:event_btnCreateAccountActionPerformed
+    }//GEN-LAST:event_btnCreateAdminAccountActionPerformed
 
-    private void btnCreateAccount1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateAccount1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnCreateAccount1ActionPerformed
+    private void btnRequestPatientAccountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRequestPatientAccountActionPerformed
+        onRequestPatientAccount.invoke();
+    }//GEN-LAST:event_btnRequestPatientAccountActionPerformed
 
+    public String getId() {
+        return txtUserID.getText();
+    }
+    
+    public String getPassword() {
+        return txtPassword.getText();
+    }
+    
+    public void showErrorMessage(String errorMessage) {
+        JOptionPane.showMessageDialog(null, errorMessage, "Error", JOptionPane.INFORMATION_MESSAGE);
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -195,9 +210,9 @@ public class ViewLogIn extends javax.swing.JFrame{
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnCreateAccount;
-    private javax.swing.JButton btnCreateAccount1;
+    private javax.swing.JButton btnCreateAdminAccount;
     private javax.swing.JButton btnLogIn;
+    private javax.swing.JButton btnRequestPatientAccount;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lblPassword;
     private javax.swing.JLabel lblUserID;

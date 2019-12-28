@@ -17,7 +17,8 @@ public class PatientManagementSystem {
      */
     
     public static void main(String[] args) {             
-        ModelMain main = new ModelMain();     
+        ModelMain main = new ModelMain(); 
+        main.logIn();
     }
     
 }

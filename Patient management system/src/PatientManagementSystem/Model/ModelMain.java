@@ -4,6 +4,8 @@
  * and open the template in the editor.
  */
 package PatientManagementSystem.Model;
+import PatientManagementSystem.Control.ControlCreateAdminAccount;
+import PatientManagementSystem.Control.ControlAccountLogIn;
 import PatientManagementSystem.Model.Data.*;
 import PatientManagementSystem.Control.*;
 /**
@@ -15,32 +17,65 @@ public class ModelMain {
     private final ModelAccountSystem modelAccountSystem;
     private final ModelBookingSystem modelAppointmentSystem;
     private final ModelDoctorRatingSystem modelDoctorRatingSystem;
+    private final ModelPatientAccountRequestSystem modelPatientAccountRequestSystem;
     
-    private ControlAccountLogIn controlLogin;
-    private ControlCreateAdminAccount controlCreateAccount;
+    private ControlAccountLogIn controlAccountLogIn;
+    private ControlCreateAdminAccount controlCreateAdminAccount;
+    private ControlRequestPatientAccount controlRequestPatientAccount;
+    private ControlPatientMainMenu controlPatientMainMenu;
     
     public ModelMain() {
         
         modelAccountSystem = new ModelAccountSystem();
         modelAppointmentSystem = new ModelBookingSystem();
-        modelDoctorRatingSystem = new ModelDoctorRatingSystem();   
-        
-        logIn();
+        modelDoctorRatingSystem = new ModelDoctorRatingSystem();  
+        modelPatientAccountRequestSystem = new ModelPatientAccountRequestSystem(modelAccountSystem);
     }   
     
     public void logIn() {
         
-        if (controlLogin == null)
-            controlLogin = new ControlAccountLogIn(this);
+        if (controlAccountLogIn == null)
+            controlAccountLogIn = new ControlAccountLogIn(this);
         else
-            controlLogin.setVisible(true);
+            controlAccountLogIn.setVisible(true);
     }
     
     public void createAdminAccount(){
         
-        if (controlCreateAccount == null)
-            controlCreateAccount = new ControlCreateAdminAccount(this);
+        if (controlCreateAdminAccount == null)
+            controlCreateAdminAccount = new ControlCreateAdminAccount(this);
         else
-            controlCreateAccount.setVisible(true);
+            controlCreateAdminAccount.setVisible(true);
     }
+    
+    public void requestPatientAccount() {
+        
+        if (controlRequestPatientAccount == null)
+            controlRequestPatientAccount = new ControlRequestPatientAccount(this);
+        else
+            controlRequestPatientAccount.setVisible(true);
+    }
+    
+    public void patientMainMenu() {
+        if (controlPatientMainMenu == null)
+            controlPatientMainMenu = new ControlPatientMainMenu(this);
+        else
+            controlPatientMainMenu.setVisible(true);
+    }
+
+    public ModelAccountSystem getModelAccountSystem() {
+        return modelAccountSystem;
+    }
+
+    public ModelBookingSystem getModelAppointmentSystem() {
+        return modelAppointmentSystem;
+    }
+
+    public ModelDoctorRatingSystem getModelDoctorRatingSystem() {
+        return modelDoctorRatingSystem;
+    }
+
+    public ModelPatientAccountRequestSystem getModelPatientAccountRequestSystem() {
+        return modelPatientAccountRequestSystem;
+    }   
 }

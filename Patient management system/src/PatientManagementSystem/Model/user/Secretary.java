@@ -11,8 +11,8 @@ package PatientManagementSystem.Model.User;
  */
 public class Secretary extends User {
     
-    public Secretary(String name, String surname, String address, String id)
+    public Secretary(String name, String surname, String address)
     {
-        super(name, surname, address, id);
+        super(name, surname, address, Role.Secretary);
     }
 }

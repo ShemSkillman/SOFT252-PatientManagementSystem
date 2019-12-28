@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package PatientManagementSystem.Model.Data.Rating;
+package PatientManagementSystem.Model.Data.DoctorRatingSystem;
 
 import PatientManagementSystem.Model.User.Doctor;
 import PatientManagementSystem.Model.User.Patient;

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package PatientManagementSystem.Model.Data.Account;
+package PatientManagementSystem.Model.Data.AccountSystem;
 import PatientManagementSystem.Model.User.User;
 
 /**
@@ -13,16 +13,22 @@ import PatientManagementSystem.Model.User.User;
 public class Account {
     
     private User user;
+    private final String id;
     private String password;
 
-    public Account(User user, String password)
+    public Account(User user, String id, String password)
     {
         this.user = user;
+        this.id = id;
         this.password = password;
     }
 
     public User getUser() {
         return user;
+    }
+    
+    public String getId() {
+        return id;
     }
 
     public String getPassword() {

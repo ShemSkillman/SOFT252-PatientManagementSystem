@@ -163,6 +163,22 @@ public class ViewCreateAdminAccount extends javax.swing.JFrame {
         onCreateAdminAccount.invoke();
     }//GEN-LAST:event_btnCreateAccountActionPerformed
 
+    public String getFirstName() {
+        return txtFirstName.getText();
+    }
+    
+    public String getSurname() {
+        return txtSurname.getText();
+    }
+    
+    public String getAddress() {
+        return txtAddress.getText();
+    }
+    
+    public String getPassword() {
+        return txtPassword.getText();
+    }
+    
     /**
      * @param args the command line arguments
      */

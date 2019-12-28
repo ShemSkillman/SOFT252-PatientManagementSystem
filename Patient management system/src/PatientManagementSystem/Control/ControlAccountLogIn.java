@@ -4,30 +4,34 @@
  * and open the template in the editor.
  */
 package PatientManagementSystem.Control;
-import PatientManagementSystem.Control.AccountLogIn.ControlRegisterAdminAction;
-import PatientManagementSystem.Model.ModelMain;
-import PatientManagementSystem.View.ViewLogIn;
+import PatientManagementSystem.Control.AccountLogIn.*;
+import PatientManagementSystem.Model.*;
+import PatientManagementSystem.View.*;
 
 /**
  *
  * @author Shem
  */
-public class ControlAccountLogIn {
-        
-    private final ViewLogIn viewLogin;    
+public class ControlAccountLogIn {  
     
-    private final ControlRegisterAdminAction controlCreateAdminAction;
+    private final ViewLogIn viewLogIn;
+    private final ControlRegisterAdminAction controlRegisterAdminAction;
+    private final ControlLogInAction controlLogInAction;
+    private final ControlRequestPatientAccountAction controlRequestPatientAccountAction;
     
-    public ControlAccountLogIn(ModelMain modelMain){
+    public ControlAccountLogIn(ModelMain modelMain){        
         
-        viewLogin = new ViewLogIn();        
-        controlCreateAdminAction = new ControlRegisterAdminAction(modelMain, viewLogin);
+        viewLogIn = new ViewLogIn();
         
-        viewLogin.setVisible(true);
+        controlRegisterAdminAction = new ControlRegisterAdminAction(modelMain, viewLogIn);
+        controlLogInAction = new ControlLogInAction(modelMain, viewLogIn);
+        controlRequestPatientAccountAction = new ControlRequestPatientAccountAction(modelMain, viewLogIn);
+        
+        viewLogIn.setVisible(true);
     }
     
     public void setVisible(boolean isVisible){
-        viewLogin.setVisible(isVisible);
+        viewLogIn.setVisible(isVisible);
     }
     
 }

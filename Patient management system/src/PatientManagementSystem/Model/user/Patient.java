@@ -14,10 +14,10 @@ public class Patient extends User {
     private int age;
     private Gender gender;
     
-    public Patient(String name, String surname, String address, String id, 
+    public Patient(String name, String surname, String address, 
             int age, Gender gender)
     {
-        super(name, surname, address, id);
+        super(name, surname, address, Role.Patient);
         this.age = age;
         this.gender = gender;
     }
@@ -29,9 +29,4 @@ public class Patient extends User {
     public Gender getGender() {
         return gender;
     }   
-}
-
-enum Gender{
-    Male,
-    Female
 }

@@ -7,12 +7,12 @@ package PatientManagementSystem.Model.User;
 
 /**
  *
- * @author Shem
+ * @author Shemu
  */
 public class Doctor extends User {
     
-    public Doctor(String name, String surname, String address, String id)
+    public Doctor(String name, String surname, String address)
     {
-        super(name, surname, address, id);
+        super(name, surname, address, Role.Doctor);
     }
 }

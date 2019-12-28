@@ -10,37 +10,15 @@ package PatientManagementSystem.Model.User;
  * @author Shem
  */
 public abstract class User {
-    protected String name, surname, address, id;
-    Role role;
+    protected String name, surname, address;
+    protected final Role role;
     
-    protected User(String name, String surname, String address, String id)
+    protected User(String name, String surname, String address, Role role)
     {
         this.name = name;
         this.surname = surname;
         this.address = address;
-        this.id = id;
-        setRole();
-    }
-    
-    private void setRole()
-    {
-        char letter = id.charAt(0);
-        
-        switch(letter)
-        {
-            case 'A':
-                role = Role.Administrator;
-                break;
-            case 'S':
-                role = Role.Secretary;
-                break;
-            case 'D':
-                role = Role.Secretary;
-                break;
-            case 'P':
-                role = Role.Patient;
-                break;
-        }
+        this.role = role;
     }
 
     public String getName() {
@@ -53,11 +31,7 @@ public abstract class User {
 
     public String getAddress() {
         return address;
-    }
-
-    public String getId() {
-        return id;
-    }       
+    }   
     
     public Role getRole(){
         return role;

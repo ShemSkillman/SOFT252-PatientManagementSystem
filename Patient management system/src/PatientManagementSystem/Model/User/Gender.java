@@ -9,10 +9,8 @@ package PatientManagementSystem.Model.User;
  *
  * @author Shem
  */
-public class Administrator extends User {
+public enum Gender {
+    Male,
+    Female
     
-    public Administrator(String name, String surname, String address)
-    {
-        super(name, surname, address, Role.Administrator);
-    }    
 }
