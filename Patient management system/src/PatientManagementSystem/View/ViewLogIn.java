@@ -5,6 +5,7 @@
  */
 package PatientManagementSystem.View;
 
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 /**
@@ -162,7 +163,9 @@ public class ViewLogIn extends javax.swing.JFrame{
     }//GEN-LAST:event_btnRequestPatientAccountActionPerformed
 
     public String getId() {
+        
         return txtUserID.getText();
+        
     }
     
     public String getPassword() {

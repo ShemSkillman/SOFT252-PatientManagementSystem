@@ -4,26 +4,38 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/Users/shems/Documents/GitHub/SOFT252-PatientManagementSystem/Patient%20management%20system/src/PatientManagementSystem/Model/User/Secretary.java</file>
+            <file>file:/C:/Users/shems/Documents/GitHub/SOFT252-PatientManagementSystem/Patient%20management%20system/src/PatientManagementSystem/View/Admin/ViewCreateAdminAccount.java</file>
+            <file>file:/C:/Users/shems/Documents/GitHub/SOFT252-PatientManagementSystem/Patient%20management%20system/src/PatientManagementSystem/Model/Data/DoctorRatingSystem/PatientFeedback.java</file>
+            <file>file:/C:/Users/shems/Documents/GitHub/SOFT252-PatientManagementSystem/Patient%20management%20system/src/PatientManagementSystem/Control/Patient/RateDoctor/ControlRateDoctorAction.java</file>
+            <file>file:/C:/Users/shems/Documents/GitHub/SOFT252-PatientManagementSystem/Patient%20management%20system/src/PatientManagementSystem/Control/Admin/ControlAdminMainMenu.java</file>
+            <file>file:/C:/Users/shems/Documents/GitHub/SOFT252-PatientManagementSystem/Patient%20management%20system/src/PatientManagementSystem/Model/User/Doctor.java</file>
+            <file>file:/C:/Users/shems/Documents/GitHub/SOFT252-PatientManagementSystem/Patient%20management%20system/src/PatientManagementSystem/View/Patient/ViewPatientHistory.java</file>
+            <file>file:/C:/Users/shems/Documents/GitHub/SOFT252-PatientManagementSystem/Patient%20management%20system/src/PatientManagementSystem/Control/Admin/ControlAddAccount.java</file>
+            <file>file:/C:/Users/shems/Documents/GitHub/SOFT252-PatientManagementSystem/Patient%20management%20system/src/PatientManagementSystem/Model/Data/DoctorRatingSystem/DoctorRating.java</file>
+            <file>file:/C:/Users/shems/Documents/GitHub/SOFT252-PatientManagementSystem/Patient%20management%20system/src/PatientManagementSystem/View/Admin/ViewAdminMainMenu.java</file>
+            <file>file:/C:/Users/shems/Documents/GitHub/SOFT252-PatientManagementSystem/Patient%20management%20system/src/PatientManagementSystem/Control/Admin/AddAccount/ControlAddAccountAction.java</file>
+            <file>file:/C:/Users/shems/Documents/GitHub/SOFT252-PatientManagementSystem/Patient%20management%20system/src/PatientManagementSystem/View/Patient/ViewPatientMainMenu.java</file>
+            <file>file:/C:/Users/shems/Documents/GitHub/SOFT252-PatientManagementSystem/Patient%20management%20system/src/PatientManagementSystem/Control/Patient/ControlPatientMainMenu.java</file>
+            <file>file:/C:/Users/shems/Documents/GitHub/SOFT252-PatientManagementSystem/Patient%20management%20system/src/PatientManagementSystem/Control/Admin/AdminMainMenu/ControlViewDoctorRatingsAction.java</file>
+            <file>file:/C:/Users/shems/Documents/GitHub/SOFT252-PatientManagementSystem/Patient%20management%20system/src/PatientManagementSystem/Control/Admin/CreateAdminAccount/ControlCreateAdminAccountAction.java</file>
+            <file>file:/C:/Users/shems/Documents/GitHub/SOFT252-PatientManagementSystem/Patient%20management%20system/src/PatientManagementSystem/Model/Data/ModelDoctorRatingSystem.java</file>
+            <file>file:/C:/Users/shems/Documents/GitHub/SOFT252-PatientManagementSystem/Patient%20management%20system/src/PatientManagementSystem/Control/Admin/ControlRemoveAccount.java</file>
+            <file>file:/C:/Users/shems/Documents/GitHub/SOFT252-PatientManagementSystem/Patient%20management%20system/src/PatientManagementSystem/Control/Patient/ControlRateDoctor.java</file>
+            <file>file:/C:/Users/shems/Documents/GitHub/SOFT252-PatientManagementSystem/Patient%20management%20system/src/PatientManagementSystem/View/ViewLogIn.java</file>
             <file>file:/C:/Users/shems/Documents/GitHub/SOFT252-PatientManagementSystem/Patient%20management%20system/src/PatientManagementSystem/Control/Admin/ControlCreateAdminAccount.java</file>
             <file>file:/C:/Users/shems/Documents/GitHub/SOFT252-PatientManagementSystem/Patient%20management%20system/src/PatientManagementSystem/Model/ModelMain.java</file>
-            <file>file:/C:/Users/shems/Documents/GitHub/SOFT252-PatientManagementSystem/Patient%20management%20system/src/PatientManagementSystem/View/Admin/ViewCreateAdminAccount.java</file>
             <file>file:/C:/Users/shems/Documents/GitHub/SOFT252-PatientManagementSystem/Patient%20management%20system/src/PatientManagementSystem/Model/Data/ModelAccountSystem.java</file>
+            <file>file:/C:/Users/shems/Documents/GitHub/SOFT252-PatientManagementSystem/Patient%20management%20system/src/PatientManagementSystem/View/Patient/ViewPatientDoctorRatings.java</file>
             <file>file:/C:/Users/shems/Documents/GitHub/SOFT252-PatientManagementSystem/Patient%20management%20system/src/PatientManagementSystem/Control/Admin/AdminMainMenu/ControlRemoveAccountAction.java</file>
             <file>file:/C:/Users/shems/Documents/GitHub/SOFT252-PatientManagementSystem/Patient%20management%20system/src/PatientManagementSystem/Control/Admin/RemoveAccount/ControlRemoveAccountAction.java</file>
-            <file>file:/C:/Users/shems/Documents/GitHub/SOFT252-PatientManagementSystem/Patient%20management%20system/src/PatientManagementSystem/Control/Admin/ControlAdminMainMenu.java</file>
             <file>file:/C:/Users/shems/Documents/GitHub/SOFT252-PatientManagementSystem/Patient%20management%20system/src/PatientManagementSystem/View/Admin/ViewAddAccount.java</file>
             <file>file:/C:/Users/shems/Documents/GitHub/SOFT252-PatientManagementSystem/Patient%20management%20system/src/PatientManagementSystem/Control/Admin/AdminMainMenu/ControlAddAccountAction.java</file>
             <file>file:/C:/Users/shems/Documents/GitHub/SOFT252-PatientManagementSystem/Patient%20management%20system/src/PatientManagementSystem/Control/Admin/ControlAdminDoctorRatings.java</file>
             <file>file:/C:/Users/shems/Documents/GitHub/SOFT252-PatientManagementSystem/Patient%20management%20system/src/PatientManagementSystem/View/Admin/ViewRemoveAccount.java</file>
-            <file>file:/C:/Users/shems/Documents/GitHub/SOFT252-PatientManagementSystem/Patient%20management%20system/src/PatientManagementSystem/Control/Admin/ControlAddAccount.java</file>
-            <file>file:/C:/Users/shems/Documents/GitHub/SOFT252-PatientManagementSystem/Patient%20management%20system/src/PatientManagementSystem/View/Admin/ViewAdminMainMenu.java</file>
-            <file>file:/C:/Users/shems/Documents/GitHub/SOFT252-PatientManagementSystem/Patient%20management%20system/src/PatientManagementSystem/Control/Admin/AddAccount/ControlAddAccountAction.java</file>
+            <file>file:/C:/Users/shems/Documents/GitHub/SOFT252-PatientManagementSystem/Patient%20management%20system/src/PatientManagementSystem/PatientManagementSystem.java</file>
             <file>file:/C:/Users/shems/Documents/GitHub/SOFT252-PatientManagementSystem/Patient%20management%20system/src/PatientManagementSystem/View/Admin/ViewAdminDoctorRatings.java</file>
-            <file>file:/C:/Users/shems/Documents/GitHub/SOFT252-PatientManagementSystem/Patient%20management%20system/src/PatientManagementSystem/Control/Patient/ControlPatientMainMenu.java</file>
-            <file>file:/C:/Users/shems/Documents/GitHub/SOFT252-PatientManagementSystem/Patient%20management%20system/src/PatientManagementSystem/Control/Admin/AdminMainMenu/ControlViewDoctorRatingsAction.java</file>
-            <file>file:/C:/Users/shems/Documents/GitHub/SOFT252-PatientManagementSystem/Patient%20management%20system/src/PatientManagementSystem/Control/Admin/CreateAdminAccount/ControlCreateAdminAccountAction.java</file>
-            <file>file:/C:/Users/shems/Documents/GitHub/SOFT252-PatientManagementSystem/Patient%20management%20system/src/PatientManagementSystem/Control/Admin/ControlRemoveAccount.java</file>
-            <file>file:/C:/Users/shems/Documents/GitHub/SOFT252-PatientManagementSystem/Patient%20management%20system/src/PatientManagementSystem/Control/Patient/ControlRateDoctor.java</file>
+            <file>file:/C:/Users/shems/Documents/GitHub/SOFT252-PatientManagementSystem/Patient%20management%20system/src/PatientManagementSystem/View/Patient/ViewRateDoctor.java</file>
+            <file>file:/C:/Users/shems/Documents/GitHub/SOFT252-PatientManagementSystem/Patient%20management%20system/src/PatientManagementSystem/Control/Admin/DoctorRatings/ControlSaveSummaryAction.java</file>
             <file>file:/C:/Users/shems/Documents/GitHub/SOFT252-PatientManagementSystem/Patient%20management%20system/src/PatientManagementSystem/Control/Patient/ControlRequestDoctorAppointment.java</file>
         </group>
     </open-files>

@@ -134,7 +134,8 @@ public class ViewPatientDoctorRatings extends javax.swing.JFrame {
         for (int i = 0; i < doctorRatings.size(); i++)
         {
             DoctorRating rating = doctorRatings.get(i);
-            String fullName = rating.getDoctor().getName() + " " + rating.getDoctor().getSurname();
+            String fullName = rating.getDoctorAccount().getUser().getName() + " " + 
+                    rating.getDoctorAccount().getUser().getSurname();
             
             tblDoctorRatings.getModel().setValueAt(fullName, i, 0);
             tblDoctorRatings.getModel().setValueAt(rating.getAverageFiveStarRating(), i, 1);

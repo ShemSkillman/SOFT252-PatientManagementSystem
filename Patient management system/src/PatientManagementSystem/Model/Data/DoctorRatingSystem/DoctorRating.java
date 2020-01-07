@@ -5,6 +5,7 @@
  */
 package PatientManagementSystem.Model.Data.DoctorRatingSystem;
 
+import PatientManagementSystem.Model.Data.AccountSystem.Account;
 import PatientManagementSystem.Model.User.Doctor;
 import PatientManagementSystem.Model.User.Patient;
 import java.util.ArrayList;
@@ -14,25 +15,25 @@ import java.util.ArrayList;
  * @author Shem
  */
 public class DoctorRating {
-    private Doctor doctor;       
+        private Account doctorAccount;       
         private int averageFiveStarRating = 0, totalStars = 0;
         private String feedbackSummary;
         private ArrayList<PatientFeedback> allPatientFeedback = new ArrayList<PatientFeedback>(); 
         
-        public DoctorRating(Doctor doctor, PatientFeedback patientFeedback){
-            this.doctor = doctor;
+        public DoctorRating(Account doctorAccount, PatientFeedback patientFeedback){
+            this.doctorAccount = doctorAccount;
             addPatientFeedback(patientFeedback);
         }
         
         public void addPatientFeedback(PatientFeedback newFeedback){
             
-            Patient patient = newFeedback.getPatient();
+            Account patientAccount = newFeedback.getPatientAccount();
             
             // Prevents duplicate feedback from same patient 
             // Deletes old feedback and replaces it with new
             for(PatientFeedback patientFeedback : allPatientFeedback)
             {
-                if (patientFeedback.getPatient() == patient){
+                if (patientFeedback.getPatientAccount() == patientAccount){
                     allPatientFeedback.remove(patientFeedback);
                     break;
                 }
@@ -53,8 +54,8 @@ public class DoctorRating {
             averageFiveStarRating = totalStars / allPatientFeedback.size();
         }
 
-        public Doctor getDoctor() {
-            return doctor;
+        public Account getDoctorAccount() {
+            return doctorAccount;
         }
 
         public int getAverageFiveStarRating() {
@@ -73,11 +74,11 @@ public class DoctorRating {
             this.feedbackSummary = feedbackSummary;
         }
         
-        public PatientFeedback getPatientFeedbackForDoctor(Patient patient) {
+        public PatientFeedback getPatientFeedbackForDoctor(Account patientAccount) {
             
             for(PatientFeedback feedback : allPatientFeedback)
             {
-                if (feedback.getPatient() == patient)
+                if (feedback.getPatientAccount() == patientAccount)
                     return feedback;
             }
             

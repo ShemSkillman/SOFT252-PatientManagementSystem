@@ -7,7 +7,6 @@ package PatientManagementSystem.Control.Patient.RateDoctor;
 
 import PatientManagementSystem.Control.IObserver;
 import PatientManagementSystem.Model.ModelMain;
-import PatientManagementSystem.Model.User.Doctor;
 import PatientManagementSystem.View.Patient.ViewRateDoctor;
 
 /**
@@ -31,7 +30,7 @@ public class ControlRateDoctorAction implements IObserver {
     public void update() {
         
         String doctorId = viewRateDoctor.getChosenDoctorId();        
-        Doctor doctor = (Doctor)modelMain.getModelAccountSystem().getAccount(doctorId).getUser();
+        var doctor = modelMain.getModelAccountSystem().getAccount(doctorId);
         int fiveStarRating = viewRateDoctor.getDoctorRating();
         String feedback = viewRateDoctor.getFeedbackText();
         

@@ -6,7 +6,7 @@
 package PatientManagementSystem.Model.Data;
 import PatientManagementSystem.Model.Data.AccountSystem.Account;
 import PatientManagementSystem.Model.User.*;
-import PatientManagementSystem.Model.ICommand;
+import PatientManagementSystem.View.Event;
 
 import java.util.ArrayList;
 /**
@@ -14,6 +14,8 @@ import java.util.ArrayList;
  * @author Shem
  */
 public class ModelAccountSystem {
+    
+    public Event onRemoveAccount = new Event();
     
     private final ArrayList<Account> accounts = new ArrayList<Account>();
     private Account loggedInAccount;
@@ -101,27 +103,19 @@ public class ModelAccountSystem {
         return id;
     }
     
-    public boolean RemoveAccount(Account accountToRemove){
+    public void RemoveAccount(Account accountToRemove){
         
         // Account cannot be removed if user is not registered
-        if (accountToRemove == null) return false;        
-        
-        // Gets permissions based on the role of the logged in account
-        Role userPermissions = loggedInAccount.getUser().getRole();
-        
-        // Only administrator can remove accounts 
-        // Includes exception of secretary removing patient accounts
-        if (userPermissions == Role.Patient || userPermissions == Role.Doctor ||
-                userPermissions == Role.Secretary && accountToRemove.getUser().getRole() != Role.Patient)
-            return false;      
+        if (accountToRemove == null) return;    
         
         accounts.remove(accountToRemove);
         
         modelAccountHistoryTracker.recordAction("Removed " + accountToRemove.getUser().getRole().toString()
                 + " account with ID " + accountToRemove.getId());
         
+        onRemoveAccount.invoke();
+        
         // Account removal successfull
-        return true;
     }
     
     public boolean LogIn(String id, String password) {

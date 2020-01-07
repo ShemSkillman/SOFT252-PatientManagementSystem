@@ -4,25 +4,25 @@
  * and open the template in the editor.
  */
 package PatientManagementSystem.Model.Data.DoctorRatingSystem;
-import PatientManagementSystem.Model.User.Patient;
+import PatientManagementSystem.Model.Data.AccountSystem.Account;
 
 /**
  *
  * @author Shem
  */
 public class PatientFeedback {
-    private Patient patient;
+    private Account patientAccount;
     private int doctorFiveStarRating;
     private String message;
     
-    public PatientFeedback(Patient patient, int doctorFiveStarRating, String message) {
-        this.patient = patient;
+    public PatientFeedback(Account patientAccount, int doctorFiveStarRating, String message) {
+        this.patientAccount = patientAccount;
         this.doctorFiveStarRating = doctorFiveStarRating;
         this.message = message;
     }
     
-    public Patient getPatient(){
-        return patient;
+    public Account getPatientAccount(){
+        return patientAccount;
     }
 
     public int getDoctorFiveStarRating() {

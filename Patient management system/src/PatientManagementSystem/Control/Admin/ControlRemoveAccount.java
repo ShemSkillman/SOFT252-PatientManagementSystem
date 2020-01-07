@@ -31,6 +31,8 @@ public class ControlRemoveAccount implements IObserver {
         
         this.modelMain = modelMain;
         
+        modelMain.getModelAccountSystem().onRemoveAccount.addObserver(this);
+        
         viewRemoveAccount = new ViewRemoveAccount();   
         viewRemoveAccount.onChooseNewAccountType.addObserver(this);
         controlRemoveAccountAction = new ControlRemoveAccountAction(modelMain, viewRemoveAccount);        

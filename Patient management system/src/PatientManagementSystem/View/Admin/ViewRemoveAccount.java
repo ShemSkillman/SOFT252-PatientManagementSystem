@@ -8,6 +8,7 @@ package PatientManagementSystem.View.Admin;
 import PatientManagementSystem.View.Event;
 import java.util.ArrayList;
 import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -149,6 +150,16 @@ public class ViewRemoveAccount extends javax.swing.JFrame {
         }
         
         lstAccounts.setModel(listModel);
+    }
+    
+    public String getSelectedAccountId() {
+        String name = lstAccounts.getSelectedValue();
+        
+        return name.substring(0, 5);
+    }
+    
+    public void showMessage(String title, String message) {
+        JOptionPane.showMessageDialog(null, message, title, JOptionPane.INFORMATION_MESSAGE);
     }
     
     /**

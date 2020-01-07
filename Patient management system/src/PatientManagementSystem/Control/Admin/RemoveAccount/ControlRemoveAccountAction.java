@@ -6,6 +6,7 @@
 package PatientManagementSystem.Control.Admin.RemoveAccount;
 
 import PatientManagementSystem.Control.IObserver;
+import PatientManagementSystem.Model.Data.AccountSystem.Account;
 import PatientManagementSystem.Model.ModelMain;
 import PatientManagementSystem.View.Admin.ViewRemoveAccount;
 
@@ -30,6 +31,14 @@ public class ControlRemoveAccountAction implements IObserver {
     @Override
     public void update() {
         
+        String Id = viewRemoveAccount.getSelectedAccountId();
+        
+        Account account = modelMain.getModelAccountSystem().getAccount(Id);
+        
+        modelMain.getModelAccountSystem().RemoveAccount(account);
+        
+        viewRemoveAccount.showMessage("Account removed succesfully", "The " + account.getUser().getRole().toString() + " account with"
+                + " ID " + account.getId() + " has been removed from the system");
         
     }
 }

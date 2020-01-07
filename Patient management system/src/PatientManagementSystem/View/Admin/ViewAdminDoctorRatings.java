@@ -5,11 +5,9 @@
  */
 package PatientManagementSystem.View.Admin;
 
-import PatientManagementSystem.View.Patient.*;
-import PatientManagementSystem.Model.Data.DoctorRatingSystem.DoctorRating;
+import PatientManagementSystem.Model.Data.DoctorRatingSystem.PatientFeedback;
 import PatientManagementSystem.View.Event;
 import java.util.ArrayList;
-import java.util.Set;
 
 /**
  *
@@ -21,11 +19,54 @@ public class ViewAdminDoctorRatings extends javax.swing.JFrame {
      * Creates new form ViewDoctorRatings
      */
     
-    public Event onRateDoctor;
+    public Event onSaveSummary, onSelectNewDoctor;
     
     public ViewAdminDoctorRatings() {
         initComponents();
-        onRateDoctor = new Event();
+        onSaveSummary = new Event();
+        onSelectNewDoctor = new Event();
+    }
+    
+    public void setDoctorNames(ArrayList<String> names) {
+        
+        for (String name : names) 
+        {
+            cboxDoctorName.addItem(name);
+        }
+    }
+    
+    public void setAverageFiveStarRating(int rating) {
+        txtAverageFiveStarRating.setText(Integer.toString(rating));
+    }
+    
+    public void setSummary(String summary) {
+        txtSummary.setText(summary);
+    }
+    
+    public String getSelectedDoctorId() {
+        
+        if (cboxDoctorName.getItemCount() < 1) return null;
+        String name = (String)cboxDoctorName.getSelectedItem();
+        return name.substring(0, 5);
+    }
+    
+    public void fillFeedbackTable(ArrayList<PatientFeedback> allFeedback) {
+        
+        for (int i = 0; i < allFeedback.size(); i++)
+        {
+            PatientFeedback feedback = allFeedback.get(i);
+            
+            String patientName = feedback.getPatientAccount().getId() + " " + feedback.getPatientAccount().getUser().getName() + " "
+                    + feedback.getPatientAccount().getUser().getSurname();
+            
+            tblPatientRatings.getModel().setValueAt(patientName, i, 0);
+            tblPatientRatings.getModel().setValueAt(feedback.getDoctorFiveStarRating(), i, 1);
+            tblPatientRatings.getModel().setValueAt(feedback.getMessage(), i, 2);            
+        }
+    }
+    
+    public String getSummary() {
+        return txtSummary.getText();
     }
 
     /**
@@ -38,31 +79,31 @@ public class ViewAdminDoctorRatings extends javax.swing.JFrame {
     private void initComponents() {
 
         panelDoctorRatings = new javax.swing.JPanel();
-        cboxAccountType = new javax.swing.JComboBox<>();
-        jLabel1 = new javax.swing.JLabel();
+        cboxDoctorName = new javax.swing.JComboBox<>();
+        lblDoctor = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        btnRateDoctor = new javax.swing.JButton();
-        jLabel2 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jLabel3 = new javax.swing.JLabel();
+        tblPatientRatings = new javax.swing.JTable();
+        btnSaveSummary = new javax.swing.JButton();
+        lblFiveStarRating = new javax.swing.JLabel();
+        txtAverageFiveStarRating = new javax.swing.JTextField();
+        lblSummary = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        txtSummary = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         panelDoctorRatings.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Doctor ratings", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 14))); // NOI18N
 
-        cboxAccountType.setName(""); // NOI18N
-        cboxAccountType.addActionListener(new java.awt.event.ActionListener() {
+        cboxDoctorName.setName(""); // NOI18N
+        cboxDoctorName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cboxAccountTypeActionPerformed(evt);
+                cboxDoctorNameActionPerformed(evt);
             }
         });
 
-        jLabel1.setText("Doctor");
+        lblDoctor.setText("Doctor");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblPatientRatings.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null},
                 {null, null, null},
@@ -88,30 +129,30 @@ public class ViewAdminDoctorRatings extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tblPatientRatings);
 
-        btnRateDoctor.setText("Save summary");
-        btnRateDoctor.addActionListener(new java.awt.event.ActionListener() {
+        btnSaveSummary.setText("Save summary");
+        btnSaveSummary.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRateDoctorActionPerformed(evt);
+                btnSaveSummaryActionPerformed(evt);
             }
         });
 
-        jLabel2.setText("Five star rating");
+        lblFiveStarRating.setText("Five star rating");
 
-        jTextField1.setEditable(false);
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        txtAverageFiveStarRating.setEditable(false);
+        txtAverageFiveStarRating.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                txtAverageFiveStarRatingActionPerformed(evt);
             }
         });
 
-        jLabel3.setText("Summary");
+        lblSummary.setText("Summary");
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setLineWrap(true);
-        jTextArea1.setRows(5);
-        jScrollPane3.setViewportView(jTextArea1);
+        txtSummary.setColumns(20);
+        txtSummary.setLineWrap(true);
+        txtSummary.setRows(5);
+        jScrollPane3.setViewportView(txtSummary);
 
         javax.swing.GroupLayout panelDoctorRatingsLayout = new javax.swing.GroupLayout(panelDoctorRatings);
         panelDoctorRatings.setLayout(panelDoctorRatingsLayout);
@@ -122,14 +163,14 @@ public class ViewAdminDoctorRatings extends javax.swing.JFrame {
                 .addGroup(panelDoctorRatingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelDoctorRatingsLayout.createSequentialGroup()
                         .addGroup(panelDoctorRatingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel1))
+                            .addComponent(lblFiveStarRating)
+                            .addComponent(lblDoctor))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(panelDoctorRatingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(cboxAccountType, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jTextField1)))
+                            .addComponent(cboxDoctorName, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(txtAverageFiveStarRating)))
                     .addGroup(panelDoctorRatingsLayout.createSequentialGroup()
-                        .addComponent(jLabel3)
+                        .addComponent(lblSummary)
                         .addGap(39, 39, 39)
                         .addComponent(jScrollPane3))
                     .addGroup(panelDoctorRatingsLayout.createSequentialGroup()
@@ -137,7 +178,7 @@ public class ViewAdminDoctorRatings extends javax.swing.JFrame {
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelDoctorRatingsLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(btnRateDoctor)))
+                        .addComponent(btnSaveSummary)))
                 .addContainerGap())
         );
         panelDoctorRatingsLayout.setVerticalGroup(
@@ -145,20 +186,20 @@ public class ViewAdminDoctorRatings extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelDoctorRatingsLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(panelDoctorRatingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(cboxAccountType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblDoctor)
+                    .addComponent(cboxDoctorName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(panelDoctorRatingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblFiveStarRating)
+                    .addComponent(txtAverageFiveStarRating, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(panelDoctorRatingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel3)
+                    .addComponent(lblSummary)
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnRateDoctor)
+                .addComponent(btnSaveSummary)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -182,17 +223,17 @@ public class ViewAdminDoctorRatings extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnRateDoctorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRateDoctorActionPerformed
-        onRateDoctor.invoke();
-    }//GEN-LAST:event_btnRateDoctorActionPerformed
+    private void btnSaveSummaryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveSummaryActionPerformed
+        onSaveSummary.invoke();
+    }//GEN-LAST:event_btnSaveSummaryActionPerformed
 
-    private void cboxAccountTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboxAccountTypeActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cboxAccountTypeActionPerformed
+    private void cboxDoctorNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboxDoctorNameActionPerformed
+        onSelectNewDoctor.invoke();
+    }//GEN-LAST:event_cboxDoctorNameActionPerformed
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void txtAverageFiveStarRatingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtAverageFiveStarRatingActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_txtAverageFiveStarRatingActionPerformed
 
     
     /**
@@ -234,16 +275,16 @@ public class ViewAdminDoctorRatings extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnRateDoctor;
-    private javax.swing.JComboBox<String> cboxAccountType;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
+    private javax.swing.JButton btnSaveSummary;
+    private javax.swing.JComboBox<String> cboxDoctorName;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JLabel lblDoctor;
+    private javax.swing.JLabel lblFiveStarRating;
+    private javax.swing.JLabel lblSummary;
     private javax.swing.JPanel panelDoctorRatings;
+    private javax.swing.JTable tblPatientRatings;
+    private javax.swing.JTextField txtAverageFiveStarRating;
+    private javax.swing.JTextArea txtSummary;
     // End of variables declaration//GEN-END:variables
 }

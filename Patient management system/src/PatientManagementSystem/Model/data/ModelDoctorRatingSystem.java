@@ -4,13 +4,11 @@
  * and open the template in the editor.
  */
 package PatientManagementSystem.Model.Data;
+import PatientManagementSystem.Model.Data.AccountSystem.Account;
 import PatientManagementSystem.Model.User.Doctor;
-import PatientManagementSystem.Model.User.Patient;
 import PatientManagementSystem.Model.Data.DoctorRatingSystem.PatientFeedback;
 import PatientManagementSystem.Model.Data.DoctorRatingSystem.DoctorRating;
-import PatientManagementSystem.Model.Data.AccountSystem.Account;
 import java.util.ArrayList;
-import PatientManagementSystem.Model.User.*;
 import PatientManagementSystem.View.Event;
 
 /**
@@ -32,9 +30,9 @@ public class ModelDoctorRatingSystem {
     }   
     
     // Add feedback from patient to a specific doctor
-    public boolean addPatientFeedback(Doctor doctorToRate, int fiveStarRating, String message)
+    public boolean addPatientFeedback(Account doctorToRate, int fiveStarRating, String message)
     {        
-        Patient patientGivingRating = (Patient)modelAccountSystem.getLoggedInAccount().getUser();
+        Account patientGivingRating = modelAccountSystem.getLoggedInAccount();
         PatientFeedback patientFeedback = new PatientFeedback(patientGivingRating, fiveStarRating, message);        
         
         DoctorRating doctorRating = findDoctorRating(doctorToRate);
@@ -52,8 +50,8 @@ public class ModelDoctorRatingSystem {
         
         onUpdateDoctorRatings.invoke();
         
-        modelAccountHistoryTracker.recordAction("Submitted patient feedback for doctor " + doctorToRate.getName() + " "  
-        + doctorToRate.getSurname());
+        modelAccountHistoryTracker.recordAction("Submitted patient feedback for doctor " + doctorToRate.getUser().getName() + " "  
+        + doctorToRate.getUser().getSurname());
         
         // Feedback recorded successfully
         return true;
@@ -65,25 +63,27 @@ public class ModelDoctorRatingSystem {
     }
     
     // Doctor rating needs to be wiped if admin removes doctor account from the system
-    public void removeRatedDoctor(Doctor doctorToRemove) {
+    public void removeRatedDoctor(Account doctorToRemove) {
         
         DoctorRating doctorRating = findDoctorRating(doctorToRemove);
         
         // Doctor has no rating anyway
         if (doctorRating == null) return;
         
-        modelAccountHistoryTracker.recordAction("Removed doctor " + doctorToRemove.getName() + " "  
-        + doctorToRemove.getSurname() + " ratings from the system");
+        modelAccountHistoryTracker.recordAction("Removed doctor " + doctorToRemove.getUser().getName() + " "  
+        + doctorToRemove.getUser().getSurname() + " ratings from the system");
         
-        ratedDoctors.remove(doctorRating);    
+        ratedDoctors.remove(doctorRating);   
+        
+        onUpdateDoctorRatings.invoke();
     }
     
     // Checks if doctor has received ratings before
-    public DoctorRating findDoctorRating(Doctor doctor){
+    public DoctorRating findDoctorRating(Account doctor){
         
         for (DoctorRating ratedDoctor : ratedDoctors)
         {
-            if (ratedDoctor.getDoctor() == doctor)
+            if (ratedDoctor.getDoctorAccount() == doctor)
                 return ratedDoctor;
         }
         
