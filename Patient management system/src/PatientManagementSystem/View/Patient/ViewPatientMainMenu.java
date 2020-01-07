@@ -6,6 +6,8 @@
 package PatientManagementSystem.View.Patient;
 
 import PatientManagementSystem.View.Event;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  *
@@ -17,11 +19,14 @@ public class ViewPatientMainMenu extends javax.swing.JFrame {
      * Creates new form ViewPatientMainMenu
      */
     
-    public Event onRateDoctor;
+    public Event onSeeDoctorRatings, onRequestAppointment, onSeePatientHistory, onRequestAccountDeletion;
     
     public ViewPatientMainMenu() {
         initComponents();
-        onRateDoctor = new Event();
+        onSeeDoctorRatings = new Event();
+        onRequestAppointment = new Event();
+        onSeePatientHistory = new Event();
+        onRequestAccountDeletion = new Event();
     }
 
     /**
@@ -34,16 +39,116 @@ public class ViewPatientMainMenu extends javax.swing.JFrame {
     private void initComponents() {
 
         mainPanel = new javax.swing.JPanel();
-        btnRateDoctor = new javax.swing.JButton();
+        btnDoctorRatings = new javax.swing.JButton();
+        btnRequestAppointment = new javax.swing.JButton();
+        btnPatientHistory = new javax.swing.JButton();
+        lblCurrentPrescriptions = new javax.swing.JLabel();
+        lblBookedAppointments = new javax.swing.JLabel();
+        lblPatientWelcomeMessage = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblPrescriptions = new javax.swing.JTable();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tblAppointments = new javax.swing.JTable();
+        btnDeleteAccount = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         mainPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Main menu", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 14))); // NOI18N
 
-        btnRateDoctor.setText("Rate Doctor");
-        btnRateDoctor.addActionListener(new java.awt.event.ActionListener() {
+        btnDoctorRatings.setText("Doctor ratings");
+        btnDoctorRatings.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRateDoctorActionPerformed(evt);
+                btnDoctorRatingsActionPerformed(evt);
+            }
+        });
+
+        btnRequestAppointment.setText("Request appointment");
+        btnRequestAppointment.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRequestAppointmentActionPerformed(evt);
+            }
+        });
+
+        btnPatientHistory.setText("Patient history");
+        btnPatientHistory.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPatientHistoryActionPerformed(evt);
+            }
+        });
+
+        lblCurrentPrescriptions.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        lblCurrentPrescriptions.setText("Current prescriptions");
+
+        lblBookedAppointments.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        lblBookedAppointments.setText("Booked appointments");
+
+        lblPatientWelcomeMessage.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        lblPatientWelcomeMessage.setText("Hi <Patient name>");
+
+        tblPrescriptions.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
+            },
+            new String [] {
+                "Medicine", "Quantity", "Dosage"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.Integer.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tblPrescriptions.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_NEXT_COLUMN);
+        jScrollPane1.setViewportView(tblPrescriptions);
+
+        tblAppointments.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
+            },
+            new String [] {
+                "Date", "Time", "Doctor"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane2.setViewportView(tblAppointments);
+
+        btnDeleteAccount.setText("Delete account");
+        btnDeleteAccount.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeleteAccountActionPerformed(evt);
             }
         });
 
@@ -53,15 +158,43 @@ public class ViewPatientMainMenu extends javax.swing.JFrame {
             mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(mainPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(btnRateDoctor)
-                .addContainerGap(267, Short.MAX_VALUE))
+                .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jScrollPane2)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(lblCurrentPrescriptions, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(lblBookedAppointments, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(lblPatientWelcomeMessage, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, mainPanelLayout.createSequentialGroup()
+                            .addComponent(btnDoctorRatings)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(btnRequestAppointment)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(btnPatientHistory)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(btnDeleteAccount))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         mainPanelLayout.setVerticalGroup(
             mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(mainPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(btnRateDoctor)
-                .addContainerGap(219, Short.MAX_VALUE))
+                .addComponent(lblPatientWelcomeMessage)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnDoctorRatings)
+                    .addComponent(btnRequestAppointment)
+                    .addComponent(btnPatientHistory)
+                    .addComponent(btnDeleteAccount))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(lblCurrentPrescriptions)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(16, 16, 16)
+                .addComponent(lblBookedAppointments)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(17, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -84,10 +217,28 @@ public class ViewPatientMainMenu extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnRateDoctorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRateDoctorActionPerformed
-        onRateDoctor.invoke();
-    }//GEN-LAST:event_btnRateDoctorActionPerformed
+    private void btnDoctorRatingsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDoctorRatingsActionPerformed
+        onSeeDoctorRatings.invoke();
+    }//GEN-LAST:event_btnDoctorRatingsActionPerformed
 
+    private void btnRequestAppointmentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRequestAppointmentActionPerformed
+        onRequestAppointment.invoke();
+    }//GEN-LAST:event_btnRequestAppointmentActionPerformed
+
+    private void btnPatientHistoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPatientHistoryActionPerformed
+        onSeePatientHistory.invoke();
+    }//GEN-LAST:event_btnPatientHistoryActionPerformed
+
+    private void btnDeleteAccountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteAccountActionPerformed
+        onRequestAccountDeletion.invoke();
+    }//GEN-LAST:event_btnDeleteAccountActionPerformed
+
+    public void setWelcomeMessage(String patientName)
+    {
+        lblPatientWelcomeMessage.setText("Hi " + patientName + ",");
+        
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -124,7 +275,17 @@ public class ViewPatientMainMenu extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnRateDoctor;
+    private javax.swing.JButton btnDeleteAccount;
+    private javax.swing.JButton btnDoctorRatings;
+    private javax.swing.JButton btnPatientHistory;
+    private javax.swing.JButton btnRequestAppointment;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JLabel lblBookedAppointments;
+    private javax.swing.JLabel lblCurrentPrescriptions;
+    private javax.swing.JLabel lblPatientWelcomeMessage;
     private javax.swing.JPanel mainPanel;
+    private javax.swing.JTable tblAppointments;
+    private javax.swing.JTable tblPrescriptions;
     // End of variables declaration//GEN-END:variables
 }

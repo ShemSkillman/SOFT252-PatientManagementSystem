@@ -5,6 +5,7 @@
  */
 package PatientManagementSystem.View.Admin;
 import PatientManagementSystem.View.*;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -177,6 +178,10 @@ public class ViewCreateAdminAccount extends javax.swing.JFrame {
     
     public String getPassword() {
         return txtPassword.getText();
+    }
+    
+    public void showMessage(String title, String message) {
+        JOptionPane.showMessageDialog(null, message, title, JOptionPane.INFORMATION_MESSAGE);
     }
     
     /**

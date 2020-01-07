@@ -7,6 +7,7 @@ package PatientManagementSystem.View.Patient;
 
 import PatientManagementSystem.View.Event;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -160,8 +161,18 @@ public class ViewRateDoctor extends javax.swing.JFrame {
         onChangeDoctor.invoke();
     }    
     
-    public int getSelectedDoctorIndex() {
-        return cboxDoctor.getSelectedIndex();
+    public String getChosenDoctorId()
+    {
+        String identifier = (String)cboxDoctor.getSelectedItem();
+        return identifier.substring(0, 5);
+    }
+    
+    public int getDoctorRating() {
+        return sliderRating.getValue();
+    }
+    
+    public String getFeedbackText() {
+        return txtFeedback.getText();
     }
     
     public void setDoctorRatingSlider(int value) {
@@ -170,6 +181,10 @@ public class ViewRateDoctor extends javax.swing.JFrame {
     
     public void setFeedbackText(String text) {
         txtFeedback.setText(text);
+    }
+    
+    public void showMessage(String title, String message) {
+        JOptionPane.showMessageDialog(null, message, title, JOptionPane.INFORMATION_MESSAGE);
     }
     
     /**

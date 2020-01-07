@@ -5,17 +5,23 @@
  */
 package PatientManagementSystem.View.Admin;
 
+import PatientManagementSystem.View.Event;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Shem
  */
 public class ViewAddAccount extends javax.swing.JFrame {
 
+    public Event onAddAccount;
+    
     /**
      * Creates new form ViewCreateAccount
      */
     public ViewAddAccount() {
         initComponents();
+        onAddAccount = new Event();
     }
 
     /**
@@ -81,6 +87,11 @@ public class ViewAddAccount extends javax.swing.JFrame {
         });
 
         btnAddAccount.setText("Add account");
+        btnAddAccount.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddAccountActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout mainPanelLayout = new javax.swing.GroupLayout(mainPanel);
         mainPanel.setLayout(mainPanelLayout);
@@ -169,6 +180,34 @@ public class ViewAddAccount extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtFirstNameActionPerformed
 
+    private void btnAddAccountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddAccountActionPerformed
+        onAddAccount.invoke();
+    }//GEN-LAST:event_btnAddAccountActionPerformed
+
+    public String getFirstName() {
+        return txtFirstName.getText();
+    }
+    
+    public String getSurname() {
+        return txtSurname.getText();
+    }
+    
+    public String getAddress() {
+        return txtAddress.getText();
+    }
+    
+    public String getAccountType() {
+        return (String)cboxAccountType.getSelectedItem();
+    }
+    
+    public String getPassword() {
+        return txtPassword.getText();
+    }
+    
+    public void showMessage(String title, String message) {
+        JOptionPane.showMessageDialog(null, message, title, JOptionPane.INFORMATION_MESSAGE);
+    }
+    
     /**
      * @param args the command line arguments
      */

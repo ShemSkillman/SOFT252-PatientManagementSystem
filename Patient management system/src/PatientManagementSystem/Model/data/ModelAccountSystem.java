@@ -20,9 +20,28 @@ public class ModelAccountSystem {
         
     private int accountNum = 0;
     private final int accountNumberOfDigits;
+    private final ModelAccountHistoryTracker modelAccountHistoryTracker;
     
-    public ModelAccountSystem() {
+    public ModelAccountSystem(ModelAccountHistoryTracker modelAccountHistoryTracker) {
+        
+        this.modelAccountHistoryTracker = modelAccountHistoryTracker;
+        
         accountNumberOfDigits = 4;
+        
+        addDefaultAccountsToSystem();
+    }
+    
+    // Populates system with accounts on start-up
+    private void addDefaultAccountsToSystem()
+    {
+        Patient patient = new Patient("Shem", "Skillman", "14 Oakwood Drive, Modbury", 20, Gender.Male);
+        accounts.add(new Account(patient, "P0001", "1"));
+        
+        Doctor doctor = new Doctor("Mary", "Curie", "4 Applewood Drive, Paignton");
+        accounts.add(new Account(doctor, "D0002", "1"));
+        
+        Administrator admin = new Administrator("Adam", "Shandler", "5 Smokewood place, Bombury");
+        accounts.add(new Account(admin, "A0000", "1"));
     }
     
     public ArrayList<Account> getAccountsOfTypeRole(Role role) {
@@ -38,40 +57,18 @@ public class ModelAccountSystem {
         return accountsOfRole;
     }
     
-    public boolean CreateAccount(User userToAdd, String password)
-    {
-        Role userPermissions;
-        
-        // Admin can create own account without having to be logged in another account
-        // System will start with no accounts so this must be made possible
-        if (loggedInAccount == null && 
-                userToAdd.getRole() == Role.Administrator) 
-        {
-            userPermissions = Role.Administrator;
-        }
-        else if (loggedInAccount != null) // Otherwise use logged in account permissions
-        {
-            userPermissions = loggedInAccount.getUser().getRole();
-        }
-        else // Other accounts besides the admin account cannot be created without a logged in user
-        {
-            return false;
-        }      
-        
-        // Only administrator can create accounts 
-        // Includes exception of secretary creating patient accounts
-        if (userPermissions == Role.Patient || userPermissions == Role.Doctor ||
-                userPermissions == Role.Secretary && userToAdd.getRole() != Role.Patient)
-            return false;
-        
+    public Account CreateAccount(User userToAdd, String password)
+    {        
         String newId = generateUserId(userToAdd);
         Account newAccount = new Account(userToAdd, newId, password);        
         accounts.add(newAccount);
         
         System.out.println("ID: " + newAccount.getId() + " Password: " + newAccount.getPassword());
         
+        modelAccountHistoryTracker.recordAction("Created new " + userToAdd.getRole().toString() + " account with ID " + newId);
+        
         // Account creation successful
-        return true;
+        return newAccount;
     }
     
     // Procudes unique ID for each created account 
@@ -104,9 +101,7 @@ public class ModelAccountSystem {
         return id;
     }
     
-    public boolean RemoveAccount(String userId){
-        
-        Account accountToRemove = getAccount(userId);
+    public boolean RemoveAccount(Account accountToRemove){
         
         // Account cannot be removed if user is not registered
         if (accountToRemove == null) return false;        
@@ -121,6 +116,9 @@ public class ModelAccountSystem {
             return false;      
         
         accounts.remove(accountToRemove);
+        
+        modelAccountHistoryTracker.recordAction("Removed " + accountToRemove.getUser().getRole().toString()
+                + " account with ID " + accountToRemove.getId());
         
         // Account removal successfull
         return true;
@@ -138,16 +136,19 @@ public class ModelAccountSystem {
         
         loggedInAccount = account;
         
+        modelAccountHistoryTracker.recordAction("Logged in");
+        
         // Log in successfull
         return true;
     }
     
     public void LogOut() {
         
-        loggedInAccount = null;
+        modelAccountHistoryTracker.recordAction("Logged out");
+        loggedInAccount = null;        
     }
     
-    private Account getAccount(String userId)
+    public Account getAccount(String userId)
     {
         for (Account account : accounts)
         {
@@ -156,6 +157,20 @@ public class ModelAccountSystem {
         }
         
         return null;
+    }
+    
+    public ArrayList<String> getAccountNames(ArrayList<Account> accounts) {
+                
+        ArrayList<String> names = new ArrayList<String>();
+        
+        for(Account account : accounts) 
+        {
+            String name = account.getId() + " " + account.getUser().getName() + 
+                    " " + account.getUser().getSurname();
+            names.add(name);
+        }
+        
+        return names;
     }
     
     public Account getLoggedInAccount() {

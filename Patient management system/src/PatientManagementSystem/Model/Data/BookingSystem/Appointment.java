@@ -5,6 +5,7 @@
  */
 package PatientManagementSystem.Model.Data.BookingSystem;
 
+import PatientManagementSystem.Model.Data.AccountSystem.Account;
 import PatientManagementSystem.Model.User.Patient;
 import PatientManagementSystem.Model.User.Doctor;
 import java.util.Calendar;
@@ -15,20 +16,20 @@ import java.util.Calendar;
  */
 public class Appointment {
     
-        private Patient patientToSee;
+        private Account patientAccount;
         private Doctor doctorRunningAppointment;
         private Calendar scheduledDateAndTime;
         
-        public Appointment(Patient patientToSee, Doctor doctorRunningAppointment, int year, int month, int day, int hour, int minute)
+        public Appointment(Account patientAccount, Doctor doctorRunningAppointment, int year, int month, int day, int hour, int minute)
         {
-            this.patientToSee = patientToSee;
+            this.patientAccount = patientAccount;
             this.doctorRunningAppointment = doctorRunningAppointment;
             scheduledDateAndTime = Calendar.getInstance();
             scheduledDateAndTime.set(year, month, day, hour, minute);
         }
 
-        public Patient getPatientToSee() {
-            return patientToSee;
+        public Account getPatientAccount() {
+            return patientAccount;
         }
 
         public Doctor getDoctorRunningAppointment() {
