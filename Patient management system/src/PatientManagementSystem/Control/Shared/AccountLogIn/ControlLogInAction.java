@@ -47,6 +47,12 @@ public class ControlLogInAction implements IObserver{
             case Administrator:
                 modelMain.adminMainMenu();
                 break;
+            case Doctor:
+                modelMain.doctorMainMenu();
+                break;
+            case Secretary:
+                modelMain.secretaryMainMenu();
+                break;
         }
     }
 }

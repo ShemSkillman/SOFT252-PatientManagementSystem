@@ -18,14 +18,13 @@ public class Appointment {
     
         private Account patientAccount;
         private Doctor doctorRunningAppointment;
-        private Calendar scheduledDateAndTime;
+        private String scheduledDateAndTime;
         
-        public Appointment(Account patientAccount, Doctor doctorRunningAppointment, int year, int month, int day, int hour, int minute)
+        public Appointment(Account patientAccount, Doctor doctorRunningAppointment, String dateAndTime)
         {
             this.patientAccount = patientAccount;
             this.doctorRunningAppointment = doctorRunningAppointment;
-            scheduledDateAndTime = Calendar.getInstance();
-            scheduledDateAndTime.set(year, month, day, hour, minute);
+            scheduledDateAndTime = dateAndTime;
         }
 
         public Account getPatientAccount() {
@@ -36,7 +35,7 @@ public class Appointment {
             return doctorRunningAppointment;
         }
 
-        public Calendar getScheduledDateAndTime() {
+        public String getScheduledDateAndTime() {            
             return scheduledDateAndTime;
         }
 }

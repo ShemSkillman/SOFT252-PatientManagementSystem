@@ -11,4 +11,6 @@ package PatientManagementSystem.Model;
  */
 public interface ICommand {
     public abstract void execute();
+    public abstract String getDescription();
+    public abstract String getShortDescription();
 }

@@ -27,11 +27,25 @@ public class ModelBookingSystem {
         this.modelAccountSystem = modelAccountSystem;
     }
     
-    public void bookAppointment(Account patientAccount, Doctor doctorRunningAppointment, int year, int month, int day, int hour, int minute) {
+    public void bookAppointment(Account patientAccount, Doctor doctorRunningAppointment, String dateAndTime) {
                 
-        Appointment appointment = new Appointment(patientAccount, doctorRunningAppointment, year, month, day, 
-                hour, minute);
+        Appointment appointment = new Appointment(patientAccount, doctorRunningAppointment, dateAndTime);
         
         appointments.add(appointment);
+    }
+    
+    public ArrayList<Appointment> getAppointmentsWithDoctor(Doctor doctor) {
+        
+        ArrayList<Appointment> appointmentsWithDoctor = new ArrayList<Appointment>();
+        
+        for (Appointment appointment : appointments)
+        {
+            if (appointment.getDoctorRunningAppointment() == doctor)
+            {
+                appointmentsWithDoctor.add(appointment);
+            }
+        }
+        
+        return appointmentsWithDoctor;
     }
 }

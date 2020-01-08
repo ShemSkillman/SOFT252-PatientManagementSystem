@@ -7,6 +7,7 @@ package PatientManagementSystem.View.Patient;
 
 import PatientManagementSystem.View.Event;
 import java.util.ArrayList;
+import java.util.Date;
 import javax.swing.JOptionPane;
 
 /**
@@ -36,22 +37,16 @@ public class ViewRequestDoctorAppointment extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        txtAvailableTimes = new javax.swing.JTextArea();
         cboxDoctor = new javax.swing.JComboBox<>();
         lblDoctor = new javax.swing.JLabel();
-        lblAvailableTimes = new javax.swing.JLabel();
-        lblNote = new javax.swing.JLabel();
+        lblDateAndTime = new javax.swing.JLabel();
         btnSendRequest = new javax.swing.JButton();
         lblOpeningTimes = new javax.swing.JLabel();
+        spinDateAndTime = new javax.swing.JSpinner();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Request doctor appointment", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 14))); // NOI18N
-
-        txtAvailableTimes.setColumns(20);
-        txtAvailableTimes.setRows(5);
-        jScrollPane1.setViewportView(txtAvailableTimes);
 
         cboxDoctor.setName(""); // NOI18N
         cboxDoctor.addActionListener(new java.awt.event.ActionListener() {
@@ -62,9 +57,7 @@ public class ViewRequestDoctorAppointment extends javax.swing.JFrame {
 
         lblDoctor.setText("Doctor");
 
-        lblAvailableTimes.setText("Available times*");
-
-        lblNote.setText("*We will try to book an appointment in the available date and time slots provided");
+        lblDateAndTime.setText("Date and Time");
 
         btnSendRequest.setText("Send request");
         btnSendRequest.addActionListener(new java.awt.event.ActionListener() {
@@ -74,6 +67,8 @@ public class ViewRequestDoctorAppointment extends javax.swing.JFrame {
         });
 
         lblOpeningTimes.setText("Opening times: Mon - Sat, 9:00 - 17:00");
+
+        spinDateAndTime.setModel(new javax.swing.SpinnerDateModel(new java.util.Date(), new java.util.Date(1578431872685L), null, java.util.Calendar.DAY_OF_MONTH));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -85,19 +80,19 @@ public class ViewRequestDoctorAppointment extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblDoctor)
-                            .addComponent(lblAvailableTimes))
+                            .addComponent(lblDateAndTime))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1)
-                            .addComponent(cboxDoctor, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addComponent(cboxDoctor, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(spinDateAndTime, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE))))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(btnSendRequest))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblNote)
-                            .addComponent(lblOpeningTimes))
-                        .addGap(0, 34, Short.MAX_VALUE)))
+                        .addComponent(lblOpeningTimes)
+                        .addGap(0, 233, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -108,14 +103,12 @@ public class ViewRequestDoctorAppointment extends javax.swing.JFrame {
                     .addComponent(lblDoctor)
                     .addComponent(cboxDoctor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblAvailableTimes))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(lblNote)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblDateAndTime)
+                    .addComponent(spinDateAndTime, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addComponent(lblOpeningTimes)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnSendRequest)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -153,8 +146,9 @@ public class ViewRequestDoctorAppointment extends javax.swing.JFrame {
         return selected.substring(0, 5);
     }
     
-    public String getTimeAvailability() {
-        return txtAvailableTimes.getText();
+    public String getDateAndTime() {
+        Date date = (Date)spinDateAndTime.getModel().getValue();
+        return date.toString();
     }
     
     public void setDoctors(ArrayList<String> DoctorNames) {
@@ -208,11 +202,9 @@ public class ViewRequestDoctorAppointment extends javax.swing.JFrame {
     private javax.swing.JButton btnSendRequest;
     private javax.swing.JComboBox<String> cboxDoctor;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JLabel lblAvailableTimes;
+    private javax.swing.JLabel lblDateAndTime;
     private javax.swing.JLabel lblDoctor;
-    private javax.swing.JLabel lblNote;
     private javax.swing.JLabel lblOpeningTimes;
-    private javax.swing.JTextArea txtAvailableTimes;
+    private javax.swing.JSpinner spinDateAndTime;
     // End of variables declaration//GEN-END:variables
 }

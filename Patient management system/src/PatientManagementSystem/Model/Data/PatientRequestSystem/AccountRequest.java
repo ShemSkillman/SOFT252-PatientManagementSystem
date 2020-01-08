@@ -29,4 +29,16 @@ public class AccountRequest implements ICommand {
     public void execute() {
         modelAccountSystem.CreateAccount(patientDetails, password);
     }
+    
+    @Override
+    public String getDescription() {
+        return "Patient request for account\nPatient name: " + patientDetails.getName() + " " + 
+                patientDetails.getSurname() + "\nPatient address: " + patientDetails.getAddress() + 
+                "\nPassword: " + password;
+    }
+    
+    @Override
+    public String getShortDescription() {
+        return "Patient account request";
+    }
 }

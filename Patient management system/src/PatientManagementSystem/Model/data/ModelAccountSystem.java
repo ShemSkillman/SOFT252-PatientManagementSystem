@@ -20,7 +20,7 @@ public class ModelAccountSystem {
     private final ArrayList<Account> accounts = new ArrayList<Account>();
     private Account loggedInAccount;
         
-    private int accountNum = 0;
+    private int accountNum = 3;
     private final int accountNumberOfDigits;
     private final ModelAccountHistoryTracker modelAccountHistoryTracker;
     
@@ -44,6 +44,9 @@ public class ModelAccountSystem {
         
         Administrator admin = new Administrator("Adam", "Shandler", "5 Smokewood place, Bombury");
         accounts.add(new Account(admin, "A0000", "1"));
+        
+        Secretary secretary = new Secretary("Margret", "Flinders", "3 Faraday road, Kingstown");
+        accounts.add(new Account(secretary, "S0003", "1"));
     }
     
     public ArrayList<Account> getAccountsOfTypeRole(Role role) {

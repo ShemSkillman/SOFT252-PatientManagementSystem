@@ -33,12 +33,12 @@ public class ControlRequestDoctorAppointmentAction implements IObserver{
     public void update() {
         
         Account fromPatient = modelMain.getModelAccountSystem().getLoggedInAccount();
-        String timeAvailability = viewRequestDoctorAppointment.getTimeAvailability();
+        String dateAndTime = viewRequestDoctorAppointment.getDateAndTime();
         
         Account doctorAccount = modelMain.getModelAccountSystem().getAccount(viewRequestDoctorAppointment.getSelectedDoctorId());
         Doctor withDoctor = (Doctor)doctorAccount.getUser();
         
-        modelMain.getModelPatientRequestSystem().requestAppointment(fromPatient, timeAvailability, withDoctor);
+        modelMain.getModelPatientRequestSystem().requestAppointment(fromPatient, dateAndTime, withDoctor);
         
         viewRequestDoctorAppointment.showMessage("Appointment request sent", "Appointment request has been sent successfully and "
                 + " will be reviewed shortly.");

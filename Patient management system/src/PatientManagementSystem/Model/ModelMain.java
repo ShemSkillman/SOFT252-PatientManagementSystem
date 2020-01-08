@@ -12,12 +12,14 @@ import PatientManagementSystem.Control.Patient.ControlRequestPatientAccount;
 import PatientManagementSystem.Control.Patient.ControlPatientMainMenu;
 import PatientManagementSystem.Control.Admin.ControlCreateAdminAccount;
 import PatientManagementSystem.Control.Admin.ControlRemoveAccount;
+import PatientManagementSystem.Control.Doctor.ControlDoctorMainMenu;
 import PatientManagementSystem.Control.Patient.ControlPatientHistory;
 import PatientManagementSystem.Control.Patient.ControlRateDoctor;
 import PatientManagementSystem.Control.Patient.ControlRequestAccountDeletion;
 import PatientManagementSystem.Control.Shared.ControlAccountLogIn;
 import PatientManagementSystem.Model.Data.*;
 import PatientManagementSystem.Control.Patient.ControlRequestDoctorAppointment;
+import PatientManagementSystem.Control.Secretary.ControlSecretaryMainMenu;
 /**
  *
  * @author Shem
@@ -29,7 +31,6 @@ public class ModelMain {
     private final ModelDoctorRatingSystem modelDoctorRatingSystem;
     private final ModelPatientRequestSystem modelPatientRequestSystem;
     private final ModelAccountHistoryTracker modelAccountHistoryTracker;
-    private final ModelNotificationSystem modelNotificationSystem;
     
     private ControlAccountLogIn controlAccountLogIn;
     
@@ -47,6 +48,9 @@ public class ModelMain {
     private ControlRemoveAccount controlRemoveAccount;
     private ControlAdminDoctorRatings controlAdminDoctorRatings;
     
+    private ControlDoctorMainMenu controlDoctorMainMenu;
+    private ControlSecretaryMainMenu controlSecretaryMainMenu;
+    
     public ModelMain() {
         
         modelAccountHistoryTracker = new ModelAccountHistoryTracker();
@@ -55,7 +59,6 @@ public class ModelMain {
         modelBookingSystem = new ModelBookingSystem(modelAccountHistoryTracker, modelAccountSystem);
         modelDoctorRatingSystem = new ModelDoctorRatingSystem(modelAccountSystem, modelAccountHistoryTracker);
         modelPatientRequestSystem = new ModelPatientRequestSystem(modelAccountSystem, modelBookingSystem, modelAccountHistoryTracker);
-        modelNotificationSystem = new ModelNotificationSystem(modelAccountSystem);
     }   
     
     public void logIn() {
@@ -155,6 +158,20 @@ public class ModelMain {
         else
             controlAdminDoctorRatings.setVisible(true);
     }
+    
+    public void doctorMainMenu() {
+        if (controlDoctorMainMenu == null)
+            controlDoctorMainMenu = new ControlDoctorMainMenu(this);
+        else
+            controlDoctorMainMenu.setVisible(true);
+    }
+    
+    public void secretaryMainMenu() {
+        if (controlSecretaryMainMenu == null)
+            controlSecretaryMainMenu = new ControlSecretaryMainMenu(this);
+        else
+            controlSecretaryMainMenu.setVisible(true);
+    }
 
     public ModelAccountSystem getModelAccountSystem() {
         return modelAccountSystem;
@@ -174,10 +191,6 @@ public class ModelMain {
 
     public ModelAccountHistoryTracker getModelAccountHistoryTracker() {
         return modelAccountHistoryTracker;
-    }
-
-    public ModelNotificationSystem getModelNotificationSystem() {
-        return modelNotificationSystem;
     }
     
     

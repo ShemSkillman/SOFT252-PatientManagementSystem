@@ -11,6 +11,7 @@ import PatientManagementSystem.Model.Data.PatientRequestSystem.TerminationReques
 import PatientManagementSystem.Model.ICommand;
 import java.util.ArrayList;
 import PatientManagementSystem.Model.User.*;
+import PatientManagementSystem.View.Event;
 
 /**
  *
@@ -19,6 +20,8 @@ import PatientManagementSystem.Model.User.*;
 public class ModelPatientRequestSystem {
     
     private final ArrayList<ICommand> requests = new ArrayList<ICommand>();
+    
+    public Event onUpdateRequests = new Event();
     
     private final ModelAccountSystem modelAccountSystem;
     private final ModelBookingSystem modelBookingSystem;
@@ -35,15 +38,19 @@ public class ModelPatientRequestSystem {
         
         AccountRequest accountRequest = new AccountRequest(requestingPatient, password, modelAccountSystem);
         requests.add(accountRequest);
+        
+        onUpdateRequests.invoke();
     }
     
-    public void requestAppointment(Account fromPatient, String timeAvailability, Doctor withDoctor) {
+    public void requestAppointment(Account fromPatient, String dateAndTime, Doctor withDoctor) {
         
-        AppointmentRequest appointmentRequest = new AppointmentRequest(fromPatient, timeAvailability, withDoctor, modelBookingSystem);
+        AppointmentRequest appointmentRequest = new AppointmentRequest(fromPatient, dateAndTime, withDoctor, modelBookingSystem);
         
         requests.add(appointmentRequest);
         
         modelAccountHistoryTracker.recordAction("Requested appointment with doctor " + withDoctor.getName() + " " + withDoctor.getSurname());
+        
+        onUpdateRequests.invoke();
     }
     
     public void requestAccountTermination(Account patientAccount, String reason) {
@@ -53,5 +60,24 @@ public class ModelPatientRequestSystem {
         requests.add(terminationRequest);
         
         modelAccountHistoryTracker.recordAction("Requested termination of account");
+        
+        onUpdateRequests.invoke();
+    }
+    
+    public void approveRequest(ICommand request) {
+        request.execute();
+        if (requests.contains(request)) requests.remove(request);
+        
+        onUpdateRequests.invoke();
+    }
+    
+    public void rejectRequest(ICommand request) {
+        if (requests.contains(request)) requests.remove(request);
+        
+        onUpdateRequests.invoke();
+    }
+    
+    public ArrayList<ICommand> getAllRequests() {
+        return requests;
     }
 }

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
-<Form version="1.3" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
+<Form version="1.5" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="3"/>
   </Properties>
@@ -61,12 +61,15 @@
                       <Group type="102" alignment="0" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="lblDoctor" min="-2" max="-2" attributes="0"/>
-                              <Component id="lblAvailableTimes" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="lblDateAndTime" alignment="0" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jScrollPane1" max="32767" attributes="0"/>
                               <Component id="cboxDoctor" max="32767" attributes="0"/>
+                              <Group type="102" attributes="0">
+                                  <Component id="spinDateAndTime" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                              </Group>
                           </Group>
                       </Group>
                       <Group type="102" alignment="1" attributes="0">
@@ -74,11 +77,8 @@
                           <Component id="btnSendRequest" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" attributes="0">
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="lblNote" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="lblOpeningTimes" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace min="0" pref="34" max="32767" attributes="0"/>
+                          <Component id="lblOpeningTimes" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="0" pref="233" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
@@ -94,15 +94,13 @@
                       <Component id="cboxDoctor" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jScrollPane1" min="-2" max="-2" attributes="0"/>
-                      <Component id="lblAvailableTimes" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="lblDateAndTime" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="spinDateAndTime" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Component id="lblNote" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="lblOpeningTimes" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace max="-2" attributes="0"/>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="btnSendRequest" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
@@ -110,21 +108,6 @@
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Container class="javax.swing.JScrollPane" name="jScrollPane1">
-          <AuxValues>
-            <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
-          </AuxValues>
-
-          <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
-          <SubComponents>
-            <Component class="javax.swing.JTextArea" name="txtAvailableTimes">
-              <Properties>
-                <Property name="columns" type="int" value="20"/>
-                <Property name="rows" type="int" value="5"/>
-              </Properties>
-            </Component>
-          </SubComponents>
-        </Container>
         <Component class="javax.swing.JComboBox" name="cboxDoctor">
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
@@ -144,14 +127,9 @@
             <Property name="text" type="java.lang.String" value="Doctor"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="lblAvailableTimes">
+        <Component class="javax.swing.JLabel" name="lblDateAndTime">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Available times*"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JLabel" name="lblNote">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="*We will try to book an appointment in the available date and time slots provided"/>
+            <Property name="text" type="java.lang.String" value="Date and Time"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="btnSendRequest">
@@ -165,6 +143,13 @@
         <Component class="javax.swing.JLabel" name="lblOpeningTimes">
           <Properties>
             <Property name="text" type="java.lang.String" value="Opening times: Mon - Sat, 9:00 - 17:00"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JSpinner" name="spinDateAndTime">
+          <Properties>
+            <Property name="model" type="javax.swing.SpinnerModel" editor="org.netbeans.modules.form.editors2.SpinnerModelEditor">
+              <SpinnerModel initial="now" minimum="1578431872685" stepSize="5" type="date"/>
+            </Property>
           </Properties>
         </Component>
       </SubComponents>

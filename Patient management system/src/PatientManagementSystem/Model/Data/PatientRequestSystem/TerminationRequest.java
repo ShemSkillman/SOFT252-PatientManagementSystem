@@ -31,4 +31,16 @@ public class TerminationRequest implements ICommand {
     public void execute() {
         modelAccountSystem.RemoveAccount(patientAccount);
     }
+    
+    @Override
+    public String getDescription() {
+        return "Patient request for account termination\nPatient ID: " + patientAccount.getId() + "\nPatient name: " + 
+                patientAccount.getUser().getName() + " " + patientAccount.getUser().getSurname() + "\nReason for termination: " + 
+                reason;
+    }
+    
+    @Override
+    public String getShortDescription() {
+        return "Patient account termination request";
+    }
 }

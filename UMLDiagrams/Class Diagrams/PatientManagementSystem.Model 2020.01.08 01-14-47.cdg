@@ -1,0 +1,519 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ClassDiagram name="PatientManagementSystem.Model">
+  <ClassDiagramComponents>
+    <Class name="AccountHistory" package="PatientManagementSystem.Model.Data.AccountHistoryTracker" visibility="public" xPosition="1516.0" yPosition="758.0">
+      <Fields>
+        <Field name="account" type="Account" visibility="private"/>
+        <Field name="history" type="ArrayList&lt;PerformedAction&gt;" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="Account" name="account"/>
+          <Argument type="PerformedAction" name="peformedAction"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="addPerformedAction" returnType="void" visibility="public">
+          <Argument type="String" name="actionDescription"/>
+        </Method>
+        <Method name="getAccount" returnType="Account" visibility="public"/>
+        <Method name="getHistory" returnType="ArrayList&lt;PerformedAction&gt;" visibility="public"/>
+      </Methods>
+    </Class>
+    <Class name="PerformedAction" package="PatientManagementSystem.Model.Data.AccountHistoryTracker" visibility="public" xPosition="1463.0" yPosition="1022.0">
+      <Fields>
+        <Field name="timeStamp" type="Calendar" visibility="private" isFinal="true"/>
+        <Field name="actionDescription" type="String" visibility="private" isFinal="true"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="String" name="actionDescription"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="getTimeStamp" returnType="Calendar" visibility="public"/>
+        <Method name="getActionDescription" returnType="String" visibility="public"/>
+      </Methods>
+    </Class>
+    <Class name="Account" package="PatientManagementSystem.Model.Data.AccountSystem" visibility="public" xPosition="2122.0" yPosition="748.0">
+      <Fields>
+        <Field name="user" type="User" visibility="private"/>
+        <Field name="id" type="String" visibility="private" isFinal="true"/>
+        <Field name="password" type="String" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="User" name="user"/>
+          <Argument type="String" name="id"/>
+          <Argument type="String" name="password"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="getUser" returnType="User" visibility="public"/>
+        <Method name="getId" returnType="String" visibility="public"/>
+        <Method name="getPassword" returnType="String" visibility="public"/>
+        <Method name="setPassword" returnType="void" visibility="public">
+          <Argument type="String" name="password"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="Appointment" package="PatientManagementSystem.Model.Data.BookingSystem" visibility="public" xPosition="3631.0" yPosition="2152.0">
+      <Fields>
+        <Field name="patientAccount" type="Account" visibility="private"/>
+        <Field name="doctorRunningAppointment" type="Doctor" visibility="private"/>
+        <Field name="scheduledDateAndTime" type="String" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="Account" name="patientAccount"/>
+          <Argument type="Doctor" name="doctorRunningAppointment"/>
+          <Argument type="String" name="dateAndTime"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="getPatientAccount" returnType="Account" visibility="public"/>
+        <Method name="getDoctorRunningAppointment" returnType="Doctor" visibility="public"/>
+        <Method name="getScheduledDateAndTime" returnType="String" visibility="public"/>
+      </Methods>
+    </Class>
+    <Class name="DoctorRating" package="PatientManagementSystem.Model.Data.DoctorRatingSystem" visibility="public" xPosition="84.0" yPosition="1468.0">
+      <Fields>
+        <Field name="doctorAccount" type="Account" visibility="private"/>
+        <Field name="averageFiveStarRating" type="int" visibility="private"/>
+        <Field name="feedbackSummary" type="String" visibility="private"/>
+        <Field name="allPatientFeedback" type="ArrayList&lt;PatientFeedback&gt;" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="Account" name="doctorAccount"/>
+          <Argument type="PatientFeedback" name="patientFeedback"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="addPatientFeedback" returnType="void" visibility="public">
+          <Argument type="PatientFeedback" name="newFeedback"/>
+        </Method>
+        <Method name="updateAverageStars" returnType="void" visibility="private"/>
+        <Method name="getDoctorAccount" returnType="Account" visibility="public"/>
+        <Method name="getAverageFiveStarRating" returnType="int" visibility="public"/>
+        <Method name="getFeedbackSummary" returnType="String" visibility="public"/>
+        <Method name="getAllPatientFeedback" returnType="ArrayList&lt;PatientFeedback&gt;" visibility="public"/>
+        <Method name="setFeedbackSummary" returnType="void" visibility="public">
+          <Argument type="String" name="feedbackSummary"/>
+        </Method>
+        <Method name="getPatientFeedbackForDoctor" returnType="PatientFeedback" visibility="public">
+          <Argument type="Account" name="patientAccount"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="PatientFeedback" package="PatientManagementSystem.Model.Data.DoctorRatingSystem" visibility="public" xPosition="146.0" yPosition="1868.0">
+      <Fields>
+        <Field name="patientAccount" type="Account" visibility="private"/>
+        <Field name="doctorFiveStarRating" type="int" visibility="private"/>
+        <Field name="message" type="String" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="Account" name="patientAccount"/>
+          <Argument type="int" name="doctorFiveStarRating"/>
+          <Argument type="String" name="message"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="getPatientAccount" returnType="Account" visibility="public"/>
+        <Method name="getDoctorFiveStarRating" returnType="int" visibility="public"/>
+        <Method name="getMessage" returnType="String" visibility="public"/>
+        <Method name="setDoctorFiveStarRating" returnType="void" visibility="public">
+          <Argument type="int" name="doctorFiveStarRating"/>
+        </Method>
+        <Method name="setMessage" returnType="void" visibility="public">
+          <Argument type="String" name="message"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="ModelAccountHistoryTracker" package="PatientManagementSystem.Model.Data" visibility="public" xPosition="1513.0" yPosition="377.0">
+      <Fields>
+        <Field name="onUpdateHistory" type="Event" visibility="public"/>
+        <Field name="accountHistories" type="ArrayList&lt;AccountHistory&gt;" visibility="private"/>
+        <Field name="modelAccountSystem" type="ModelAccountSystem" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public"/>
+      </Constructors>
+      <Methods>
+        <Method name="setModelAccountSystem" returnType="void" visibility="public">
+          <Argument type="ModelAccountSystem" name="modelAccountSystem"/>
+        </Method>
+        <Method name="recordAction" returnType="void" visibility="public">
+          <Argument type="String" name="actionDescription"/>
+        </Method>
+        <Method name="getAccountHistory" returnType="ArrayList&lt;PerformedAction&gt;" visibility="public">
+          <Argument type="Account" name="account"/>
+        </Method>
+        <Method name="lookForAccountHistory" returnType="AccountHistory" visibility="private">
+          <Argument type="Account" name="account"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="ModelAccountSystem" package="PatientManagementSystem.Model.Data" visibility="public" xPosition="2021.0" yPosition="225.0">
+      <Fields>
+        <Field name="onRemoveAccount" type="Event" visibility="public"/>
+        <Field name="accounts" type="ArrayList&lt;Account&gt;" visibility="private" isFinal="true"/>
+        <Field name="loggedInAccount" type="Account" visibility="private"/>
+        <Field name="accountNum" type="int" visibility="private"/>
+        <Field name="accountNumberOfDigits" type="int" visibility="private" isFinal="true"/>
+        <Field name="modelAccountHistoryTracker" type="ModelAccountHistoryTracker" visibility="private" isFinal="true"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="ModelAccountHistoryTracker" name="modelAccountHistoryTracker"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="addDefaultAccountsToSystem" returnType="void" visibility="private"/>
+        <Method name="getAccountsOfTypeRole" returnType="ArrayList&lt;Account&gt;" visibility="public">
+          <Argument type="Role" name="role"/>
+        </Method>
+        <Method name="CreateAccount" returnType="Account" visibility="public">
+          <Argument type="User" name="userToAdd"/>
+          <Argument type="String" name="password"/>
+        </Method>
+        <Method name="generateUserId" returnType="String" visibility="private">
+          <Argument type="User" name="user"/>
+        </Method>
+        <Method name="RemoveAccount" returnType="void" visibility="public">
+          <Argument type="Account" name="accountToRemove"/>
+        </Method>
+        <Method name="LogIn" returnType="boolean" visibility="public">
+          <Argument type="String" name="id"/>
+          <Argument type="String" name="password"/>
+        </Method>
+        <Method name="LogOut" returnType="void" visibility="public"/>
+        <Method name="getAccount" returnType="Account" visibility="public">
+          <Argument type="String" name="userId"/>
+        </Method>
+        <Method name="getAccountNames" returnType="ArrayList&lt;String&gt;" visibility="public">
+          <Argument type="ArrayList&lt;Account&gt;" name="accounts"/>
+        </Method>
+        <Method name="getLoggedInAccount" returnType="Account" visibility="public"/>
+        <Method name="getAccountRole" returnType="Role" visibility="public">
+          <Argument type="String" name="userId"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="ModelBookingSystem" package="PatientManagementSystem.Model.Data" visibility="public" xPosition="3527.0" yPosition="1831.0">
+      <Fields>
+        <Field name="appointments" type="ArrayList&lt;Appointment&gt;" visibility="package"/>
+        <Field name="modelAccountHistoryTracker" type="ModelAccountHistoryTracker" visibility="private" isFinal="true"/>
+        <Field name="modelAccountSystem" type="ModelAccountSystem" visibility="private" isFinal="true"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="ModelAccountHistoryTracker" name="modelAccountHistoryTracker"/>
+          <Argument type="ModelAccountSystem" name="modelAccountSystem"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="bookAppointment" returnType="void" visibility="public">
+          <Argument type="Account" name="patientAccount"/>
+          <Argument type="Doctor" name="doctorRunningAppointment"/>
+          <Argument type="String" name="dateAndTime"/>
+        </Method>
+        <Method name="getAppointmentsWithDoctor" returnType="ArrayList&lt;Appointment&gt;" visibility="public">
+          <Argument type="Doctor" name="doctor"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="ModelDoctorRatingSystem" package="PatientManagementSystem.Model.Data" visibility="public" xPosition="29.0" yPosition="1098.0">
+      <Fields>
+        <Field name="ratedDoctors" type="ArrayList&lt;DoctorRating&gt;" visibility="package"/>
+        <Field name="onUpdateDoctorRatings" type="Event" visibility="public"/>
+        <Field name="modelAccountSystem" type="ModelAccountSystem" visibility="private" isFinal="true"/>
+        <Field name="modelAccountHistoryTracker" type="ModelAccountHistoryTracker" visibility="private" isFinal="true"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="ModelAccountSystem" name="modelAccountSystem"/>
+          <Argument type="ModelAccountHistoryTracker" name="modelAccountHistoryTracker"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="addPatientFeedback" returnType="boolean" visibility="public">
+          <Argument type="Account" name="doctorToRate"/>
+          <Argument type="int" name="fiveStarRating"/>
+          <Argument type="String" name="message"/>
+        </Method>
+        <Method name="getRatedDoctors" returnType="ArrayList&lt;DoctorRating&gt;" visibility="public"/>
+        <Method name="removeRatedDoctor" returnType="void" visibility="public">
+          <Argument type="Account" name="doctorToRemove"/>
+        </Method>
+        <Method name="findDoctorRating" returnType="DoctorRating" visibility="public">
+          <Argument type="Account" name="doctor"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="ModelPatientRequestSystem" package="PatientManagementSystem.Model.Data" visibility="public" xPosition="4023.0" yPosition="461.0">
+      <Fields>
+        <Field name="requests" type="ArrayList&lt;ICommand&gt;" visibility="private" isFinal="true"/>
+        <Field name="onUpdateRequests" type="Event" visibility="public"/>
+        <Field name="modelAccountSystem" type="ModelAccountSystem" visibility="private" isFinal="true"/>
+        <Field name="modelBookingSystem" type="ModelBookingSystem" visibility="private" isFinal="true"/>
+        <Field name="modelAccountHistoryTracker" type="ModelAccountHistoryTracker" visibility="private" isFinal="true"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="ModelAccountSystem" name="modelAccountSystem"/>
+          <Argument type="ModelBookingSystem" name="modelBookingSystem"/>
+          <Argument type="ModelAccountHistoryTracker" name="modelAccountHistoryTracker"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="requestAccount" returnType="void" visibility="public">
+          <Argument type="Patient" name="requestingPatient"/>
+          <Argument type="String" name="password"/>
+        </Method>
+        <Method name="requestAppointment" returnType="void" visibility="public">
+          <Argument type="Account" name="fromPatient"/>
+          <Argument type="String" name="dateAndTime"/>
+          <Argument type="Doctor" name="withDoctor"/>
+        </Method>
+        <Method name="requestAccountTermination" returnType="void" visibility="public">
+          <Argument type="Account" name="patientAccount"/>
+          <Argument type="String" name="reason"/>
+        </Method>
+        <Method name="approveRequest" returnType="void" visibility="public">
+          <Argument type="ICommand" name="request"/>
+        </Method>
+        <Method name="rejectRequest" returnType="void" visibility="public">
+          <Argument type="ICommand" name="request"/>
+        </Method>
+        <Method name="getAllRequests" returnType="ArrayList&lt;ICommand&gt;" visibility="public"/>
+      </Methods>
+    </Class>
+    <Class name="AccountRequest" package="PatientManagementSystem.Model.Data.PatientRequestSystem" visibility="public" xPosition="4768.0" yPosition="148.0">
+      <Fields>
+        <Field name="modelAccountSystem" type="ModelAccountSystem" visibility="private"/>
+        <Field name="patientDetails" type="Patient" visibility="private" isFinal="true"/>
+        <Field name="password" type="String" visibility="private" isFinal="true"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="Patient" name="patientDetails"/>
+          <Argument type="String" name="password"/>
+          <Argument type="ModelAccountSystem" name="modelAccountSystem"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="execute" returnType="void" visibility="public"/>
+        <Method name="getDescription" returnType="String" visibility="public"/>
+        <Method name="getShortDescription" returnType="String" visibility="public"/>
+      </Methods>
+    </Class>
+    <Class name="AppointmentRequest" package="PatientManagementSystem.Model.Data.PatientRequestSystem" visibility="public" xPosition="4782.0" yPosition="1326.0">
+      <Fields>
+        <Field name="modelBookingSystem" type="ModelBookingSystem" visibility="private" isFinal="true"/>
+        <Field name="fromPatient" type="Account" visibility="private" isFinal="true"/>
+        <Field name="dateAndTime" type="String" visibility="private" isFinal="true"/>
+        <Field name="withDoctor" type="Doctor" visibility="private" isFinal="true"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="Account" name="fromPatient"/>
+          <Argument type="String" name="dateAndTime"/>
+          <Argument type="Doctor" name="withDoctor"/>
+          <Argument type="ModelBookingSystem" name="modelBookingSystem"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="getFromPatient" returnType="Account" visibility="public"/>
+        <Method name="getDateAndTime" returnType="String" visibility="public"/>
+        <Method name="getWithDoctor" returnType="Doctor" visibility="public"/>
+        <Method name="execute" returnType="void" visibility="public"/>
+        <Method name="getDescription" returnType="String" visibility="public"/>
+        <Method name="getShortDescription" returnType="String" visibility="public"/>
+      </Methods>
+    </Class>
+    <Class name="TerminationRequest" package="PatientManagementSystem.Model.Data.PatientRequestSystem" visibility="public" xPosition="4550.0" yPosition="983.0">
+      <Fields>
+        <Field name="modelAccountSystem" type="ModelAccountSystem" visibility="private" isFinal="true"/>
+        <Field name="patientAccount" type="Account" visibility="private" isFinal="true"/>
+        <Field name="reason" type="String" visibility="private" isFinal="true"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="Account" name="patientAccount"/>
+          <Argument type="String" name="reason"/>
+          <Argument type="ModelAccountSystem" name="modelAccountSystem"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="execute" returnType="void" visibility="public"/>
+        <Method name="getDescription" returnType="String" visibility="public"/>
+        <Method name="getShortDescription" returnType="String" visibility="public"/>
+      </Methods>
+    </Class>
+    <Class name="ModelMain" package="PatientManagementSystem.Model" visibility="public" xPosition="1194.0" yPosition="2549.0">
+      <Fields>
+        <Field name="modelAccountSystem" type="ModelAccountSystem" visibility="private" isFinal="true"/>
+        <Field name="modelBookingSystem" type="ModelBookingSystem" visibility="private" isFinal="true"/>
+        <Field name="modelDoctorRatingSystem" type="ModelDoctorRatingSystem" visibility="private" isFinal="true"/>
+        <Field name="modelPatientRequestSystem" type="ModelPatientRequestSystem" visibility="private" isFinal="true"/>
+        <Field name="modelAccountHistoryTracker" type="ModelAccountHistoryTracker" visibility="private" isFinal="true"/>
+        <Field name="controlAccountLogIn" type="ControlAccountLogIn" visibility="private"/>
+        <Field name="controlRequestPatientAccount" type="ControlRequestPatientAccount" visibility="private"/>
+        <Field name="controlPatientMainMenu" type="ControlPatientMainMenu" visibility="private"/>
+        <Field name="controlPatientDoctorRatings" type="ControlPatientDoctorRatings" visibility="private"/>
+        <Field name="controlRequestDoctorAppointment" type="ControlRequestDoctorAppointment" visibility="private"/>
+        <Field name="controlPatientHistory" type="ControlPatientHistory" visibility="private"/>
+        <Field name="controlRequestAccountDeletion" type="ControlRequestAccountDeletion" visibility="private"/>
+        <Field name="controlRateDoctor" type="ControlRateDoctor" visibility="private"/>
+        <Field name="controlCreateAdminAccount" type="ControlCreateAdminAccount" visibility="private"/>
+        <Field name="controlAdminMainMenu" type="ControlAdminMainMenu" visibility="private"/>
+        <Field name="controlAddAccount" type="ControlAddAccount" visibility="private"/>
+        <Field name="controlRemoveAccount" type="ControlRemoveAccount" visibility="private"/>
+        <Field name="controlAdminDoctorRatings" type="ControlAdminDoctorRatings" visibility="private"/>
+        <Field name="controlDoctorMainMenu" type="ControlDoctorMainMenu" visibility="private"/>
+        <Field name="controlSecretaryMainMenu" type="ControlSecretaryMainMenu" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public"/>
+      </Constructors>
+      <Methods>
+        <Method name="logIn" returnType="void" visibility="public"/>
+        <Method name="createAdminAccount" returnType="void" visibility="public"/>
+        <Method name="requestPatientAccount" returnType="void" visibility="public"/>
+        <Method name="patientMainMenu" returnType="void" visibility="public"/>
+        <Method name="patientDoctorRatings" returnType="void" visibility="public"/>
+        <Method name="patientRequestDoctorAppointment" returnType="void" visibility="public"/>
+        <Method name="patientHistory" returnType="void" visibility="public"/>
+        <Method name="patientRequestAccountDeletion" returnType="void" visibility="public"/>
+        <Method name="patientRateDoctor" returnType="void" visibility="public"/>
+        <Method name="adminMainMenu" returnType="void" visibility="public"/>
+        <Method name="adminAddAccount" returnType="void" visibility="public"/>
+        <Method name="adminRemoveAccount" returnType="void" visibility="public"/>
+        <Method name="adminViewDoctorRatings" returnType="void" visibility="public"/>
+        <Method name="doctorMainMenu" returnType="void" visibility="public"/>
+        <Method name="secretaryMainMenu" returnType="void" visibility="public"/>
+        <Method name="getModelAccountSystem" returnType="ModelAccountSystem" visibility="public"/>
+        <Method name="getModelBookingSystem" returnType="ModelBookingSystem" visibility="public"/>
+        <Method name="getModelDoctorRatingSystem" returnType="ModelDoctorRatingSystem" visibility="public"/>
+        <Method name="getModelPatientRequestSystem" returnType="ModelPatientRequestSystem" visibility="public"/>
+        <Method name="getModelAccountHistoryTracker" returnType="ModelAccountHistoryTracker" visibility="public"/>
+      </Methods>
+    </Class>
+    <Class name="Administrator" package="PatientManagementSystem.Model.User" visibility="public" xPosition="2085.0" yPosition="1516.0">
+      <Fields/>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="String" name="name"/>
+          <Argument type="String" name="surname"/>
+          <Argument type="String" name="address"/>
+        </Constructor>
+      </Constructors>
+      <Methods/>
+    </Class>
+    <Class name="Doctor" package="PatientManagementSystem.Model.User" visibility="public" xPosition="1630.0" yPosition="1250.0">
+      <Fields/>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="String" name="name"/>
+          <Argument type="String" name="surname"/>
+          <Argument type="String" name="address"/>
+        </Constructor>
+      </Constructors>
+      <Methods/>
+    </Class>
+    <Class name="Patient" package="PatientManagementSystem.Model.User" visibility="public" xPosition="1564.0" yPosition="1468.0">
+      <Fields>
+        <Field name="age" type="int" visibility="private"/>
+        <Field name="gender" type="Gender" visibility="private"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="String" name="name"/>
+          <Argument type="String" name="surname"/>
+          <Argument type="String" name="address"/>
+          <Argument type="int" name="age"/>
+          <Argument type="Gender" name="gender"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="getAge" returnType="int" visibility="public"/>
+        <Method name="getGender" returnType="Gender" visibility="public"/>
+      </Methods>
+    </Class>
+    <Class name="Secretary" package="PatientManagementSystem.Model.User" visibility="public" xPosition="2475.0" yPosition="1516.0">
+      <Fields/>
+      <Constructors>
+        <Constructor visibility="public">
+          <Argument type="String" name="name"/>
+          <Argument type="String" name="surname"/>
+          <Argument type="String" name="address"/>
+        </Constructor>
+      </Constructors>
+      <Methods/>
+    </Class>
+    <Class name="User" package="PatientManagementSystem.Model.User" visibility="public" isAbstract="true" xPosition="2133.0" yPosition="1119.0">
+      <Fields>
+        <Field name="name" type="String" visibility="protected"/>
+        <Field name="role" type="Role" visibility="protected" isFinal="true"/>
+      </Fields>
+      <Constructors>
+        <Constructor visibility="protected">
+          <Argument type="String" name="name"/>
+          <Argument type="String" name="surname"/>
+          <Argument type="String" name="address"/>
+          <Argument type="Role" name="role"/>
+        </Constructor>
+      </Constructors>
+      <Methods>
+        <Method name="getName" returnType="String" visibility="public"/>
+        <Method name="getSurname" returnType="String" visibility="public"/>
+        <Method name="getAddress" returnType="String" visibility="public"/>
+        <Method name="getRole" returnType="Role" visibility="public"/>
+      </Methods>
+    </Class>
+    <Interface name="ICommand" package="PatientManagementSystem.Model" visibility="public" xPosition="5104.0" yPosition="629.0">
+      <Methods>
+        <Method name="execute" returnType="void" visibility="public" isAbstract="true"/>
+        <Method name="getDescription" returnType="String" visibility="public" isAbstract="true"/>
+        <Method name="getShortDescription" returnType="String" visibility="public" isAbstract="true"/>
+      </Methods>
+    </Interface>
+    <Enum name="Gender" package="PatientManagementSystem.Model.User" visibility="public" xPosition="1692.0" yPosition="1741.0">
+      <Literals>
+        <Literal name="Male"/>
+        <Literal name="Female"/>
+      </Literals>
+    </Enum>
+    <Enum name="Role" package="PatientManagementSystem.Model.User" visibility="public" xPosition="1829.0" yPosition="1022.0">
+      <Literals>
+        <Literal name="Administrator"/>
+        <Literal name="Secretary"/>
+        <Literal name="Doctor"/>
+        <Literal name="Patient"/>
+      </Literals>
+    </Enum>
+  </ClassDiagramComponents>
+  <ClassDiagramRelations>
+    <IsRelation name="is" source="PatientManagementSystem.Model.User.Secretary" target="PatientManagementSystem.Model.User.User"/>
+    <HasRelation name="+another attribute" source="PatientManagementSystem.Model.User.Patient" target="PatientManagementSystem.Model.User.Gender" type="Default" sourceCardinality="0..1" targetCardinality="1..1"/>
+    <IsRelation name="is" source="PatientManagementSystem.Model.User.Patient" target="PatientManagementSystem.Model.User.User"/>
+    <HasRelation name="+another attribute" source="PatientManagementSystem.Model.User.User" target="PatientManagementSystem.Model.User.Role" type="Default" sourceCardinality="0..1" targetCardinality="1..1"/>
+    <HasRelation name="Has" source="PatientManagementSystem.Model.Data.DoctorRatingSystem.DoctorRating" target="PatientManagementSystem.Model.Data.DoctorRatingSystem.PatientFeedback" type="Composition" sourceCardinality="0..1" targetCardinality="1..*" collectionType="ArrayList"/>
+    <IsRelation name="is" source="PatientManagementSystem.Model.User.Doctor" target="PatientManagementSystem.Model.User.User"/>
+    <HasRelation name="Has" source="PatientManagementSystem.Model.Data.AccountSystem.Account" target="PatientManagementSystem.Model.User.User" type="Aggregation" sourceCardinality="0..1" targetCardinality="1..1"/>
+    <HasRelation name="Has" source="PatientManagementSystem.Model.Data.ModelBookingSystem" target="PatientManagementSystem.Model.Data.BookingSystem.Appointment" type="Composition" sourceCardinality="0..1" targetCardinality="1..*" collectionType="ArrayList"/>
+    <ImplementsRelation name="&lt;&lt;implements&gt;&gt;" source="PatientManagementSystem.Model.Data.PatientRequestSystem.AppointmentRequest" target="PatientManagementSystem.Model.ICommand"/>
+    <HasRelation name="Has" source="PatientManagementSystem.Model.Data.AccountHistoryTracker.AccountHistory" target="PatientManagementSystem.Model.Data.AccountSystem.Account" type="Aggregation" sourceCardinality="0..1" targetCardinality="1..1"/>
+    <HasRelation name="Has" source="PatientManagementSystem.Model.Data.ModelPatientRequestSystem" target="PatientManagementSystem.Model.ICommand" type="Composition" sourceCardinality="0..1" targetCardinality="1..*" collectionType="ArrayList"/>
+    <ImplementsRelation name="&lt;&lt;implements&gt;&gt;" source="PatientManagementSystem.Model.Data.PatientRequestSystem.AccountRequest" target="PatientManagementSystem.Model.ICommand"/>
+    <HasRelation name="Has" source="PatientManagementSystem.Model.Data.ModelAccountHistoryTracker" target="PatientManagementSystem.Model.Data.AccountHistoryTracker.AccountHistory" type="Composition" sourceCardinality="0..1" targetCardinality="1..*" collectionType="ArrayList"/>
+    <HasRelation name="Has" source="PatientManagementSystem.Model.Data.ModelDoctorRatingSystem" target="PatientManagementSystem.Model.Data.DoctorRatingSystem.DoctorRating" type="Composition" sourceCardinality="0..1" targetCardinality="1..*" collectionType="ArrayList"/>
+    <IsRelation name="is" source="PatientManagementSystem.Model.User.Administrator" target="PatientManagementSystem.Model.User.User"/>
+    <ImplementsRelation name="&lt;&lt;implements&gt;&gt;" source="PatientManagementSystem.Model.Data.PatientRequestSystem.TerminationRequest" target="PatientManagementSystem.Model.ICommand"/>
+    <HasRelation name="Has" source="PatientManagementSystem.Model.Data.ModelAccountSystem" target="PatientManagementSystem.Model.Data.AccountSystem.Account" type="Composition" sourceCardinality="0..1" targetCardinality="1..*" collectionType="ArrayList"/>
+    <HasRelation name="Has" source="PatientManagementSystem.Model.Data.AccountHistoryTracker.AccountHistory" target="PatientManagementSystem.Model.Data.AccountHistoryTracker.PerformedAction" type="Composition" sourceCardinality="0..1" targetCardinality="1..*" collectionType="ArrayList"/>
+  </ClassDiagramRelations>
+</ClassDiagram>

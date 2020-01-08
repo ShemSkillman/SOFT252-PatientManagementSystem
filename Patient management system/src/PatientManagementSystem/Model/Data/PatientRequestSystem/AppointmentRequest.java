@@ -19,37 +19,24 @@ public class AppointmentRequest implements ICommand {
     private final ModelBookingSystem modelBookingSystem;
     
     private final Account fromPatient;
-    private final String timeAvailability;
+    private final String dateAndTime;
     private final Doctor withDoctor;   
     
-    private int year, month, day, hour, minute;
-    private boolean agreedTimeAndDate = false;
-    
-    public AppointmentRequest(Account fromPatient, String timeAvailability, Doctor withDoctor, ModelBookingSystem modelBookingSystem) {
+    public AppointmentRequest(Account fromPatient, String dateAndTime, Doctor withDoctor, ModelBookingSystem modelBookingSystem) {
         
         this.modelBookingSystem = modelBookingSystem;
         
         this.fromPatient = fromPatient;
-        this.timeAvailability = timeAvailability;
+        this.dateAndTime = dateAndTime;
         this.withDoctor = withDoctor;
-    }
-    
-    public void setExactTimeAndDate(int year, int month, int day, int hour, int minute){
-        this.year = year;
-        this.month = month;
-        this.day = day;
-        this.hour = hour;
-        this.minute = minute;
-        
-        agreedTimeAndDate = true;
     }
 
     public Account getFromPatient() {
         return fromPatient;
     }
 
-    public String getTimeAvailability() {
-        return timeAvailability;
+    public String getDateAndTime() {
+        return dateAndTime;
     }
 
     public Doctor getWithDoctor() {
@@ -58,10 +45,19 @@ public class AppointmentRequest implements ICommand {
     
     @Override
     public void execute() {
-        if (!agreedTimeAndDate) return;
         
-        modelBookingSystem.bookAppointment(fromPatient, withDoctor, year, month, day, hour, minute);
+        modelBookingSystem.bookAppointment(fromPatient, withDoctor, dateAndTime);
     }
     
+    @Override
+    public String getDescription() {
+        return "Patient request for appointment\nPatient ID: " + fromPatient.getId() + "\nPatient name: " + 
+                fromPatient.getUser().getName() + " " + fromPatient.getUser().getSurname() + "\nDoctor: " + withDoctor.getName() + " "+
+                withDoctor.getSurname() + "\nDate and Time: " + dateAndTime;
+    }
     
+    @Override
+    public String getShortDescription() {
+        return "Patient appointment request";
+    }
 }
