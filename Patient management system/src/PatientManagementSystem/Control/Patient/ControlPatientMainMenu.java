@@ -5,27 +5,32 @@
  */
 package PatientManagementSystem.Control.Patient;
 
+import PatientManagementSystem.IObserver;
 import PatientManagementSystem.Control.Patient.PatientMainMenu.ControlDoctorRatingsAction;
 import PatientManagementSystem.Control.Patient.PatientMainMenu.ControlPatientHistoryAction;
+import PatientManagementSystem.Control.Patient.PatientMainMenu.ControlPatientLogOutAction;
 import PatientManagementSystem.Control.Patient.PatientMainMenu.ControlRequestAccountDeletionAction;
 import PatientManagementSystem.Control.Patient.PatientMainMenu.ControlRequestDoctorAppointmentAction;
 import PatientManagementSystem.Model.Data.AccountSystem.Account;
+import PatientManagementSystem.Model.Data.BookingSystem.Appointment;
 import PatientManagementSystem.Model.ModelMain;
 import PatientManagementSystem.View.Patient.ViewPatientMainMenu;
+import java.util.ArrayList;
 
 /**
  *
  * @author Shem
  */
-public class ControlPatientMainMenu {
+public class ControlPatientMainMenu implements IObserver{
     
     private final ViewPatientMainMenu viewPatientMainMenu;
     private final ModelMain modelMain;
     
-    private ControlDoctorRatingsAction controlDoctorRatingsAction;
-    private ControlRequestDoctorAppointmentAction controlRequestDoctorAppointmentAction;
-    private ControlPatientHistoryAction controlPatientHistoryAction;
-    private ControlRequestAccountDeletionAction controlRequestAccountDeletionAction;
+    private final ControlDoctorRatingsAction controlDoctorRatingsAction;
+    private final ControlRequestDoctorAppointmentAction controlRequestDoctorAppointmentAction;
+    private final ControlPatientHistoryAction controlPatientHistoryAction;
+    private final ControlRequestAccountDeletionAction controlRequestAccountDeletionAction;
+    private final ControlPatientLogOutAction controlPatientLogOutAction;
 
     public ControlPatientMainMenu(ModelMain modelMain) {
         
@@ -36,10 +41,16 @@ public class ControlPatientMainMenu {
         controlRequestDoctorAppointmentAction = new ControlRequestDoctorAppointmentAction(viewPatientMainMenu, modelMain);
         controlPatientHistoryAction = new ControlPatientHistoryAction(viewPatientMainMenu, modelMain);
         controlRequestAccountDeletionAction = new ControlRequestAccountDeletionAction(viewPatientMainMenu, modelMain);
+        controlPatientLogOutAction = new ControlPatientLogOutAction(modelMain, viewPatientMainMenu);
         
-        setWelcomeMessage();
+        refresh();
         
         viewPatientMainMenu.setVisible(true);
+    }
+    
+    private void refresh() {
+        setWelcomeMessage();
+        setAppointmentsTable();
     }
     
     private void setWelcomeMessage()
@@ -49,7 +60,22 @@ public class ControlPatientMainMenu {
         viewPatientMainMenu.setWelcomeMessage(fullName);
     }
     
+    private void setAppointmentsTable()
+    {
+        Account loggedInPatient = modelMain.getModelAccountSystem().getLoggedInAccount();
+        ArrayList<Appointment> appointments = modelMain.getModelBookingSystem().getAppointmentsForPatient(loggedInPatient);
+        viewPatientMainMenu.fillBookingsTable(appointments, modelMain.getModelAccountSystem());
+    }
+    
+    @Override
+    public void update() {
+        setAppointmentsTable();
+    }
+    
     public void setVisible(boolean isVisible){
+        
+        if (isVisible) refresh();
+        
         viewPatientMainMenu.setVisible(isVisible);
     }
 }

@@ -5,10 +5,9 @@
  */
 package PatientManagementSystem.Model.Data.PatientRequestSystem;
 
-import PatientManagementSystem.Model.Data.AccountSystem.Account;
-import PatientManagementSystem.Model.Data.ModelBookingSystem;
 import PatientManagementSystem.Model.ICommand;
-import PatientManagementSystem.Model.User.Doctor;
+import PatientManagementSystem.Model.ModelMain;
+import PatientManagementSystem.Model.User.User;
 
 /**
  *
@@ -16,48 +15,57 @@ import PatientManagementSystem.Model.User.Doctor;
  */
 public class AppointmentRequest implements ICommand {
     
-    private final ModelBookingSystem modelBookingSystem;
+    private final ModelMain modelMain;
     
-    private final Account fromPatient;
+    private final String patientId;
     private final String dateAndTime;
-    private final Doctor withDoctor;   
+    private final String doctorId;   
     
-    public AppointmentRequest(Account fromPatient, String dateAndTime, Doctor withDoctor, ModelBookingSystem modelBookingSystem) {
+    public AppointmentRequest(String patientId, String dateAndTime, String doctorId, ModelMain modelMain) {
         
-        this.modelBookingSystem = modelBookingSystem;
+        this.modelMain = modelMain;
         
-        this.fromPatient = fromPatient;
+        this.patientId = patientId;
         this.dateAndTime = dateAndTime;
-        this.withDoctor = withDoctor;
+        this.doctorId = doctorId;
     }
 
-    public Account getFromPatient() {
-        return fromPatient;
+    public String getPatientId() {
+        return patientId;
     }
 
     public String getDateAndTime() {
         return dateAndTime;
     }
 
-    public Doctor getWithDoctor() {
-        return withDoctor;
+    public String getDoctorId() {
+        return doctorId;
     }
     
     @Override
     public void execute() {
         
-        modelBookingSystem.bookAppointment(fromPatient, withDoctor, dateAndTime);
+        modelMain.getModelBookingSystem().bookAppointment(patientId, doctorId, dateAndTime);
     }
     
     @Override
     public String getDescription() {
-        return "Patient request for appointment\nPatient ID: " + fromPatient.getId() + "\nPatient name: " + 
-                fromPatient.getUser().getName() + " " + fromPatient.getUser().getSurname() + "\nDoctor: " + withDoctor.getName() + " "+
-                withDoctor.getSurname() + "\nDate and Time: " + dateAndTime;
+        User patient = modelMain.getModelAccountSystem().getAccount(patientId).getUser();
+        User doctor = modelMain.getModelAccountSystem().getAccount(doctorId).getUser();
+        
+        return "Patient request for appointment\nPatient ID: " + patientId + "\nPatient name: " + 
+                patient.getName() + " " + patient.getSurname() + "\nDoctor: " + doctor.getName() + " "+
+                doctor.getSurname() + "\nDate and Time: " + dateAndTime;
     }
     
     @Override
     public String getShortDescription() {
         return "Patient appointment request";
+    }
+    
+    @Override 
+    public String getSenderId()
+    {
+        return patientId;
     }
 }

@@ -5,7 +5,7 @@
  */
 package PatientManagementSystem.Control.Patient;
 
-import PatientManagementSystem.Control.IObserver;
+import PatientManagementSystem.IObserver;
 import PatientManagementSystem.Model.Data.AccountHistoryTracker.PerformedAction;
 import PatientManagementSystem.Model.Data.AccountSystem.Account;
 import PatientManagementSystem.Model.ModelMain;
@@ -32,17 +32,18 @@ public class ControlPatientHistory implements IObserver{
         viewPatientHistory = new ViewPatientHistory();     
         
         modelMain.getModelAccountHistoryTracker().onUpdateHistory.addObserver(this);
-        fillHistoryTable();
+        
+        refresh();
         
         viewPatientHistory.setVisible(true);
     }
     
     @Override
     public void update() {
-        fillHistoryTable();
+        refresh();
     }
     
-    private void fillHistoryTable() {
+    private void refresh() {
         Account loggedInAccount = modelMain.getModelAccountSystem().getLoggedInAccount();
         ArrayList<PerformedAction> history = modelMain.getModelAccountHistoryTracker().getAccountHistory(loggedInAccount);
         
@@ -50,6 +51,9 @@ public class ControlPatientHistory implements IObserver{
     }
     
     public void setVisible(boolean isVisible){
+        
+        if (isVisible) refresh();
+        
         viewPatientHistory.setVisible(isVisible);
     }
 }

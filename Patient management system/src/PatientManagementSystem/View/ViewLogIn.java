@@ -5,6 +5,7 @@
  */
 package PatientManagementSystem.View;
 
+import PatientManagementSystem.Event;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
@@ -147,7 +148,7 @@ public class ViewLogIn extends javax.swing.JFrame{
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPasswordActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_txtPasswordActionPerformed
 
     private void btnLogInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogInActionPerformed
@@ -174,6 +175,11 @@ public class ViewLogIn extends javax.swing.JFrame{
     
     public void showErrorMessage(String errorMessage) {
         JOptionPane.showMessageDialog(null, errorMessage, "Error", JOptionPane.INFORMATION_MESSAGE);
+    }
+    
+    public void clearInput() {
+        txtUserID.setText("");
+        txtPassword.setText((""));
     }
     
     /**

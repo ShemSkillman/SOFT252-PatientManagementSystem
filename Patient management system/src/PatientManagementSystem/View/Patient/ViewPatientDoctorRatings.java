@@ -6,9 +6,11 @@
 package PatientManagementSystem.View.Patient;
 
 import PatientManagementSystem.Model.Data.DoctorRatingSystem.DoctorRating;
-import PatientManagementSystem.View.Event;
+import PatientManagementSystem.Model.Data.ModelAccountSystem;
+import PatientManagementSystem.Model.User.Doctor;
+import PatientManagementSystem.Event;
 import java.util.ArrayList;
-import java.util.Set;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -41,7 +43,7 @@ public class ViewPatientDoctorRatings extends javax.swing.JFrame {
         tblDoctorRatings = new javax.swing.JTable();
         btnRateDoctor = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         panelDoctorRatings.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Doctor ratings", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 14))); // NOI18N
 
@@ -89,10 +91,12 @@ public class ViewPatientDoctorRatings extends javax.swing.JFrame {
         panelDoctorRatingsLayout.setHorizontalGroup(
             panelDoctorRatingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelDoctorRatingsLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap()
                 .addGroup(panelDoctorRatingsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnRateDoctor, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(panelDoctorRatingsLayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btnRateDoctor))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 574, Short.MAX_VALUE))
                 .addContainerGap())
         );
         panelDoctorRatingsLayout.setVerticalGroup(
@@ -111,8 +115,8 @@ public class ViewPatientDoctorRatings extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(panelDoctorRatings, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(panelDoctorRatings, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -129,13 +133,18 @@ public class ViewPatientDoctorRatings extends javax.swing.JFrame {
         onRateDoctor.invoke();
     }//GEN-LAST:event_btnRateDoctorActionPerformed
 
-    public void FillRatingsTable(ArrayList<DoctorRating> doctorRatings)
+    public void FillRatingsTable(ArrayList<DoctorRating> doctorRatings, ModelAccountSystem accountSystem)
     {
+        DefaultTableModel model = (DefaultTableModel)tblDoctorRatings.getModel();
+        model.setRowCount(doctorRatings.size());
+        tblDoctorRatings.setModel(model);
+        
         for (int i = 0; i < doctorRatings.size(); i++)
         {
             DoctorRating rating = doctorRatings.get(i);
-            String fullName = rating.getDoctorAccount().getUser().getName() + " " + 
-                    rating.getDoctorAccount().getUser().getSurname();
+            Doctor doctor = (Doctor)accountSystem.getAccount(rating.getDoctorId()).getUser();
+            String fullName = doctor.getName() + " " + 
+                    doctor.getSurname();
             
             tblDoctorRatings.getModel().setValueAt(fullName, i, 0);
             tblDoctorRatings.getModel().setValueAt(rating.getAverageFiveStarRating(), i, 1);

@@ -5,7 +5,7 @@
  */
 package PatientManagementSystem.View.Patient;
 
-import PatientManagementSystem.View.Event;
+import PatientManagementSystem.Event;
 import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.JOptionPane;
@@ -44,7 +44,7 @@ public class ViewRequestDoctorAppointment extends javax.swing.JFrame {
         lblOpeningTimes = new javax.swing.JLabel();
         spinDateAndTime = new javax.swing.JSpinner();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Request doctor appointment", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 14))); // NOI18N
 

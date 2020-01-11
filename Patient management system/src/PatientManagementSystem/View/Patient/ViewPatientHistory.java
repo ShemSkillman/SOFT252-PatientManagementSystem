@@ -7,7 +7,7 @@ package PatientManagementSystem.View.Patient;
 
 import PatientManagementSystem.Model.Data.AccountHistoryTracker.PerformedAction;
 import java.util.ArrayList;
-import java.util.Calendar;
+import javax.swing.table.DefaultTableModel;
 /**
  *
  * @author Shem
@@ -34,7 +34,7 @@ public class ViewPatientHistory extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tblHistory = new javax.swing.JTable();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Patient history", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 14))); // NOI18N
 
@@ -77,15 +77,15 @@ public class ViewPatientHistory extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 641, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 182, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 252, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -102,8 +102,8 @@ public class ViewPatientHistory extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
@@ -111,19 +111,15 @@ public class ViewPatientHistory extends javax.swing.JFrame {
 
     public void fillHistoryTable(ArrayList<PerformedAction> history)
     {
+        DefaultTableModel model = (DefaultTableModel)tblHistory.getModel();
+        model.setNumRows(history.size());
+        tblHistory.setModel(model);
+        
         for (int i = 0; i < history.size(); i++)
         {
             PerformedAction action = history.get(i);           
             
-            Calendar timeStamp = action.getTimeStamp();
-            int year = timeStamp.get(Calendar.YEAR);
-            int month =  timeStamp.get(Calendar.MONTH) + 1;
-            int day = timeStamp.get(Calendar.DAY_OF_MONTH);
-            int hour = timeStamp.get(Calendar.HOUR_OF_DAY);
-            int minute = timeStamp.get(Calendar.MINUTE);
-            
-            String dateAndTime = day + "/" + month + "/" + year + " " + 
-                    hour + ":" + minute;
+            String dateAndTime = action.getDateAndTime();
             
             tblHistory.getModel().setValueAt(dateAndTime, i, 0);
             tblHistory.getModel().setValueAt(action.getActionDescription(), i, 1);      

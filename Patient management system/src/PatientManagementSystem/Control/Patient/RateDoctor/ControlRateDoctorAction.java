@@ -5,7 +5,7 @@
  */
 package PatientManagementSystem.Control.Patient.RateDoctor;
 
-import PatientManagementSystem.Control.IObserver;
+import PatientManagementSystem.IObserver;
 import PatientManagementSystem.Model.ModelMain;
 import PatientManagementSystem.View.Patient.ViewRateDoctor;
 

@@ -5,7 +5,7 @@
  */
 package PatientManagementSystem.View.Admin;
 
-import PatientManagementSystem.View.Event;
+import PatientManagementSystem.Event;
 
 /**
  *
@@ -13,7 +13,7 @@ import PatientManagementSystem.View.Event;
  */
 public class ViewAdminMainMenu extends javax.swing.JFrame {
 
-    public Event onAddAccount, onRemoveAccount, onViewDoctorRatings;
+    public Event onAddAccount, onRemoveAccount, onViewDoctorRatings, onLogOut;
     
     /**
      * Creates new form ViewAdminMainMenu
@@ -23,6 +23,7 @@ public class ViewAdminMainMenu extends javax.swing.JFrame {
         onAddAccount = new Event();
         onRemoveAccount = new Event();
         onViewDoctorRatings = new Event();
+        onLogOut = new Event();
     }
     
     public void setWelcomeMessage(String message) {
@@ -43,6 +44,7 @@ public class ViewAdminMainMenu extends javax.swing.JFrame {
         btnAddAccount = new javax.swing.JButton();
         btnRemoveAccount = new javax.swing.JButton();
         btnDoctorRatings = new javax.swing.JButton();
+        btnLogOut = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -72,6 +74,13 @@ public class ViewAdminMainMenu extends javax.swing.JFrame {
             }
         });
 
+        btnLogOut.setText("Log out");
+        btnLogOut.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLogOutActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -85,7 +94,10 @@ public class ViewAdminMainMenu extends javax.swing.JFrame {
                             .addComponent(btnAddAccount, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnRemoveAccount))
-                    .addComponent(btnDoctorRatings, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(btnDoctorRatings, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnLogOut, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -98,7 +110,9 @@ public class ViewAdminMainMenu extends javax.swing.JFrame {
                     .addComponent(btnAddAccount)
                     .addComponent(btnRemoveAccount))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnDoctorRatings)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnDoctorRatings)
+                    .addComponent(btnLogOut))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -133,6 +147,10 @@ public class ViewAdminMainMenu extends javax.swing.JFrame {
     private void btnDoctorRatingsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDoctorRatingsActionPerformed
         onViewDoctorRatings.invoke();
     }//GEN-LAST:event_btnDoctorRatingsActionPerformed
+
+    private void btnLogOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogOutActionPerformed
+        onLogOut.invoke();
+    }//GEN-LAST:event_btnLogOutActionPerformed
 
     /**
      * @param args the command line arguments
@@ -172,6 +190,7 @@ public class ViewAdminMainMenu extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAddAccount;
     private javax.swing.JButton btnDoctorRatings;
+    private javax.swing.JButton btnLogOut;
     private javax.swing.JButton btnRemoveAccount;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lblWelcomeMessage;

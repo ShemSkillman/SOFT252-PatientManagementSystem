@@ -6,52 +6,158 @@
 package PatientManagementSystem.Model.Data;
 import PatientManagementSystem.Model.Data.AccountSystem.Account;
 import PatientManagementSystem.Model.User.*;
-import PatientManagementSystem.View.Event;
-
+import PatientManagementSystem.Event;
+import PatientManagementSystem.EventType;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Scanner;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 /**
  *
  * @author Shem
  */
 public class ModelAccountSystem {
     
-    public Event onRemoveAccount = new Event();
+    public Event onUpdateAccounts = new Event();
+    public EventType<String> onRemoveAccount = new EventType<>();
     
+    File file = new File("AccountSystemData.txt");
+    
+    // Data that needs to be saved
     private final ArrayList<Account> accounts = new ArrayList<Account>();
-    private Account loggedInAccount;
-        
-    private int accountNum = 3;
-    private final int accountNumberOfDigits;
+    private int accountNumber = 0;
+    
+    private Account loggedInAccount;        
+    private final int accountNumberOfDigits = 4;
     private final ModelAccountHistoryTracker modelAccountHistoryTracker;
     
     public ModelAccountSystem(ModelAccountHistoryTracker modelAccountHistoryTracker) {
         
         this.modelAccountHistoryTracker = modelAccountHistoryTracker;
         
-        accountNumberOfDigits = 4;
+        loadData();
+    }  
+    
+    private void saveData() {
+        JSONObject root = new JSONObject();
         
-        addDefaultAccountsToSystem();
+        root.put("accountNumber", Integer.toString(accountNumber));
+        
+        JSONArray accountArray = new JSONArray();
+        
+        for (int i = 0; i < accounts.size(); i++)
+        {
+            JSONObject userObject = new JSONObject();
+            
+            Account account = accounts.get(i);
+            User user = account.getUser();
+            
+            userObject.put("firstName", user.getName());
+            userObject.put("surname", user.getSurname());
+            userObject.put("address", user.getAddress());
+            userObject.put("role", user.getRole().toString());
+            
+            if (user instanceof Patient) {                
+                Patient patient = (Patient)user;                
+                userObject.put("gender", patient.getGender().toString());
+                userObject.put("age", Integer.toString(patient.getAge()));
+            }
+            
+            JSONObject accountObject = new JSONObject();
+            
+            accountObject.put("user", userObject);
+            accountObject.put("id", account.getId());
+            accountObject.put("password", account.getPassword());          
+            
+            accountArray.add(accountObject);
+        }
+        
+        root.put("accounts", accountArray);
+        
+        try (PrintWriter writer = new PrintWriter(file)) {
+            writer.print(root.toJSONString());
+        }
+        catch (FileNotFoundException ex) {
+            System.out.println(ex.toString());
+        }       
     }
     
-    // Populates system with accounts on start-up
-    private void addDefaultAccountsToSystem()
-    {
-        Patient patient = new Patient("Shem", "Skillman", "14 Oakwood Drive, Modbury", 20, Gender.Male);
-        accounts.add(new Account(patient, "P0001", "1"));
+    private void loadData(){
         
-        Doctor doctor = new Doctor("Mary", "Curie", "4 Applewood Drive, Paignton");
-        accounts.add(new Account(doctor, "D0002", "1"));
+        StringBuilder jsonIn = new StringBuilder();
         
-        Administrator admin = new Administrator("Adam", "Shandler", "5 Smokewood place, Bombury");
-        accounts.add(new Account(admin, "A0000", "1"));
+        try (java.util.Scanner reader = new Scanner(file)) {
+            while (reader.hasNextLine())
+            {
+                jsonIn.append(reader.nextLine());
+            }
+        }            
+        catch (FileNotFoundException ex) {
+            System.out.println(ex.toString());
+        }
         
-        Secretary secretary = new Secretary("Margret", "Flinders", "3 Faraday road, Kingstown");
-        accounts.add(new Account(secretary, "S0003", "1"));
+        try {              
+        JSONParser parser = new JSONParser();        
+        JSONObject objRoot = (JSONObject)parser.parse(jsonIn.toString());
+        
+        accountNumber = Integer.parseInt((String)objRoot.get("accountNumber"));
+        
+        JSONArray arrayAccounts = (JSONArray)objRoot.get("accounts");
+        
+        for (int i = 0; i < arrayAccounts.size(); i++) 
+        {
+            JSONObject objAccount = (JSONObject)arrayAccounts.get(i);
+            
+            String id = (String)objAccount.get("id");
+            String password = (String)objAccount.get("password");            
+            
+            JSONObject objUser = (JSONObject)objAccount.get("user");
+            
+            String firstName = (String)objUser.get("firstName");
+            String surname = (String)objUser.get("surname");
+            String address = (String)objUser.get("address");
+            Role role = Role.valueOf((String)objUser.get("role"));
+            
+            User user = null;
+            
+            switch(role)
+            {
+                case Administrator:
+                    user = new Administrator(firstName, surname, address);
+                    break;
+                case Secretary:
+                    user = new Secretary(firstName, surname, address);
+                    break;
+                case Doctor:
+                    user = new Doctor(firstName, surname, address);
+                    break;
+                case Patient:
+                    Gender gender = Gender.valueOf((String)objUser.get("gender"));
+                    int age = Integer.parseInt((String)objUser.get("age"));
+                    user = new Patient(firstName, surname, address, age, gender);   
+                    break;
+            }
+            
+            Account account = new Account(user, id, password);
+            
+            accounts.add(account);
+            
+        }
+        
+        } catch(ParseException ex) {
+            System.out.println(ex.toString());
+        }
+        
     }
     
     public ArrayList<Account> getAccountsOfTypeRole(Role role) {
         
-        ArrayList<Account> accountsOfRole = new ArrayList<Account>();
+        ArrayList<Account> accountsOfRole = new ArrayList<>();
         
         for (Account account : accounts)
         {
@@ -72,6 +178,8 @@ public class ModelAccountSystem {
         
         modelAccountHistoryTracker.recordAction("Created new " + userToAdd.getRole().toString() + " account with ID " + newId);
         
+        saveData();
+        
         // Account creation successful
         return newAccount;
     }
@@ -86,8 +194,8 @@ public class ModelAccountSystem {
         
         // Number part of ID is related to the number of accounts on the system
         // Account number incremented to so every ID is unique
-        String numCode = Integer.toString(accountNum);
-        accountNum++;
+        String numCode = Integer.toString(accountNumber);
+        accountNumber++;
         
         // Works out how many zeros to add 
         // Account ID must have at least 4 digits
@@ -113,15 +221,21 @@ public class ModelAccountSystem {
         
         accounts.remove(accountToRemove);
         
+        modelAccountHistoryTracker.removeHistoryForAccount(accountToRemove.getId());
+        
+        
         modelAccountHistoryTracker.recordAction("Removed " + accountToRemove.getUser().getRole().toString()
                 + " account with ID " + accountToRemove.getId());
         
-        onRemoveAccount.invoke();
+        onUpdateAccounts.invoke();
+        onRemoveAccount.invoke(accountToRemove.getId());
+        
+        saveData();
         
         // Account removal successfull
     }
     
-    public boolean LogIn(String id, String password) {
+    public boolean logIn(String id, String password) {
         
         Account account = getAccount(id);
         
@@ -139,7 +253,7 @@ public class ModelAccountSystem {
         return true;
     }
     
-    public void LogOut() {
+    public void logOut() {
         
         modelAccountHistoryTracker.recordAction("Logged out");
         loggedInAccount = null;        
@@ -158,7 +272,7 @@ public class ModelAccountSystem {
     
     public ArrayList<String> getAccountNames(ArrayList<Account> accounts) {
                 
-        ArrayList<String> names = new ArrayList<String>();
+        ArrayList<String> names = new ArrayList<>();
         
         for(Account account : accounts) 
         {

@@ -11,18 +11,18 @@ import PatientManagementSystem.Model.Data.AccountSystem.Account;
  * @author Shem
  */
 public class PatientFeedback {
-    private Account patientAccount;
+    private String patientId;
     private int doctorFiveStarRating;
     private String message;
     
-    public PatientFeedback(Account patientAccount, int doctorFiveStarRating, String message) {
-        this.patientAccount = patientAccount;
+    public PatientFeedback(String patientId, int doctorFiveStarRating, String message) {
+        this.patientId = patientId;
         this.doctorFiveStarRating = doctorFiveStarRating;
         this.message = message;
     }
     
-    public Account getPatientAccount(){
-        return patientAccount;
+    public String getPatientId(){
+        return patientId;
     }
 
     public int getDoctorFiveStarRating() {

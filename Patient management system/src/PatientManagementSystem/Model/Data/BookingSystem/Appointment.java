@@ -16,26 +16,39 @@ import java.util.Calendar;
  */
 public class Appointment {
     
-        private Account patientAccount;
-        private Doctor doctorRunningAppointment;
+        private String patientId;
+        private String doctorId;
         private String scheduledDateAndTime;
+        private String doctorNotes;
         
-        public Appointment(Account patientAccount, Doctor doctorRunningAppointment, String dateAndTime)
+        public Appointment(String patientId, String doctorId, String dateAndTime, String doctorNotes)
         {
-            this.patientAccount = patientAccount;
-            this.doctorRunningAppointment = doctorRunningAppointment;
+            this.patientId = patientId;
+            this.doctorId = doctorId;
             scheduledDateAndTime = dateAndTime;
+            this.doctorNotes = doctorNotes;
         }
 
-        public Account getPatientAccount() {
-            return patientAccount;
+        public String getPatientId() {
+            return patientId;
         }
 
-        public Doctor getDoctorRunningAppointment() {
-            return doctorRunningAppointment;
+        public String getDoctorId() {
+            return doctorId;
         }
 
         public String getScheduledDateAndTime() {            
             return scheduledDateAndTime;
         }
+
+        public String getDoctorNotes() {
+            return doctorNotes;
+        }       
+
+    public void setDoctorNotes(String doctorNotes) {
+        this.doctorNotes = doctorNotes;
+    }
+        
+        
+        
 }

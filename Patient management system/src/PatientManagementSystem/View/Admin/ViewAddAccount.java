@@ -5,7 +5,7 @@
  */
 package PatientManagementSystem.View.Admin;
 
-import PatientManagementSystem.View.Event;
+import PatientManagementSystem.Event;
 import javax.swing.JOptionPane;
 
 /**
@@ -47,7 +47,7 @@ public class ViewAddAccount extends javax.swing.JFrame {
         cboxAccountType = new javax.swing.JComboBox<>();
         btnAddAccount = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         mainPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Add account", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 14))); // NOI18N
         mainPanel.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));

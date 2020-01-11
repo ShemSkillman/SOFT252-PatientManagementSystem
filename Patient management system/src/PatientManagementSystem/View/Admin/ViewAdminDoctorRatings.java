@@ -6,8 +6,11 @@
 package PatientManagementSystem.View.Admin;
 
 import PatientManagementSystem.Model.Data.DoctorRatingSystem.PatientFeedback;
-import PatientManagementSystem.View.Event;
+import PatientManagementSystem.Model.Data.ModelAccountSystem;
+import PatientManagementSystem.Model.User.User;
+import PatientManagementSystem.Event;
 import java.util.ArrayList;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -50,14 +53,18 @@ public class ViewAdminDoctorRatings extends javax.swing.JFrame {
         return name.substring(0, 5);
     }
     
-    public void fillFeedbackTable(ArrayList<PatientFeedback> allFeedback) {
+    public void fillFeedbackTable(ArrayList<PatientFeedback> allFeedback, ModelAccountSystem accountSystem) {
+        DefaultTableModel model = (DefaultTableModel)tblPatientRatings.getModel();
+        model.setRowCount(allFeedback.size());
+        tblPatientRatings.setModel(model);
         
         for (int i = 0; i < allFeedback.size(); i++)
         {
             PatientFeedback feedback = allFeedback.get(i);
+            User patient = accountSystem.getAccount(feedback.getPatientId()).getUser();
             
-            String patientName = feedback.getPatientAccount().getId() + " " + feedback.getPatientAccount().getUser().getName() + " "
-                    + feedback.getPatientAccount().getUser().getSurname();
+            String patientName = feedback.getPatientId() + " " + patient.getName() + " "
+                    + patient.getSurname();
             
             tblPatientRatings.getModel().setValueAt(patientName, i, 0);
             tblPatientRatings.getModel().setValueAt(feedback.getDoctorFiveStarRating(), i, 1);
@@ -90,7 +97,7 @@ public class ViewAdminDoctorRatings extends javax.swing.JFrame {
         jScrollPane3 = new javax.swing.JScrollPane();
         txtSummary = new javax.swing.JTextArea();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         panelDoctorRatings.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Doctor ratings", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 14))); // NOI18N
 
@@ -173,12 +180,12 @@ public class ViewAdminDoctorRatings extends javax.swing.JFrame {
                         .addComponent(lblSummary)
                         .addGap(39, 39, 39)
                         .addComponent(jScrollPane3))
-                    .addGroup(panelDoctorRatingsLayout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 369, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelDoctorRatingsLayout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(btnSaveSummary)))
+                        .addComponent(btnSaveSummary))
+                    .addGroup(panelDoctorRatingsLayout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 2, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         panelDoctorRatingsLayout.setVerticalGroup(
@@ -209,8 +216,8 @@ public class ViewAdminDoctorRatings extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(panelDoctorRatings, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(panelDoctorRatings, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

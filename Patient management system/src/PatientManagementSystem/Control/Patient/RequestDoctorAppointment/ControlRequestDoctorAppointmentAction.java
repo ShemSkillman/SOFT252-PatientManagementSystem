@@ -5,7 +5,7 @@
  */
 package PatientManagementSystem.Control.Patient.RequestDoctorAppointment;
 
-import PatientManagementSystem.Control.IObserver;
+import PatientManagementSystem.IObserver;
 import PatientManagementSystem.Model.Data.AccountSystem.Account;
 import PatientManagementSystem.Model.ModelMain;
 import PatientManagementSystem.Model.User.Doctor;
@@ -36,9 +36,8 @@ public class ControlRequestDoctorAppointmentAction implements IObserver{
         String dateAndTime = viewRequestDoctorAppointment.getDateAndTime();
         
         Account doctorAccount = modelMain.getModelAccountSystem().getAccount(viewRequestDoctorAppointment.getSelectedDoctorId());
-        Doctor withDoctor = (Doctor)doctorAccount.getUser();
         
-        modelMain.getModelPatientRequestSystem().requestAppointment(fromPatient, dateAndTime, withDoctor);
+        modelMain.getModelPatientRequestSystem().requestAppointment(fromPatient, dateAndTime, doctorAccount);
         
         viewRequestDoctorAppointment.showMessage("Appointment request sent", "Appointment request has been sent successfully and "
                 + " will be reviewed shortly.");

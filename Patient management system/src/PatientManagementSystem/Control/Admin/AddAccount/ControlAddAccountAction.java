@@ -5,7 +5,7 @@
  */
 package PatientManagementSystem.Control.Admin.AddAccount;
 
-import PatientManagementSystem.Control.IObserver;
+import PatientManagementSystem.IObserver;
 import PatientManagementSystem.Model.Data.AccountSystem.Account;
 import PatientManagementSystem.Model.Data.ModelAccountSystem;
 import PatientManagementSystem.Model.ModelMain;

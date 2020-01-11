@@ -5,7 +5,7 @@
  */
 package PatientManagementSystem.Control.Secretary;
 
-import PatientManagementSystem.Control.IObserver;
+import PatientManagementSystem.IObserver;
 import PatientManagementSystem.Control.Secretary.SecretaryMainMenu.*;
 import PatientManagementSystem.Model.ICommand;
 import PatientManagementSystem.Model.ModelMain;
@@ -25,33 +25,38 @@ public class ControlSecretaryMainMenu implements IObserver {
     
     private final ControlApproveRequestAction controlApproveRequestAction;
     private final ControlRejectRequestAction controlRejectRequestAction;
+    private final ControlSecretaryLogOutAction controlSecretaryLogOutAction;
     
     ArrayList<ICommand> requests;
     
     // Creates window and hooks up control classes to main model to send requests
     public ControlSecretaryMainMenu(ModelMain modelMain){
+        this.modelMain = modelMain;
         viewSecretaryMainMenu = new ViewSecretaryMainMenu();      
         controlApproveRequestAction = new ControlApproveRequestAction(modelMain, viewSecretaryMainMenu);
         controlRejectRequestAction = new ControlRejectRequestAction(modelMain, viewSecretaryMainMenu);
+        controlSecretaryLogOutAction = new ControlSecretaryLogOutAction(modelMain, viewSecretaryMainMenu);
+        
         viewSecretaryMainMenu.onSelectIndex.addObserver(this);     
         modelMain.getModelPatientRequestSystem().onUpdateRequests.addObserver(this);
         
-        this.modelMain = modelMain;
-        updateRequests();
+        refresh();
         
         viewSecretaryMainMenu.setVisible(true);
     }
     
     public void setVisible(boolean isVisible){
+        if (isVisible) refresh();
+        
         viewSecretaryMainMenu.setVisible(isVisible);
     }
     
     @Override
     public void update() {
-        updateRequests();      
+        refresh();      
     }
     
-    private void updateRequests() {
+    private void refresh() {
         int selectedIndex = viewSecretaryMainMenu.getSelectedRequestId();
         
         requests = modelMain.getModelPatientRequestSystem().getAllRequests();
@@ -65,7 +70,7 @@ public class ControlSecretaryMainMenu implements IObserver {
             viewSecretaryMainMenu.enableButtons(true);
         }
         
-        ArrayList<String> requestDesc = new ArrayList<String>();
+        ArrayList<String> requestDesc = new ArrayList();
         
         for (int i = 0; i < requests.size(); i++)
         {

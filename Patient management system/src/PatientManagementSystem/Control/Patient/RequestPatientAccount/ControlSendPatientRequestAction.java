@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 package PatientManagementSystem.Control.Patient.RequestPatientAccount;
-import PatientManagementSystem.Control.*;
+import PatientManagementSystem.IObserver;
 import PatientManagementSystem.Model.ModelMain;
 import PatientManagementSystem.Model.User.Gender;
 import PatientManagementSystem.Model.User.Patient;

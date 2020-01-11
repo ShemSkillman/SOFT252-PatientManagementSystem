@@ -58,7 +58,7 @@ public class ModelMain {
         modelAccountHistoryTracker.setModelAccountSystem(modelAccountSystem);        
         modelBookingSystem = new ModelBookingSystem(modelAccountHistoryTracker, modelAccountSystem);
         modelDoctorRatingSystem = new ModelDoctorRatingSystem(modelAccountSystem, modelAccountHistoryTracker);
-        modelPatientRequestSystem = new ModelPatientRequestSystem(modelAccountSystem, modelBookingSystem, modelAccountHistoryTracker);
+        modelPatientRequestSystem = new ModelPatientRequestSystem(modelAccountSystem, modelBookingSystem, modelAccountHistoryTracker, this);
     }   
     
     public void logIn() {

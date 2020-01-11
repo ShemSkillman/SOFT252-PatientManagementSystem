@@ -5,7 +5,7 @@
  */
 package PatientManagementSystem.Control.Patient;
 
-import PatientManagementSystem.Control.IObserver;
+import PatientManagementSystem.IObserver;
 import PatientManagementSystem.Control.Patient.DoctorRatings.ControlRateDoctorAction;
 import PatientManagementSystem.Model.ModelMain;
 import PatientManagementSystem.View.Patient.ViewPatientDoctorRatings;
@@ -28,12 +28,11 @@ public class ControlPatientDoctorRatings implements IObserver{
     public ControlPatientDoctorRatings(ModelMain modelMain){
         
         viewPatientDoctorRatings = new ViewPatientDoctorRatings();   
-        this.modelMain = modelMain;
-        
-        modelMain.getModelDoctorRatingSystem().onUpdateDoctorRatings.addObserver(this);
-        viewPatientDoctorRatings.FillRatingsTable(modelMain.getModelDoctorRatingSystem().getRatedDoctors());
-        
         controlRateDoctorAction = new ControlRateDoctorAction(viewPatientDoctorRatings, modelMain);
+        this.modelMain = modelMain;        
+        modelMain.getModelDoctorRatingSystem().onUpdateDoctorRatings.addObserver(this);
+        
+        update();
         
         viewPatientDoctorRatings.setVisible(true);
     }
@@ -41,10 +40,13 @@ public class ControlPatientDoctorRatings implements IObserver{
     @Override
     public void update()
     {
-        viewPatientDoctorRatings.FillRatingsTable(modelMain.getModelDoctorRatingSystem().getRatedDoctors());
+        viewPatientDoctorRatings.FillRatingsTable(modelMain.getModelDoctorRatingSystem().getRatedDoctors(), modelMain.getModelAccountSystem());
     }
     
     public void setVisible(boolean isVisible){
+        
+        if (isVisible) update();
+        
         viewPatientDoctorRatings.setVisible(isVisible);
     }
 }

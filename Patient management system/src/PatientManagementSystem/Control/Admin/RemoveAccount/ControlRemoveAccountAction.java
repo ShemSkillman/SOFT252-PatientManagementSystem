@@ -5,7 +5,7 @@
  */
 package PatientManagementSystem.Control.Admin.RemoveAccount;
 
-import PatientManagementSystem.Control.IObserver;
+import PatientManagementSystem.IObserver;
 import PatientManagementSystem.Model.Data.AccountSystem.Account;
 import PatientManagementSystem.Model.ModelMain;
 import PatientManagementSystem.View.Admin.ViewRemoveAccount;

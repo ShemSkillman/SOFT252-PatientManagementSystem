@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package PatientManagementSystem.View.Admin;
+import PatientManagementSystem.Event;
 import PatientManagementSystem.View.*;
 import javax.swing.JOptionPane;
 
@@ -43,7 +44,7 @@ public class ViewCreateAdminAccount extends javax.swing.JFrame {
         txtPassword = new javax.swing.JTextField();
         btnCreateAccount = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         mainPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Create administrator", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 14))); // NOI18N
         mainPanel.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));

@@ -5,7 +5,7 @@
  */
 package PatientManagementSystem.Control.Admin.DoctorRatings;
 
-import PatientManagementSystem.Control.IObserver;
+import PatientManagementSystem.IObserver;
 import PatientManagementSystem.Model.Data.AccountSystem.Account;
 import PatientManagementSystem.Model.Data.DoctorRatingSystem.DoctorRating;
 import PatientManagementSystem.Model.ModelMain;
@@ -40,7 +40,7 @@ public class ControlSaveSummaryAction implements IObserver {
         
         Account doctorAccount = modelMain.getModelAccountSystem().getAccount(doctorId);
         
-        DoctorRating rating = modelMain.getModelDoctorRatingSystem().findDoctorRating(doctorAccount);
+        DoctorRating rating = modelMain.getModelDoctorRatingSystem().findDoctorRating(doctorAccount.getId());
         rating.setFeedbackSummary(summary);
         modelMain.getModelDoctorRatingSystem().onUpdateDoctorRatings.invoke();
     }

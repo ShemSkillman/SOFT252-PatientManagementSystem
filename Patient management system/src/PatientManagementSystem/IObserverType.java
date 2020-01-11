@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package PatientManagementSystem.Control;
+package PatientManagementSystem;
 
 /**
  *
  * @author Shem
  */
-public interface IObserver {
-    public abstract void update();
+public interface IObserverType<T> {
+    public abstract void update(T t);
 }

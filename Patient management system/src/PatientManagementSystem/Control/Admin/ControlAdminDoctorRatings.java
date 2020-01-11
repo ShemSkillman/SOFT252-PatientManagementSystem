@@ -5,7 +5,7 @@
  */
 package PatientManagementSystem.Control.Admin;
 
-import PatientManagementSystem.Control.IObserver;
+import PatientManagementSystem.IObserver;
 import PatientManagementSystem.Model.Data.AccountSystem.Account;
 import PatientManagementSystem.Model.Data.DoctorRatingSystem.DoctorRating;
 import PatientManagementSystem.Model.Data.DoctorRatingSystem.PatientFeedback;
@@ -45,7 +45,7 @@ public class ControlAdminDoctorRatings implements IObserver {
         
         for(int i = 0; i < ratings.size(); i++) 
         {
-            accountsWithRating.add(ratings.get(i).getDoctorAccount());
+            accountsWithRating.add(modelMain.getModelAccountSystem().getAccount(ratings.get(i).getDoctorId()));
         }
         
         ArrayList<String> doctorNames = modelMain.getModelAccountSystem().getAccountNames(accountsWithRating);
@@ -67,17 +67,20 @@ public class ControlAdminDoctorRatings implements IObserver {
         if (doctorId == null || doctorId.isBlank()) return;
         
         Account doctorAccount = modelMain.getModelAccountSystem().getAccount(doctorId);
-        DoctorRating rating = modelMain.getModelDoctorRatingSystem().findDoctorRating(doctorAccount);       
+        DoctorRating rating = modelMain.getModelDoctorRatingSystem().findDoctorRating(doctorAccount.getId());       
         
         viewAdminDoctorRatings.setAverageFiveStarRating(rating.getAverageFiveStarRating());
         viewAdminDoctorRatings.setSummary(rating.getFeedbackSummary());
         
         ArrayList<PatientFeedback> allFeedback = rating.getAllPatientFeedback();
         
-        viewAdminDoctorRatings.fillFeedbackTable(allFeedback);
+        viewAdminDoctorRatings.fillFeedbackTable(allFeedback, modelMain.getModelAccountSystem());
     }
     
     public void setVisible(boolean isVisible){
+        
+        if (isVisible) updateDoctorInfo();
+        
         viewAdminDoctorRatings.setVisible(isVisible);
     }
 }

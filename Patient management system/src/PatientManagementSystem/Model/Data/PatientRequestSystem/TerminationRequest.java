@@ -5,9 +5,9 @@
  */
 package PatientManagementSystem.Model.Data.PatientRequestSystem;
 
-import PatientManagementSystem.Model.Data.AccountSystem.Account;
 import PatientManagementSystem.Model.Data.ModelAccountSystem;
 import PatientManagementSystem.Model.ICommand;
+import PatientManagementSystem.Model.User.User;
 
 /**
  *
@@ -17,30 +17,47 @@ public class TerminationRequest implements ICommand {
     
     private final ModelAccountSystem modelAccountSystem;
     
-    private final Account patientAccount;
+    private final String patientId;
     private final String reason;
 
-    public TerminationRequest(Account patientAccount, String reason, ModelAccountSystem modelAccountSystem) {
+    public String getPatientId() {
+        return patientId;
+    }
+
+    public String getReason() {
+        return reason;
+    }
+
+    
+    
+    public TerminationRequest(String patientId, String reason, ModelAccountSystem modelAccountSystem) {
         
         this.modelAccountSystem = modelAccountSystem;
-        this.patientAccount = patientAccount;
+        this.patientId = patientId;
         this.reason = reason;
     }
     
     @Override
     public void execute() {
-        modelAccountSystem.RemoveAccount(patientAccount);
+        modelAccountSystem.RemoveAccount(modelAccountSystem.getAccount(patientId));
     }
     
     @Override
     public String getDescription() {
-        return "Patient request for account termination\nPatient ID: " + patientAccount.getId() + "\nPatient name: " + 
-                patientAccount.getUser().getName() + " " + patientAccount.getUser().getSurname() + "\nReason for termination: " + 
+        User patient = modelAccountSystem.getAccount(patientId).getUser();
+        return "Patient request for account termination\nPatient ID: " + patientId + "\nPatient name: " + 
+                patient.getName() + " " + patient.getSurname() + "\nReason for termination: " + 
                 reason;
     }
     
     @Override
     public String getShortDescription() {
         return "Patient account termination request";
+    }
+    
+    @Override 
+    public String getSenderId()
+    {
+        return patientId;
     }
 }

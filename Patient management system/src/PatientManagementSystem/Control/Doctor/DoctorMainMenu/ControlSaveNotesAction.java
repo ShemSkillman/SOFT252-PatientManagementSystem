@@ -5,9 +5,11 @@
  */
 package PatientManagementSystem.Control.Doctor.DoctorMainMenu;
 
-import PatientManagementSystem.Control.IObserver;
+import PatientManagementSystem.IObserver;
+import PatientManagementSystem.Model.Data.BookingSystem.Appointment;
 import PatientManagementSystem.Model.ModelMain;
 import PatientManagementSystem.View.Doctor.ViewDoctorMainMenu;
+import java.util.ArrayList;
 
 /**
  *
@@ -17,6 +19,7 @@ public class ControlSaveNotesAction implements IObserver {
     
     private ModelMain modelMain;
     private ViewDoctorMainMenu viewDoctorMainMenu;
+    Appointment selectedAppointment = null;
     
     public ControlSaveNotesAction(ViewDoctorMainMenu viewDoctorMainMenu, ModelMain modelMain) {
         
@@ -26,10 +29,18 @@ public class ControlSaveNotesAction implements IObserver {
         viewDoctorMainMenu.onSaveNotes.addObserver(this);
     }
     
+    public void setSelectedAppointment(Appointment selectedAppointment)
+    {
+        this.selectedAppointment = selectedAppointment;
+    }
+    
     @Override
-    public void update() {
+    public void update() {        
+        if (selectedAppointment == null) return;
         
         String notes = viewDoctorMainMenu.getNotes();
         
+        modelMain.getModelBookingSystem().addNotes(selectedAppointment, notes);        
+        viewDoctorMainMenu.showMessage("Notes saved", "Doctor notes saved to system.");
     }
 }

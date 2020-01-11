@@ -6,8 +6,6 @@
 package PatientManagementSystem.Model.Data.DoctorRatingSystem;
 
 import PatientManagementSystem.Model.Data.AccountSystem.Account;
-import PatientManagementSystem.Model.User.Doctor;
-import PatientManagementSystem.Model.User.Patient;
 import java.util.ArrayList;
 
 /**
@@ -15,25 +13,32 @@ import java.util.ArrayList;
  * @author Shem
  */
 public class DoctorRating {
-        private Account doctorAccount;       
-        private int averageFiveStarRating = 0, totalStars = 0;
+        private String doctorId;       
+        private int averageFiveStarRating = 0;
         private String feedbackSummary;
         private ArrayList<PatientFeedback> allPatientFeedback = new ArrayList<PatientFeedback>(); 
         
         public DoctorRating(Account doctorAccount, PatientFeedback patientFeedback){
-            this.doctorAccount = doctorAccount;
+            this.doctorId = doctorAccount.getId();
             addPatientFeedback(patientFeedback);
+        }
+        
+        public DoctorRating(String doctorId, ArrayList<PatientFeedback> allPatientFeedback, int averageFiveStarRating, String feedbackSummary){
+            this.doctorId = doctorId;
+            this.allPatientFeedback = allPatientFeedback;
+            this.averageFiveStarRating = averageFiveStarRating;
+            this.feedbackSummary = feedbackSummary;
         }
         
         public void addPatientFeedback(PatientFeedback newFeedback){
             
-            Account patientAccount = newFeedback.getPatientAccount();
+            String patientId = newFeedback.getPatientId();
             
             // Prevents duplicate feedback from same patient 
             // Deletes old feedback and replaces it with new
             for(PatientFeedback patientFeedback : allPatientFeedback)
             {
-                if (patientFeedback.getPatientAccount() == patientAccount){
+                if (patientFeedback.getPatientId().compareTo(newFeedback.getPatientId()) == 0){
                     allPatientFeedback.remove(patientFeedback);
                     break;
                 }
@@ -54,8 +59,8 @@ public class DoctorRating {
             averageFiveStarRating = totalStars / allPatientFeedback.size();
         }
 
-        public Account getDoctorAccount() {
-            return doctorAccount;
+        public String getDoctorId() {
+            return doctorId;
         }
 
         public int getAverageFiveStarRating() {
@@ -78,7 +83,7 @@ public class DoctorRating {
             
             for(PatientFeedback feedback : allPatientFeedback)
             {
-                if (feedback.getPatientAccount() == patientAccount)
+                if (feedback.getPatientId().compareTo(patientAccount.getId()) == 0)
                     return feedback;
             }
             

@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 package PatientManagementSystem.Control.Admin.CreateAdminAccount;
-import PatientManagementSystem.Control.IObserver;
+import PatientManagementSystem.IObserver;
 import PatientManagementSystem.Model.Data.AccountSystem.Account;
 import PatientManagementSystem.Model.User.*;
 import PatientManagementSystem.Model.ModelMain;

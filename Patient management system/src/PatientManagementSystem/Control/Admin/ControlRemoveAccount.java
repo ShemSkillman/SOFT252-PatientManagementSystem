@@ -6,7 +6,7 @@
 package PatientManagementSystem.Control.Admin;
 
 import PatientManagementSystem.Control.Admin.RemoveAccount.ControlRemoveAccountAction;
-import PatientManagementSystem.Control.IObserver;
+import PatientManagementSystem.IObserver;
 import PatientManagementSystem.Model.Data.AccountSystem.Account;
 import PatientManagementSystem.Model.ModelMain;
 import PatientManagementSystem.Model.User.Role;
@@ -31,7 +31,7 @@ public class ControlRemoveAccount implements IObserver {
         
         this.modelMain = modelMain;
         
-        modelMain.getModelAccountSystem().onRemoveAccount.addObserver(this);
+        modelMain.getModelAccountSystem().onUpdateAccounts.addObserver(this);
         
         viewRemoveAccount = new ViewRemoveAccount();   
         viewRemoveAccount.onChooseNewAccountType.addObserver(this);
@@ -68,6 +68,9 @@ public class ControlRemoveAccount implements IObserver {
     }
     
     public void setVisible(boolean isVisible){
+        
+        if (isVisible) updateList();
+        
         viewRemoveAccount.setVisible(isVisible);
     }
 }

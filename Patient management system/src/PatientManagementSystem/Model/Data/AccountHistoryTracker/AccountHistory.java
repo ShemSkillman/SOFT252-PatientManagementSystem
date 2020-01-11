@@ -14,12 +14,17 @@ import java.util.ArrayList;
  */
 public class AccountHistory {
     
-    private Account account;
+    private String accountId;
     private ArrayList<PerformedAction> history = new ArrayList<PerformedAction>();
 
-    public AccountHistory(Account account, PerformedAction peformedAction) {
-        this.account = account;
+    public AccountHistory(String accountId, PerformedAction peformedAction) {
+        this.accountId = accountId;
         history.add(peformedAction);
+    }
+    
+    public AccountHistory(String accountId, ArrayList<PerformedAction> history) {
+        this.accountId = accountId;
+        this.history = history;
     }
     
     public void addPerformedAction(String actionDescription) {
@@ -28,8 +33,8 @@ public class AccountHistory {
         history.add(action);
     }    
 
-    public Account getAccount() {
-        return account;
+    public String getAccountId() {
+        return accountId;
     }
 
     public ArrayList<PerformedAction> getHistory() {

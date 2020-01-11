@@ -24,6 +24,14 @@ public class AccountRequest implements ICommand {
         this.password = password;
         this.modelAccountSystem = modelAccountSystem;
     }
+
+    public Patient getPatientDetails() {
+        return patientDetails;
+    }
+
+    public String getPassword() {
+        return password;
+    }    
     
     @Override
     public void execute() {
@@ -40,5 +48,11 @@ public class AccountRequest implements ICommand {
     @Override
     public String getShortDescription() {
         return "Patient account request";
+    }
+    
+    @Override 
+    public String getSenderId()
+    {
+        return null;
     }
 }

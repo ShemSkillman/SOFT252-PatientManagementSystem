@@ -18,6 +18,8 @@ import java.util.ArrayList;
  */
 public class ControlRequestDoctorAppointment {
     
+    private final ModelMain modelMain;
+    
     // Stores reference to window to hide/unhide
     private final ViewRequestDoctorAppointment viewRequestDoctorAppointment;    
     
@@ -25,14 +27,18 @@ public class ControlRequestDoctorAppointment {
     
     // Creates window and hooks up control classes to main model to send requests
     public ControlRequestDoctorAppointment(ModelMain modelMain){
-        
+        this.modelMain = modelMain;
         viewRequestDoctorAppointment = new ViewRequestDoctorAppointment();        
         controlRequestDoctorAppointmentAction = new ControlRequestDoctorAppointmentAction(viewRequestDoctorAppointment, modelMain);
         
-        ArrayList<Account> doctorAccounts = modelMain.getModelAccountSystem().getAccountsOfTypeRole(Role.Doctor);
-        viewRequestDoctorAppointment.setDoctors(modelMain.getModelAccountSystem().getAccountNames(doctorAccounts));
+        refresh();
         
         viewRequestDoctorAppointment.setVisible(true);
+    }
+    
+    private void refresh() {
+        ArrayList<Account> doctorAccounts = modelMain.getModelAccountSystem().getAccountsOfTypeRole(Role.Doctor);
+        viewRequestDoctorAppointment.setDoctors(modelMain.getModelAccountSystem().getAccountNames(doctorAccounts));
     }
     
     public void setVisible(boolean isVisible){

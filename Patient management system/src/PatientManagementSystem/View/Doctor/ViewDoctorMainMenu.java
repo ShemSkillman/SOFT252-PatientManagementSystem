@@ -5,10 +5,13 @@
  */
 package PatientManagementSystem.View.Doctor;
 
-import PatientManagementSystem.Model.Data.AccountSystem.Account;
 import PatientManagementSystem.Model.Data.BookingSystem.Appointment;
-import PatientManagementSystem.View.Event;
+import PatientManagementSystem.Model.Data.ModelAccountSystem;
+import PatientManagementSystem.Model.User.Patient;
+import PatientManagementSystem.Event;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -16,7 +19,7 @@ import java.util.ArrayList;
  */
 public class ViewDoctorMainMenu extends javax.swing.JFrame {
 
-    public Event onClickAppointment, onSaveNotes;
+    public Event onClickAppointment, onSaveNotes, onLogOut;
     
     /**
      * Creates new form DoctorMainMenu
@@ -25,18 +28,24 @@ public class ViewDoctorMainMenu extends javax.swing.JFrame {
         initComponents();
         onClickAppointment = new Event();
         onSaveNotes = new Event();
+        onLogOut = new Event();
     }
     
-    public void fillAppointmentsTable(ArrayList<Appointment> appointments) {
+    public void fillAppointmentsTable(ArrayList<Appointment> appointments, ModelAccountSystem accountSystem) {
+        
+        DefaultTableModel model = (DefaultTableModel)tblAppointments.getModel();
+        model.setRowCount(appointments.size());
+        tblAppointments.setModel(model);
         
         for(int i = 0; i < appointments.size(); i++) 
         {
             Appointment appointment = appointments.get(i);
             String dateAndTime = appointment.getScheduledDateAndTime();
             
-            Account patientAccount = appointment.getPatientAccount();
-            String patientName = patientAccount.getId() + " " + patientAccount.getUser().getName() + " "
-                    + patientAccount.getUser().getSurname();
+            String patientId = appointment.getPatientId();
+            Patient patient = (Patient)accountSystem.getAccount(patientId).getUser();
+            String patientName = patientId + " " + patient.getName() + " "
+                    + patient.getSurname();
             
             tblAppointments.getModel().setValueAt(dateAndTime, i, 0);
             tblAppointments.getModel().setValueAt(patientName, i, 1);
@@ -53,6 +62,25 @@ public class ViewDoctorMainMenu extends javax.swing.JFrame {
     
     public String getNotes() {
         return txtNotes.getText();
+    }
+    
+    public void setNotes(String text) {
+        txtNotes.setText(text);
+    }
+    
+    public void setWelcomeMessage(String text) {
+        lblWelcomeMessage.setText(text);
+    }
+    
+    public void EnableButtons(boolean isEnabled) {
+        btnGivePrescription.setEnabled(isEnabled);
+        btnSaveNotes.setEnabled(isEnabled);
+        btnInspectPatientHistory.setEnabled(isEnabled);
+        btnProposeAppointment.setEnabled(isEnabled);
+    }
+    
+    public void showMessage(String title, String message) {
+        JOptionPane.showMessageDialog(null, message, title, JOptionPane.INFORMATION_MESSAGE);
     }
 
     /**
@@ -74,6 +102,11 @@ public class ViewDoctorMainMenu extends javax.swing.JFrame {
         txtNotes = new javax.swing.JTextArea();
         lblNotes = new javax.swing.JLabel();
         btnSaveNotes = new javax.swing.JButton();
+        btnLogOut = new javax.swing.JButton();
+        btnGivePrescription = new javax.swing.JButton();
+        btnInspectPatientHistory = new javax.swing.JButton();
+        btnProposeAppointment = new javax.swing.JButton();
+        lblWelcomeMessage = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -130,6 +163,21 @@ public class ViewDoctorMainMenu extends javax.swing.JFrame {
             }
         });
 
+        btnLogOut.setText("Log out");
+        btnLogOut.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLogOutActionPerformed(evt);
+            }
+        });
+
+        btnGivePrescription.setText("Give prescription");
+
+        btnInspectPatientHistory.setText("Inspect patient history");
+
+        btnProposeAppointment.setText("Propose appointment");
+
+        lblWelcomeMessage.setText("Hi <name>,");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -138,24 +186,37 @@ public class ViewDoctorMainMenu extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 488, Short.MAX_VALUE)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(lblScheduledAppointments)
-                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btnLogOut))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblAppointment)
                             .addComponent(lblNotes))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(btnGivePrescription)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btnInspectPatientHistory, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btnProposeAppointment))
                             .addComponent(txtSelectedAppointment)
                             .addComponent(jScrollPane2)
-                            .addComponent(btnSaveNotes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(btnSaveNotes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblScheduledAppointments)
+                            .addComponent(lblWelcomeMessage))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
+                .addComponent(lblWelcomeMessage)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
                 .addComponent(lblScheduledAppointments)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -169,7 +230,14 @@ public class ViewDoctorMainMenu extends javax.swing.JFrame {
                     .addComponent(lblNotes))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnSaveNotes)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnGivePrescription)
+                    .addComponent(btnInspectPatientHistory)
+                    .addComponent(btnProposeAppointment))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnLogOut)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -199,6 +267,10 @@ public class ViewDoctorMainMenu extends javax.swing.JFrame {
     private void btnSaveNotesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveNotesActionPerformed
         onSaveNotes.invoke();
     }//GEN-LAST:event_btnSaveNotesActionPerformed
+
+    private void btnLogOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogOutActionPerformed
+        onLogOut.invoke();
+    }//GEN-LAST:event_btnLogOutActionPerformed
 
     /**
      * @param args the command line arguments
@@ -237,6 +309,10 @@ public class ViewDoctorMainMenu extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnGivePrescription;
+    private javax.swing.JButton btnInspectPatientHistory;
+    private javax.swing.JButton btnLogOut;
+    private javax.swing.JButton btnProposeAppointment;
     private javax.swing.JButton btnSaveNotes;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
@@ -244,6 +320,7 @@ public class ViewDoctorMainMenu extends javax.swing.JFrame {
     private javax.swing.JLabel lblAppointment;
     private javax.swing.JLabel lblNotes;
     private javax.swing.JLabel lblScheduledAppointments;
+    private javax.swing.JLabel lblWelcomeMessage;
     private javax.swing.JTable tblAppointments;
     private javax.swing.JTextArea txtNotes;
     private javax.swing.JTextField txtSelectedAppointment;

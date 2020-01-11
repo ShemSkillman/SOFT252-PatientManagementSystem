@@ -5,7 +5,7 @@
  */
 package PatientManagementSystem.Control.Admin.AdminMainMenu;
 
-import PatientManagementSystem.Control.IObserver;
+import PatientManagementSystem.IObserver;
 import PatientManagementSystem.Model.ModelMain;
 import PatientManagementSystem.View.Admin.ViewAdminMainMenu;
 

@@ -3,9 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package PatientManagementSystem.View;
+package PatientManagementSystem;
 
-import PatientManagementSystem.Control.IObserver;
 import java.util.ArrayList;
 
 /**

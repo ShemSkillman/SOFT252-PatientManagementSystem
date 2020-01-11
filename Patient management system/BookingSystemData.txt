@@ -1,0 +1,1 @@
+{"appointments":[{"dateAndTime":"Sat Jan 11 18:27:57 GMT 2020","patientId":"P0004","doctorId":"D0002","doctorNotes":"gsrgsrgssrg"},{"dateAndTime":"Sat Jan 11 18:27:57 GMT 2020","patientId":"P0004","doctorId":"D0002","doctorNotes":"12323"}]}

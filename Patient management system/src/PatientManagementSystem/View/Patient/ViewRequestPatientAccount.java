@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package PatientManagementSystem.View.Patient;
+import PatientManagementSystem.Event;
 import PatientManagementSystem.Model.User.Gender;
 import PatientManagementSystem.View.*;
 import javax.swing.JOptionPane;
@@ -53,7 +54,7 @@ public class ViewRequestPatientAccount extends javax.swing.JFrame {
         lblPassword = new javax.swing.JLabel();
         txtPassword = new javax.swing.JTextField();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         mainPanel.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Request account", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 14))); // NOI18N
         mainPanel.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));

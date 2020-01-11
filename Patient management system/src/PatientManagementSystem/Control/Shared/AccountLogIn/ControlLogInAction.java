@@ -5,7 +5,7 @@
  */
 package PatientManagementSystem.Control.Shared.AccountLogIn;
 
-import PatientManagementSystem.Control.IObserver;
+import PatientManagementSystem.IObserver;
 import PatientManagementSystem.Model.ModelMain;
 import PatientManagementSystem.Model.User.Role;
 import PatientManagementSystem.View.ViewLogIn;
@@ -31,7 +31,7 @@ public class ControlLogInAction implements IObserver{
         String id = viewLogIn.getId();
         String password = viewLogIn.getPassword();
         
-        boolean logInSuccessful = modelMain.getModelAccountSystem().LogIn(id, password);
+        boolean logInSuccessful = modelMain.getModelAccountSystem().logIn(id, password);
         
         if (!logInSuccessful){
             viewLogIn.showErrorMessage("User ID or password incorrect!");
@@ -54,5 +54,8 @@ public class ControlLogInAction implements IObserver{
                 modelMain.secretaryMainMenu();
                 break;
         }
+        
+        viewLogIn.setVisible(false);
+        viewLogIn.clearInput();
     }
 }
