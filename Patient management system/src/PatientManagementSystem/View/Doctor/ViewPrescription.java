@@ -5,17 +5,91 @@
  */
 package PatientManagementSystem.View.Doctor;
 
+import PatientManagementSystem.Model.Data.PrescriptionSystem.Prescription;
+import PatientManagementSystem.View.EventSystem.Event;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Shem
  */
 public class ViewPrescription extends javax.swing.JFrame {
 
+    public Event onOrderNewMedicine, onRequestMedicine, onSelectPatient;
+    
     /**
      * Creates new form ViewPrescription
      */
     public ViewPrescription() {
         initComponents();
+        
+        onOrderNewMedicine = new Event();
+        onRequestMedicine = new Event();
+        onSelectPatient = new Event();
+    }
+    
+    public void setPatients(ArrayList<String> patientNames)
+    {
+        for (var patientName : patientNames)
+        {
+            cboxPatients.addItem(patientName);
+        }
+    }
+    
+    public String getSelectedPatientId() {
+        
+        String patientName = (String)cboxPatients.getSelectedItem();
+        
+        return patientName.substring(0, 5);
+    }
+    
+    public String getSelectedPrescriptionMedicine() {
+        
+        return (String)cboxMedicines.getSelectedItem();
+    }
+    
+    public void setMedicines(ArrayList<String> medicines) {
+        
+        cboxMedicines.removeAllItems();
+        
+        for (var medicine : medicines)
+        {
+            cboxMedicines.addItem(medicine);
+        }
+    }
+    
+    public int getPrescriptionMedicineQuantity() {
+        
+        return (int)spinMedicineQuantity.getValue();
+    }
+    
+    public String getPrescriptionDosage() {
+        
+        return txtDosage.getText();
+    } 
+    
+    public void showMessage(String title, String message) {
+        JOptionPane.showMessageDialog(null, message, title, JOptionPane.INFORMATION_MESSAGE);
+    }
+    
+    public void fillPrescriptionsTable(ArrayList<Prescription> prescriptions)
+    {
+        DefaultTableModel model = (DefaultTableModel)tblPrescriptions.getModel();
+        model.setRowCount(prescriptions.size());
+        tblPrescriptions.setModel(model);
+        
+        for (int i = 0; i < prescriptions.size(); i++)
+        {
+            Prescription prescription = prescriptions.get(i);
+            
+            
+            tblPrescriptions.getModel().setValueAt(prescription.getDateGiven(), i, 0);
+            tblPrescriptions.getModel().setValueAt(prescription.getMedicineName(), i, 1);
+            tblPrescriptions.getModel().setValueAt(prescription.getMedicineQuantity(), i, 2);
+            tblPrescriptions.getModel().setValueAt(prescription.getDosage(), i, 3);
+        }
     }
 
     /**
@@ -28,30 +102,36 @@ public class ViewPrescription extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        lblPatient = new javax.swing.JLabel();
+        cboxPatients = new javax.swing.JComboBox<>();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        cboxMedicine = new javax.swing.JComboBox<>();
-        jLabel5 = new javax.swing.JLabel();
-        jSpinner1 = new javax.swing.JSpinner();
+        tblPrescriptions = new javax.swing.JTable();
+        lblPatientPrescriptions = new javax.swing.JLabel();
+        lblNewPrescription = new javax.swing.JLabel();
+        lblMedicine = new javax.swing.JLabel();
+        cboxMedicines = new javax.swing.JComboBox<>();
+        lblQuantity = new javax.swing.JLabel();
+        spinMedicineQuantity = new javax.swing.JSpinner();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
-        jLabel6 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jLabel7 = new javax.swing.JLabel();
+        txtDosage = new javax.swing.JTextArea();
+        lblDosage = new javax.swing.JLabel();
+        btnRequestPrescription = new javax.swing.JButton();
+        btnOrderNewMedicine = new javax.swing.JButton();
+        lblNote = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Prescriptions", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 14))); // NOI18N
 
-        jLabel1.setText("Patient");
+        lblPatient.setText("Patient");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        cboxPatients.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cboxPatientsActionPerformed(evt);
+            }
+        });
+
+        tblPrescriptions.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -77,30 +157,46 @@ public class ViewPrescription extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jTable1.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_NEXT_COLUMN);
-        jScrollPane1.setViewportView(jTable1);
+        tblPrescriptions.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_NEXT_COLUMN);
+        jScrollPane1.setViewportView(tblPrescriptions);
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel2.setText("Patient prescriptions");
+        lblPatientPrescriptions.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        lblPatientPrescriptions.setText("Patient prescriptions");
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel3.setText("New prescription");
+        lblNewPrescription.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        lblNewPrescription.setText("New prescription");
 
-        jLabel4.setText("Medicine");
+        lblMedicine.setText("Medicine");
 
-        jLabel5.setText("Quantity");
+        cboxMedicines.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cboxMedicinesActionPerformed(evt);
+            }
+        });
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane2.setViewportView(jTextArea1);
+        lblQuantity.setText("Quantity");
 
-        jLabel6.setText("Dosage");
+        txtDosage.setColumns(20);
+        txtDosage.setRows(5);
+        jScrollPane2.setViewportView(txtDosage);
 
-        jButton1.setText("Request prescription");
+        lblDosage.setText("Dosage");
 
-        jButton2.setText("Order new medicine");
+        btnRequestPrescription.setText("Request prescription");
+        btnRequestPrescription.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRequestPrescriptionActionPerformed(evt);
+            }
+        });
 
-        jLabel7.setText("*prescription must be reviewed and accepted by a secretary to make sure medicine is in stock");
+        btnOrderNewMedicine.setText("Order new medicine");
+        btnOrderNewMedicine.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnOrderNewMedicineActionPerformed(evt);
+            }
+        });
+
+        lblNote.setText("*prescription must be reviewed and accepted by a secretary to make sure medicine is in stock");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -111,35 +207,35 @@ public class ViewPrescription extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel1)
+                        .addComponent(lblPatient)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(cboxPatients, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel4)
+                        .addComponent(lblMedicine)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(cboxMedicine, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel3)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel5)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 0, Short.MAX_VALUE))
+                        .addComponent(cboxMedicines, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jButton2)
+                        .addComponent(btnOrderNewMedicine)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton1))
+                        .addComponent(btnRequestPrescription))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel6)
+                        .addComponent(lblDosage)
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel7)
+                                .addComponent(lblNote)
                                 .addGap(0, 37, Short.MAX_VALUE))
-                            .addComponent(jScrollPane2))))
+                            .addComponent(jScrollPane2)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblPatientPrescriptions)
+                            .addComponent(lblNewPrescription)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(lblQuantity)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(spinMedicineQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -147,32 +243,32 @@ public class ViewPrescription extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblPatient)
+                    .addComponent(cboxPatients, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel2)
+                .addComponent(lblPatientPrescriptions)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel3)
+                .addComponent(lblNewPrescription)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(cboxMedicine, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblMedicine)
+                    .addComponent(cboxMedicines, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblQuantity)
+                    .addComponent(spinMedicineQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel6))
+                    .addComponent(lblDosage))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel7)
+                .addComponent(lblNote)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2))
+                    .addComponent(btnRequestPrescription)
+                    .addComponent(btnOrderNewMedicine))
                 .addContainerGap())
         );
 
@@ -195,6 +291,22 @@ public class ViewPrescription extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnOrderNewMedicineActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOrderNewMedicineActionPerformed
+        onOrderNewMedicine.invoke();
+    }//GEN-LAST:event_btnOrderNewMedicineActionPerformed
+
+    private void btnRequestPrescriptionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRequestPrescriptionActionPerformed
+        onRequestMedicine.invoke();
+    }//GEN-LAST:event_btnRequestPrescriptionActionPerformed
+
+    private void cboxPatientsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboxPatientsActionPerformed
+        onSelectPatient.invoke();
+    }//GEN-LAST:event_cboxPatientsActionPerformed
+
+    private void cboxMedicinesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboxMedicinesActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cboxMedicinesActionPerformed
 
     /**
      * @param args the command line arguments
@@ -232,22 +344,22 @@ public class ViewPrescription extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox<String> cboxMedicine;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
+    private javax.swing.JButton btnOrderNewMedicine;
+    private javax.swing.JButton btnRequestPrescription;
+    private javax.swing.JComboBox<String> cboxMedicines;
+    private javax.swing.JComboBox<String> cboxPatients;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JSpinner jSpinner1;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JLabel lblDosage;
+    private javax.swing.JLabel lblMedicine;
+    private javax.swing.JLabel lblNewPrescription;
+    private javax.swing.JLabel lblNote;
+    private javax.swing.JLabel lblPatient;
+    private javax.swing.JLabel lblPatientPrescriptions;
+    private javax.swing.JLabel lblQuantity;
+    private javax.swing.JSpinner spinMedicineQuantity;
+    private javax.swing.JTable tblPrescriptions;
+    private javax.swing.JTextArea txtDosage;
     // End of variables declaration//GEN-END:variables
 }

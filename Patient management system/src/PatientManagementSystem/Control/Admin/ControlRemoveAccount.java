@@ -6,7 +6,7 @@
 package PatientManagementSystem.Control.Admin;
 
 import PatientManagementSystem.Control.Admin.RemoveAccount.ControlRemoveAccountAction;
-import PatientManagementSystem.IObserver;
+import PatientManagementSystem.View.EventSystem.IObserver;
 import PatientManagementSystem.Model.Data.AccountSystem.Account;
 import PatientManagementSystem.Model.ModelMain;
 import PatientManagementSystem.Model.User.Role;

@@ -8,7 +8,7 @@ package PatientManagementSystem.View.Doctor;
 import PatientManagementSystem.Model.Data.BookingSystem.Appointment;
 import PatientManagementSystem.Model.Data.ModelAccountSystem;
 import PatientManagementSystem.Model.User.Patient;
-import PatientManagementSystem.Event;
+import PatientManagementSystem.View.EventSystem.Event;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -19,7 +19,8 @@ import javax.swing.table.DefaultTableModel;
  */
 public class ViewDoctorMainMenu extends javax.swing.JFrame {
 
-    public Event onClickAppointment, onSaveNotes, onLogOut;
+    public Event onClickAppointment, onSaveNotes, onLogOut, onGivePrescription,
+            onInspectPatientHistory, onProposeAppointment;
     
     /**
      * Creates new form DoctorMainMenu
@@ -29,6 +30,9 @@ public class ViewDoctorMainMenu extends javax.swing.JFrame {
         onClickAppointment = new Event();
         onSaveNotes = new Event();
         onLogOut = new Event();
+        onGivePrescription = new Event();
+        onInspectPatientHistory = new Event();
+        onProposeAppointment = new Event();
     }
     
     public void fillAppointmentsTable(ArrayList<Appointment> appointments, ModelAccountSystem accountSystem) {
@@ -171,10 +175,25 @@ public class ViewDoctorMainMenu extends javax.swing.JFrame {
         });
 
         btnGivePrescription.setText("Give prescription");
+        btnGivePrescription.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGivePrescriptionActionPerformed(evt);
+            }
+        });
 
         btnInspectPatientHistory.setText("Inspect patient history");
+        btnInspectPatientHistory.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnInspectPatientHistoryActionPerformed(evt);
+            }
+        });
 
         btnProposeAppointment.setText("Propose appointment");
+        btnProposeAppointment.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnProposeAppointmentActionPerformed(evt);
+            }
+        });
 
         lblWelcomeMessage.setText("Hi <name>,");
 
@@ -271,6 +290,18 @@ public class ViewDoctorMainMenu extends javax.swing.JFrame {
     private void btnLogOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogOutActionPerformed
         onLogOut.invoke();
     }//GEN-LAST:event_btnLogOutActionPerformed
+
+    private void btnGivePrescriptionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGivePrescriptionActionPerformed
+        onGivePrescription.invoke();
+    }//GEN-LAST:event_btnGivePrescriptionActionPerformed
+
+    private void btnInspectPatientHistoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInspectPatientHistoryActionPerformed
+        onInspectPatientHistory.invoke();
+    }//GEN-LAST:event_btnInspectPatientHistoryActionPerformed
+
+    private void btnProposeAppointmentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProposeAppointmentActionPerformed
+        onProposeAppointment.invoke();
+    }//GEN-LAST:event_btnProposeAppointmentActionPerformed
 
     /**
      * @param args the command line arguments

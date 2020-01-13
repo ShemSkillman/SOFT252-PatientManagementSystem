@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 package PatientManagementSystem.Control.Shared.AccountLogIn;
-import PatientManagementSystem.IObserver;
+import PatientManagementSystem.View.EventSystem.IObserver;
 import PatientManagementSystem.Model.ModelMain;
 import PatientManagementSystem.View.ViewLogIn;
 

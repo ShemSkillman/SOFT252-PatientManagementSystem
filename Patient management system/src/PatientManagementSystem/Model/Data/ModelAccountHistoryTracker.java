@@ -8,8 +8,8 @@ package PatientManagementSystem.Model.Data;
 import PatientManagementSystem.Model.Data.AccountHistoryTracker.AccountHistory;
 import PatientManagementSystem.Model.Data.AccountHistoryTracker.PerformedAction;
 import PatientManagementSystem.Model.Data.AccountSystem.Account;
-import PatientManagementSystem.Event;
-import PatientManagementSystem.IObserverType;
+import PatientManagementSystem.View.EventSystem.Event;
+import PatientManagementSystem.View.EventSystem.IObserverType;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
@@ -154,7 +154,7 @@ public class ModelAccountHistoryTracker implements IObserverType<String>{
         
         PerformedAction performedAction = new PerformedAction(actionDescription);
         
-        AccountHistory accountHistory = lookForAccountHistory(loggedInAccount);
+        AccountHistory accountHistory = lookForAccountHistory(loggedInAccount.getId());
         
         if (accountHistory == null) 
         {
@@ -171,18 +171,18 @@ public class ModelAccountHistoryTracker implements IObserverType<String>{
         saveData();
     }
     
-    public ArrayList<PerformedAction> getAccountHistory(Account account) {
+    public ArrayList<PerformedAction> getAccountHistory(String id) {
         
-        AccountHistory accountHistory = lookForAccountHistory(account);
+        AccountHistory accountHistory = lookForAccountHistory(id);
         
         return accountHistory.getHistory();
     }
     
-    private AccountHistory lookForAccountHistory(Account account){
+    private AccountHistory lookForAccountHistory(String id){
         
         for(AccountHistory history : accountHistories)
         {
-            if (history.getAccountId().compareTo(account.getId()) == 0){
+            if (history.getAccountId().compareTo(id) == 0){
                 return history;
             }
         }

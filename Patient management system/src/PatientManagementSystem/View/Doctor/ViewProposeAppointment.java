@@ -5,17 +5,48 @@
  */
 package PatientManagementSystem.View.Doctor;
 
+import PatientManagementSystem.View.EventSystem.Event;
+import java.util.ArrayList;
+import java.util.Date;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Shem
  */
 public class ViewProposeAppointment extends javax.swing.JFrame {
 
+    
+    public Event onSendAppointmentRequest = new Event();
     /**
      * Creates new form ViewProposeAppointment
      */
     public ViewProposeAppointment() {
         initComponents();
+    }
+    
+    public void setPatients(ArrayList<String> patientNames) {
+        
+        cboxPatients.removeAllItems();
+        
+        for (var patientName : patientNames)
+        {
+            cboxPatients.addItem(patientName);
+        }
+    }
+    
+    public String getSelectedPatientId() {
+        String name = (String)cboxPatients.getSelectedItem();
+        return name.substring(0, 5);
+    }
+    
+    public String getDateAndTime() {
+        Date date = (Date)spinDateAndTime.getModel().getValue();
+        return date.toString();
+    }
+    
+    public void showMessage(String title, String message) {
+        JOptionPane.showMessageDialog(null, message, title, JOptionPane.INFORMATION_MESSAGE);
     }
 
     /**
@@ -28,23 +59,34 @@ public class ViewProposeAppointment extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jLabel2 = new javax.swing.JLabel();
-        jSpinner1 = new javax.swing.JSpinner();
-        jButton1 = new javax.swing.JButton();
+        lblPatient = new javax.swing.JLabel();
+        cboxPatients = new javax.swing.JComboBox<>();
+        lblDateAndTime = new javax.swing.JLabel();
+        btnSendRequest = new javax.swing.JButton();
+        spinDateAndTime = new javax.swing.JSpinner();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Propose Appointment", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 14))); // NOI18N
 
-        jLabel1.setText("Patient");
+        lblPatient.setText("Patient");
 
-        jLabel2.setText("Date and time");
+        cboxPatients.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cboxPatientsActionPerformed(evt);
+            }
+        });
 
-        jSpinner1.setModel(new javax.swing.SpinnerDateModel(new java.util.Date(), new java.util.Date(), null, java.util.Calendar.DAY_OF_MONTH));
+        lblDateAndTime.setText("Date and time");
 
-        jButton1.setText("Send request");
+        btnSendRequest.setText("Send request");
+        btnSendRequest.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSendRequestActionPerformed(evt);
+            }
+        });
+
+        spinDateAndTime.setModel(new javax.swing.SpinnerDateModel());
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -55,17 +97,17 @@ public class ViewProposeAppointment extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel1))
+                            .addComponent(lblDateAndTime)
+                            .addComponent(lblPatient))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(cboxPatients, 0, 271, Short.MAX_VALUE)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 112, Short.MAX_VALUE))))
+                                .addComponent(spinDateAndTime, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE))))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jButton1)))
+                        .addComponent(btnSendRequest)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -73,14 +115,14 @@ public class ViewProposeAppointment extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblPatient)
+                    .addComponent(cboxPatients, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblDateAndTime)
+                    .addComponent(spinDateAndTime, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton1)
+                .addComponent(btnSendRequest)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -103,6 +145,14 @@ public class ViewProposeAppointment extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void cboxPatientsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboxPatientsActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cboxPatientsActionPerformed
+
+    private void btnSendRequestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSendRequestActionPerformed
+        onSendAppointmentRequest.invoke();
+    }//GEN-LAST:event_btnSendRequestActionPerformed
 
     /**
      * @param args the command line arguments
@@ -140,11 +190,11 @@ public class ViewProposeAppointment extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
+    private javax.swing.JButton btnSendRequest;
+    private javax.swing.JComboBox<String> cboxPatients;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JSpinner jSpinner1;
+    private javax.swing.JLabel lblDateAndTime;
+    private javax.swing.JLabel lblPatient;
+    private javax.swing.JSpinner spinDateAndTime;
     // End of variables declaration//GEN-END:variables
 }

@@ -5,7 +5,7 @@
  */
 package PatientManagementSystem.Control.Patient;
 
-import PatientManagementSystem.IObserver;
+import PatientManagementSystem.View.EventSystem.IObserver;
 import PatientManagementSystem.Control.Patient.DoctorRatings.ControlRateDoctorAction;
 import PatientManagementSystem.Model.ModelMain;
 import PatientManagementSystem.View.Patient.ViewPatientDoctorRatings;

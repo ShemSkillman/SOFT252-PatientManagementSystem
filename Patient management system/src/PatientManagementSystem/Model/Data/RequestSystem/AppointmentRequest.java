@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package PatientManagementSystem.Model.Data.PatientRequestSystem;
+package PatientManagementSystem.Model.Data.RequestSystem;
 
 import PatientManagementSystem.Model.ICommand;
 import PatientManagementSystem.Model.ModelMain;
@@ -53,14 +53,14 @@ public class AppointmentRequest implements ICommand {
         User patient = modelMain.getModelAccountSystem().getAccount(patientId).getUser();
         User doctor = modelMain.getModelAccountSystem().getAccount(doctorId).getUser();
         
-        return "Patient request for appointment\nPatient ID: " + patientId + "\nPatient name: " + 
+        return "Request for appointment\nPatient ID: " + patientId + "\nPatient name: " + 
                 patient.getName() + " " + patient.getSurname() + "\nDoctor: " + doctor.getName() + " "+
                 doctor.getSurname() + "\nDate and Time: " + dateAndTime;
     }
     
     @Override
     public String getShortDescription() {
-        return "Patient appointment request";
+        return "Appointment request";
     }
     
     @Override 

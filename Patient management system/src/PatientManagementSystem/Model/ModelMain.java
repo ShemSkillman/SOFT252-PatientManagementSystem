@@ -13,12 +13,19 @@ import PatientManagementSystem.Control.Patient.ControlPatientMainMenu;
 import PatientManagementSystem.Control.Admin.ControlCreateAdminAccount;
 import PatientManagementSystem.Control.Admin.ControlRemoveAccount;
 import PatientManagementSystem.Control.Doctor.ControlDoctorMainMenu;
+import PatientManagementSystem.Control.Doctor.ControlInspectPatientHistory;
+import PatientManagementSystem.Control.Doctor.ControlOrderMedicine;
+import PatientManagementSystem.Control.Doctor.ControlPrescription;
+import PatientManagementSystem.Control.Doctor.ControlProposeAppointment;
 import PatientManagementSystem.Control.Patient.ControlPatientHistory;
 import PatientManagementSystem.Control.Patient.ControlRateDoctor;
 import PatientManagementSystem.Control.Patient.ControlRequestAccountDeletion;
 import PatientManagementSystem.Control.Shared.ControlAccountLogIn;
 import PatientManagementSystem.Model.Data.*;
 import PatientManagementSystem.Control.Patient.ControlRequestDoctorAppointment;
+import PatientManagementSystem.Control.Secretary.ControlDoctorAvailability;
+import PatientManagementSystem.Control.Secretary.ControlMedicineStock;
+import PatientManagementSystem.Control.Secretary.ControlRemovePatient;
 import PatientManagementSystem.Control.Secretary.ControlSecretaryMainMenu;
 /**
  *
@@ -29,8 +36,9 @@ public class ModelMain {
     private final ModelAccountSystem modelAccountSystem;
     private final ModelBookingSystem modelBookingSystem;
     private final ModelDoctorRatingSystem modelDoctorRatingSystem;
-    private final ModelPatientRequestSystem modelPatientRequestSystem;
+    private final ModelRequestSystem modelPatientRequestSystem;
     private final ModelAccountHistoryTracker modelAccountHistoryTracker;
+    private final ModelPrescriptionSystem modelPrescriptionSystem;
     
     private ControlAccountLogIn controlAccountLogIn;
     
@@ -49,7 +57,15 @@ public class ModelMain {
     private ControlAdminDoctorRatings controlAdminDoctorRatings;
     
     private ControlDoctorMainMenu controlDoctorMainMenu;
+    private ControlPrescription controlPrescription;
+    private ControlInspectPatientHistory controlInspectPatientHistory;
+    private ControlProposeAppointment controlProposeAppointment;
+    private ControlOrderMedicine controlOrderMedicine;
+    
     private ControlSecretaryMainMenu controlSecretaryMainMenu;
+    private ControlDoctorAvailability controlDoctorAvailability;
+    private ControlMedicineStock controlMedicineStock;
+    private ControlRemovePatient controlRemovePatient;
     
     public ModelMain() {
         
@@ -58,7 +74,9 @@ public class ModelMain {
         modelAccountHistoryTracker.setModelAccountSystem(modelAccountSystem);        
         modelBookingSystem = new ModelBookingSystem(modelAccountHistoryTracker, modelAccountSystem);
         modelDoctorRatingSystem = new ModelDoctorRatingSystem(modelAccountSystem, modelAccountHistoryTracker);
-        modelPatientRequestSystem = new ModelPatientRequestSystem(modelAccountSystem, modelBookingSystem, modelAccountHistoryTracker, this);
+        modelPrescriptionSystem = new ModelPrescriptionSystem();
+        modelPatientRequestSystem = new ModelRequestSystem(modelAccountSystem, modelBookingSystem, 
+                modelAccountHistoryTracker, modelPrescriptionSystem, this);
     }   
     
     public void logIn() {
@@ -172,6 +190,55 @@ public class ModelMain {
         else
             controlSecretaryMainMenu.setVisible(true);
     }
+    
+    public void doctorPrescription() {
+        if (controlPrescription == null)
+            controlPrescription = new ControlPrescription(this);
+        else
+            controlPrescription.setVisible(true);
+    }
+    
+    public void doctorInspectPatientHistory(){
+        if (controlInspectPatientHistory == null)
+            controlInspectPatientHistory = new ControlInspectPatientHistory(this);
+        else
+            controlInspectPatientHistory.setVisible(true);
+    }
+    
+    public void doctorProposeAppointment() {
+        if (controlProposeAppointment == null)
+            controlProposeAppointment = new ControlProposeAppointment(this);
+        else
+            controlProposeAppointment.setVisible(true);
+    }
+    
+    public void doctorOrderNewMedicine() {
+        if (controlOrderMedicine == null)
+            controlOrderMedicine = new ControlOrderMedicine(this);
+        else
+            controlOrderMedicine.setVisible(true);
+    }
+    
+    public void secretaryDoctorAvailability() {
+        if (controlDoctorAvailability == null)
+            controlDoctorAvailability = new ControlDoctorAvailability(this);
+        else
+            controlDoctorAvailability.setVisible(true);
+    }
+    
+    public void secretaryMedicineStock() {
+        if (controlMedicineStock == null)
+            controlMedicineStock = new ControlMedicineStock(this);
+        else
+            controlMedicineStock.setVisible(true);
+    }
+    
+    public void secretaryRemovePatient() {
+        if (controlRemovePatient == null)
+            controlRemovePatient = new ControlRemovePatient(this);
+        else
+            controlRemovePatient.setVisible(true);
+    }
 
     public ModelAccountSystem getModelAccountSystem() {
         return modelAccountSystem;
@@ -185,7 +252,7 @@ public class ModelMain {
         return modelDoctorRatingSystem;
     }
 
-    public ModelPatientRequestSystem getModelPatientRequestSystem() {
+    public ModelRequestSystem getModelRequestSystem() {
         return modelPatientRequestSystem;
     }   
 
@@ -193,5 +260,7 @@ public class ModelMain {
         return modelAccountHistoryTracker;
     }
     
-    
+    public ModelPrescriptionSystem getModelPrescriptionSystem() {
+        return modelPrescriptionSystem;
+    }
 }

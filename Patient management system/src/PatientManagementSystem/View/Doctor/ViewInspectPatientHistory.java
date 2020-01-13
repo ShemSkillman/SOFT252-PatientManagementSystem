@@ -5,17 +5,58 @@
  */
 package PatientManagementSystem.View.Doctor;
 
+import PatientManagementSystem.View.EventSystem.Event;
+import PatientManagementSystem.Model.Data.AccountHistoryTracker.PerformedAction;
+import java.util.ArrayList;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Shem
  */
 public class ViewInspectPatientHistory extends javax.swing.JFrame {
 
+    
+    public Event onSelectPatient;
+    
     /**
      * Creates new form ViewPatientHistory
      */
     public ViewInspectPatientHistory() {
         initComponents();
+        
+        onSelectPatient = new Event();
+    }
+    
+    public void fillPatientHistoryTable(ArrayList<PerformedAction> history) {
+        
+        DefaultTableModel model = (DefaultTableModel)tblPatientHistory.getModel();
+        model.setRowCount(history.size());
+        tblPatientHistory.setModel(model);
+        
+        for (int i = 0; i < history.size(); i++)
+        {
+            PerformedAction action = history.get(i);
+            
+            tblPatientHistory.getModel().setValueAt(action.getDateAndTime(), i, 0);
+            tblPatientHistory.getModel().setValueAt(action.getActionDescription(), i, 1);
+        }
+    }
+    
+    public void setPatients(ArrayList<String> patientNames){
+        
+        cboxPatient.removeAllItems();
+        
+        for (var patientName : patientNames) 
+        {
+            cboxPatient.addItem(patientName);
+        }
+    }
+    
+    public String getSelectedPatientId() {
+        
+        String patientName = (String)cboxPatient.getSelectedItem();
+        return patientName.substring(0, 5);
     }
 
     /**
@@ -33,11 +74,17 @@ public class ViewInspectPatientHistory extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tblPatientHistory = new javax.swing.JTable();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Inspection Patient History", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 14))); // NOI18N
 
         lblPatient.setText("Patient");
+
+        cboxPatient.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cboxPatientActionPerformed(evt);
+            }
+        });
 
         tblPatientHistory.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -105,6 +152,10 @@ public class ViewInspectPatientHistory extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void cboxPatientActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboxPatientActionPerformed
+        onSelectPatient.invoke();
+    }//GEN-LAST:event_cboxPatientActionPerformed
 
     /**
      * @param args the command line arguments

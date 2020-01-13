@@ -8,7 +8,7 @@ package PatientManagementSystem.View.Patient;
 import PatientManagementSystem.Model.Data.DoctorRatingSystem.DoctorRating;
 import PatientManagementSystem.Model.Data.ModelAccountSystem;
 import PatientManagementSystem.Model.User.Doctor;
-import PatientManagementSystem.Event;
+import PatientManagementSystem.View.EventSystem.Event;
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
 

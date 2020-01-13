@@ -5,7 +5,7 @@
  */
 package PatientManagementSystem.Control.Secretary.SecretaryMainMenu;
 
-import PatientManagementSystem.IObserver;
+import PatientManagementSystem.View.EventSystem.IObserver;
 import PatientManagementSystem.Model.ICommand;
 import PatientManagementSystem.Model.ModelMain;
 import PatientManagementSystem.View.Secretary.ViewSecretaryMainMenu;
@@ -30,7 +30,7 @@ public class ControlApproveRequestAction implements IObserver {
     @Override
     public void update() {
         
-        ArrayList<ICommand> requests = modelMain.getModelPatientRequestSystem().getAllRequests();
+        ArrayList<ICommand> requests = modelMain.getModelRequestSystem().getAllRequests();
         
         int selectedIndex = viewControlSecretaryMainMenu.getSelectedRequestId();
         
@@ -38,7 +38,7 @@ public class ControlApproveRequestAction implements IObserver {
         
         ICommand requestToApprove = requests.get(selectedIndex);
         
-        modelMain.getModelPatientRequestSystem().approveRequest(requestToApprove);      
+        modelMain.getModelRequestSystem().approveRequest(requestToApprove);      
         
         viewControlSecretaryMainMenu.clearDescriptionText();
     }

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package PatientManagementSystem.Model.Data.PatientRequestSystem;
+package PatientManagementSystem.Model.Data.RequestSystem;
 import PatientManagementSystem.Model.Data.ModelAccountSystem;
 import PatientManagementSystem.Model.ICommand;
 import PatientManagementSystem.Model.User.Patient;

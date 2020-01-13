@@ -214,16 +214,25 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Give prescription"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnGivePrescriptionActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btnInspectPatientHistory">
           <Properties>
             <Property name="text" type="java.lang.String" value="Inspect patient history"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnInspectPatientHistoryActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btnProposeAppointment">
           <Properties>
             <Property name="text" type="java.lang.String" value="Propose appointment"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnProposeAppointmentActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="lblWelcomeMessage">
           <Properties>

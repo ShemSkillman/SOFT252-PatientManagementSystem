@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 package PatientManagementSystem.Control.Patient.RequestPatientAccount;
-import PatientManagementSystem.IObserver;
+import PatientManagementSystem.View.EventSystem.IObserver;
 import PatientManagementSystem.Model.ModelMain;
 import PatientManagementSystem.Model.User.Gender;
 import PatientManagementSystem.Model.User.Patient;
@@ -39,7 +39,7 @@ public class ControlSendPatientRequestAction implements IObserver {
         
         Patient patient = new Patient(firstName, surname, address, age, gender);
         
-        modelMain.getModelPatientRequestSystem().requestAccount(patient, password);
+        modelMain.getModelRequestSystem().requestAccount(patient, password);
         
         viewRequestPatientAccount.showMessage("Account request sent", "Request for patient account creation has been sent and will be reviewed shortly.");
         viewRequestPatientAccount.setVisible(false);

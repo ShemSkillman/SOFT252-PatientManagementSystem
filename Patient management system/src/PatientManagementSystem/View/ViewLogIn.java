@@ -5,7 +5,7 @@
  */
 package PatientManagementSystem.View;
 
-import PatientManagementSystem.Event;
+import PatientManagementSystem.View.EventSystem.Event;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 

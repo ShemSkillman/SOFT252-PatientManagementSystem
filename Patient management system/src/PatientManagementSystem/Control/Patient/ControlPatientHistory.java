@@ -5,7 +5,7 @@
  */
 package PatientManagementSystem.Control.Patient;
 
-import PatientManagementSystem.IObserver;
+import PatientManagementSystem.View.EventSystem.IObserver;
 import PatientManagementSystem.Model.Data.AccountHistoryTracker.PerformedAction;
 import PatientManagementSystem.Model.Data.AccountSystem.Account;
 import PatientManagementSystem.Model.ModelMain;
@@ -45,7 +45,7 @@ public class ControlPatientHistory implements IObserver{
     
     private void refresh() {
         Account loggedInAccount = modelMain.getModelAccountSystem().getLoggedInAccount();
-        ArrayList<PerformedAction> history = modelMain.getModelAccountHistoryTracker().getAccountHistory(loggedInAccount);
+        ArrayList<PerformedAction> history = modelMain.getModelAccountHistoryTracker().getAccountHistory(loggedInAccount.getId());
         
         viewPatientHistory.fillHistoryTable(history);
     }

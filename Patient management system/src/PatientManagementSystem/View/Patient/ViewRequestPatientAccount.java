@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 package PatientManagementSystem.View.Patient;
-import PatientManagementSystem.Event;
+import PatientManagementSystem.View.EventSystem.Event;
 import PatientManagementSystem.Model.User.Gender;
 import PatientManagementSystem.View.*;
 import javax.swing.JOptionPane;

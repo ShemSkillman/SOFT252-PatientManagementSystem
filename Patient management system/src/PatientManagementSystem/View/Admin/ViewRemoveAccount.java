@@ -5,7 +5,7 @@
  */
 package PatientManagementSystem.View.Admin;
 
-import PatientManagementSystem.Event;
+import PatientManagementSystem.View.EventSystem.Event;
 import java.util.ArrayList;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;

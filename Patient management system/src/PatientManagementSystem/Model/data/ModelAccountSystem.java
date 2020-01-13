@@ -6,8 +6,8 @@
 package PatientManagementSystem.Model.Data;
 import PatientManagementSystem.Model.Data.AccountSystem.Account;
 import PatientManagementSystem.Model.User.*;
-import PatientManagementSystem.Event;
-import PatientManagementSystem.EventType;
+import PatientManagementSystem.View.EventSystem.Event;
+import PatientManagementSystem.View.EventSystem.EventType;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;

@@ -5,7 +5,7 @@
  */
 package PatientManagementSystem.Control.Doctor.DoctorMainMenu;
 
-import PatientManagementSystem.IObserver;
+import PatientManagementSystem.View.EventSystem.IObserver;
 import PatientManagementSystem.Model.Data.BookingSystem.Appointment;
 import PatientManagementSystem.Model.ModelMain;
 import PatientManagementSystem.View.Doctor.ViewDoctorMainMenu;

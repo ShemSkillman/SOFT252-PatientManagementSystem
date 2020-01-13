@@ -5,15 +5,17 @@
  */
 package PatientManagementSystem.Model.Data;
 import PatientManagementSystem.Model.Data.AccountSystem.Account;
-import PatientManagementSystem.Model.Data.PatientRequestSystem.AccountRequest;
-import PatientManagementSystem.Model.Data.PatientRequestSystem.AppointmentRequest;
-import PatientManagementSystem.Model.Data.PatientRequestSystem.TerminationRequest;
+import PatientManagementSystem.Model.Data.RequestSystem.AccountRequest;
+import PatientManagementSystem.Model.Data.RequestSystem.AppointmentRequest;
+import PatientManagementSystem.Model.Data.RequestSystem.NewMedicineRequest;
+import PatientManagementSystem.Model.Data.RequestSystem.PrescriptionRequest;
+import PatientManagementSystem.Model.Data.RequestSystem.TerminationRequest;
 import PatientManagementSystem.Model.ICommand;
 import PatientManagementSystem.Model.ModelMain;
 import java.util.ArrayList;
 import PatientManagementSystem.Model.User.*;
-import PatientManagementSystem.Event;
-import PatientManagementSystem.IObserverType;
+import PatientManagementSystem.View.EventSystem.Event;
+import PatientManagementSystem.View.EventSystem.IObserverType;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
@@ -27,25 +29,27 @@ import org.json.simple.parser.ParseException;
  *
  * @author Shem
  */
-public class ModelPatientRequestSystem implements IObserverType<String> {
+public class ModelRequestSystem implements IObserverType<String> {
     
     private final ArrayList<ICommand> requests = new ArrayList<ICommand>();
     
-    File file = new File("PatientRequestSystemData.txt");
+    File file = new File("RequestSystemData.txt");
     
     public Event onUpdateRequests = new Event();
     
     private final ModelAccountSystem modelAccountSystem;
     private final ModelBookingSystem modelBookingSystem;
     private final ModelAccountHistoryTracker modelAccountHistoryTracker;
+    private final ModelPrescriptionSystem modelPrescriptionSystem;
     private final ModelMain modelMain;
 
-    public ModelPatientRequestSystem(ModelAccountSystem modelAccountSystem, ModelBookingSystem modelBookingSystem, 
-            ModelAccountHistoryTracker modelAccountHistoryTracker, ModelMain modelMain) {
+    public ModelRequestSystem(ModelAccountSystem modelAccountSystem, ModelBookingSystem modelBookingSystem, 
+            ModelAccountHistoryTracker modelAccountHistoryTracker, ModelPrescriptionSystem modelPrescriptionSystem, ModelMain modelMain) {
         this.modelAccountSystem = modelAccountSystem;
         modelAccountSystem.onRemoveAccount.addObserver(this);
         this.modelBookingSystem = modelBookingSystem;
         this.modelAccountHistoryTracker = modelAccountHistoryTracker;
+        this.modelPrescriptionSystem = modelPrescriptionSystem;
         this.modelMain = modelMain;
         
         loadData();
@@ -99,6 +103,27 @@ public class ModelPatientRequestSystem implements IObserverType<String> {
                 requestObject.put("patientId", terminationRequest.getPatientId());
                 
                 requestObject.put("requestType", "terminationRequest");
+            }
+            else if (request instanceof NewMedicineRequest) {
+                
+                NewMedicineRequest newMedicineRequest = (NewMedicineRequest)request;
+                
+                requestObject.put("medicineName", newMedicineRequest.getMedicineName());
+                requestObject.put("doctorId", newMedicineRequest.getSenderId());
+                
+                requestObject.put("requestType", "newMedicineRequest");
+            }
+            else if (request instanceof PrescriptionRequest) {
+                
+                PrescriptionRequest prescriptionRequest = (PrescriptionRequest)request;
+                
+                requestObject.put("medicineName", prescriptionRequest.getMedicineName());
+                requestObject.put("quantity", Integer.toString(prescriptionRequest.getQuantity()));
+                requestObject.put("dosage", prescriptionRequest.getDosage());
+                requestObject.put("doctorId", prescriptionRequest.getDoctorId());
+                requestObject.put("patientId", prescriptionRequest.getPatientId());
+                
+                requestObject.put("requestType", "prescriptionRequest");
             }
             
             requestsArray.add(requestObject);
@@ -168,7 +193,21 @@ public class ModelPatientRequestSystem implements IObserverType<String> {
                     
                     request = new TerminationRequest(patientId2, reason, modelAccountSystem);
                     break;
+                case "newMedicineRequest":
+                    String doctorId2 = (String)objRequest.get("doctorId");
+                    String medicineName = (String)objRequest.get("medicineName");
                     
+                    request = new NewMedicineRequest(doctorId2, medicineName, modelPrescriptionSystem);
+                    break;
+                case "prescriptionRequest":
+                    String medicineName2 = (String)objRequest.get("medicineName");
+                    int quantity = Integer.parseInt((String)objRequest.get("quantity"));
+                    String dosage = (String)objRequest.get("dosage");
+                    String patientId3 = (String)objRequest.get("patientId");
+                    String doctorId3 = (String)objRequest.get("doctorId");
+                    
+                    request = new PrescriptionRequest(medicineName2, quantity, dosage, doctorId3, patientId3, modelPrescriptionSystem);
+                    break;
             }
             
             requests.add(request);
@@ -191,13 +230,26 @@ public class ModelPatientRequestSystem implements IObserverType<String> {
         saveData();
     }
     
-    public void requestAppointment(Account fromPatient, String dateAndTime, Account withDoctor) {
+    public void requestAppointmentWithDoctor(Account fromPatient, String dateAndTime, Account withDoctor) {
         
         AppointmentRequest appointmentRequest = new AppointmentRequest(fromPatient.getId(), dateAndTime, withDoctor.getId(), modelMain);
         
         requests.add(appointmentRequest);
         
         modelAccountHistoryTracker.recordAction("Requested appointment with doctor " + withDoctor.getUser().getName() + " " + withDoctor.getUser().getSurname());
+        
+        onUpdateRequests.invoke();
+        
+        saveData();
+    }
+    
+    public void requestAppointmentForPatient(Account withPatient, String dateAndTime, Account fromDoctor) {
+        
+        AppointmentRequest appointmentRequest = new AppointmentRequest(withPatient.getId(), dateAndTime, fromDoctor.getId(), modelMain);
+        
+        requests.add(appointmentRequest);
+        
+        modelAccountHistoryTracker.recordAction("Requested appointment for patient " + withPatient.getUser().getName() + " " + withPatient.getUser().getSurname());
         
         onUpdateRequests.invoke();
         
@@ -211,6 +263,32 @@ public class ModelPatientRequestSystem implements IObserverType<String> {
         requests.add(terminationRequest);
         
         modelAccountHistoryTracker.recordAction("Requested termination of account");
+        
+        onUpdateRequests.invoke();
+        
+        saveData();
+    }
+    
+    public void requestNewMedicine(String doctorId, String medicineName) {
+        
+        NewMedicineRequest newMedicineRequest = new NewMedicineRequest(doctorId, medicineName, modelPrescriptionSystem);
+        
+        requests.add(newMedicineRequest);
+        
+        modelAccountHistoryTracker.recordAction("Requested new medicine");
+        
+        onUpdateRequests.invoke();
+        
+        saveData();
+    }
+    
+    public void requestPatientPrescription(String medicine, int quantity, String dosage, String patientId, String doctorId) {
+        
+        PrescriptionRequest prescriptionRequest = new PrescriptionRequest(medicine, quantity, dosage, doctorId, patientId, modelPrescriptionSystem);
+        
+        requests.add(prescriptionRequest);
+        
+        modelAccountHistoryTracker.recordAction("Requested prescription for patient");
         
         onUpdateRequests.invoke();
         

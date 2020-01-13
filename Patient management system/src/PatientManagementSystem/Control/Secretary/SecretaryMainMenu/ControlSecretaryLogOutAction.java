@@ -5,7 +5,7 @@
  */
 package PatientManagementSystem.Control.Secretary.SecretaryMainMenu;
 
-import PatientManagementSystem.IObserver;
+import PatientManagementSystem.View.EventSystem.IObserver;
 import PatientManagementSystem.Model.ModelMain;
 import PatientManagementSystem.View.Secretary.ViewSecretaryMainMenu;
 

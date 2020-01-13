@@ -5,7 +5,7 @@
  */
 package PatientManagementSystem.View.Secretary;
 
-import PatientManagementSystem.Event;
+import PatientManagementSystem.View.EventSystem.Event;
 import java.util.ArrayList;
 import javax.swing.DefaultListModel;
 
@@ -15,7 +15,8 @@ import javax.swing.DefaultListModel;
  */
 public class ViewSecretaryMainMenu extends javax.swing.JFrame {
 
-    public Event onSelectIndex, onApproveRequest, onRejectRequest, onLogOut;
+    public Event onSelectIndex, onApproveRequest, onRejectRequest, onLogOut,
+            onSeeMedicineStock, onRemovePatient, onSeeDoctorAvailability;
     
     /**
      * Creates new form SecretaryMainMenu
@@ -26,6 +27,9 @@ public class ViewSecretaryMainMenu extends javax.swing.JFrame {
         onApproveRequest = new Event();
         onRejectRequest = new Event();
         onLogOut = new Event();
+        onSeeMedicineStock = new Event();
+        onRemovePatient = new Event();
+        onSeeDoctorAvailability = new Event();
     }
     
     int validIndex = -1;
@@ -87,9 +91,9 @@ public class ViewSecretaryMainMenu extends javax.swing.JFrame {
         lblRequestDescription = new javax.swing.JLabel();
         btnRejectRequest = new javax.swing.JButton();
         btnLogOut = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        btnMedicineStock = new javax.swing.JButton();
+        btnRemovePatient = new javax.swing.JButton();
+        btnDoctorAvailability = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -134,11 +138,26 @@ public class ViewSecretaryMainMenu extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setText("Medicine stock");
+        btnMedicineStock.setText("Medicine stock");
+        btnMedicineStock.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMedicineStockActionPerformed(evt);
+            }
+        });
 
-        jButton2.setText("Remove patient");
+        btnRemovePatient.setText("Remove patient");
+        btnRemovePatient.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRemovePatientActionPerformed(evt);
+            }
+        });
 
-        jButton3.setText("Doctor availablity");
+        btnDoctorAvailability.setText("Doctor availablity");
+        btnDoctorAvailability.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDoctorAvailabilityActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -155,15 +174,15 @@ public class ViewSecretaryMainMenu extends javax.swing.JFrame {
                             .addComponent(lblRequestDescription))
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnDoctorAvailability, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(btnRejectRequest, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(btnRemovePatient, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(btnLogOut, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnMedicineStock, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(btnApproveRequest, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap())
         );
@@ -184,9 +203,9 @@ public class ViewSecretaryMainMenu extends javax.swing.JFrame {
                     .addComponent(btnRejectRequest))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2)
-                    .addComponent(jButton3))
+                    .addComponent(btnMedicineStock)
+                    .addComponent(btnRemovePatient)
+                    .addComponent(btnDoctorAvailability))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnLogOut)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -228,6 +247,18 @@ public class ViewSecretaryMainMenu extends javax.swing.JFrame {
         onLogOut.invoke();
     }//GEN-LAST:event_btnLogOutActionPerformed
 
+    private void btnDoctorAvailabilityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDoctorAvailabilityActionPerformed
+        onSeeDoctorAvailability.invoke();
+    }//GEN-LAST:event_btnDoctorAvailabilityActionPerformed
+
+    private void btnRemovePatientActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemovePatientActionPerformed
+        onRemovePatient.invoke();
+    }//GEN-LAST:event_btnRemovePatientActionPerformed
+
+    private void btnMedicineStockActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMedicineStockActionPerformed
+        onSeeMedicineStock.invoke();
+    }//GEN-LAST:event_btnMedicineStockActionPerformed
+
     
     
     /**
@@ -268,11 +299,11 @@ public class ViewSecretaryMainMenu extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnApproveRequest;
+    private javax.swing.JButton btnDoctorAvailability;
     private javax.swing.JButton btnLogOut;
+    private javax.swing.JButton btnMedicineStock;
     private javax.swing.JButton btnRejectRequest;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
+    private javax.swing.JButton btnRemovePatient;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;

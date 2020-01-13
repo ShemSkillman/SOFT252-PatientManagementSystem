@@ -5,9 +5,12 @@
  */
 package PatientManagementSystem.Control.Doctor;
 
-import PatientManagementSystem.Control.Doctor.DoctorMainMenu.ControlDoctorLogOutAction;
 import PatientManagementSystem.Control.Doctor.DoctorMainMenu.ControlSaveNotesAction;
-import PatientManagementSystem.IObserver;
+import PatientManagementSystem.Control.Doctor.DoctorMainMenu.ControlDoctorLogOutAction;
+import PatientManagementSystem.Control.Doctor.DoctorMainMenu.ControlGivePrescriptionAction;
+import PatientManagementSystem.Control.Doctor.DoctorMainMenu.ControlInspectPatientHistoryAction;
+import PatientManagementSystem.Control.Doctor.DoctorMainMenu.ControlProposeAppointmentAction;
+import PatientManagementSystem.View.EventSystem.IObserver;
 import PatientManagementSystem.Model.Data.AccountSystem.Account;
 import PatientManagementSystem.Model.Data.BookingSystem.Appointment;
 import PatientManagementSystem.Model.ModelMain;
@@ -23,13 +26,18 @@ public class ControlDoctorMainMenu implements IObserver {
     
     private final ModelMain modelMain;
     
+    Appointment selectedAppointment;
     ArrayList<Appointment> appointments;
+    ArrayList<String> patientIds;
     
     // Stores reference to window to hide/unhide
     private final ViewDoctorMainMenu viewDoctorMainMenu;  
     
     private final ControlDoctorLogOutAction controlDoctorLogOutAction;
     private final ControlSaveNotesAction controlSaveNotesAction;
+    private final ControlGivePrescriptionAction controlGivePrescriptionAction;
+    private final ControlProposeAppointmentAction controlProposeAppointmentAction;
+    private final ControlInspectPatientHistoryAction controlInspectPatientHistoryAction;
     
     // Creates window and hooks up control classes to main model to send requests
     public ControlDoctorMainMenu(ModelMain modelMain){
@@ -38,6 +46,9 @@ public class ControlDoctorMainMenu implements IObserver {
         viewDoctorMainMenu = new ViewDoctorMainMenu(); 
         controlDoctorLogOutAction = new ControlDoctorLogOutAction(modelMain, viewDoctorMainMenu);
         controlSaveNotesAction = new ControlSaveNotesAction(viewDoctorMainMenu, modelMain);
+        controlGivePrescriptionAction = new ControlGivePrescriptionAction(viewDoctorMainMenu, modelMain);
+        controlProposeAppointmentAction = new ControlProposeAppointmentAction(viewDoctorMainMenu, modelMain);
+        controlInspectPatientHistoryAction = new ControlInspectPatientHistoryAction(viewDoctorMainMenu, modelMain);
         
         viewDoctorMainMenu.onClickAppointment.addObserver(this);
         
@@ -76,7 +87,7 @@ public class ControlDoctorMainMenu implements IObserver {
         
         viewDoctorMainMenu.EnableButtons(true);
         
-        Appointment selectedAppointment = appointments.get(selectedIndex);
+        selectedAppointment = appointments.get(selectedIndex);
         controlSaveNotesAction.setSelectedAppointment(selectedAppointment);
         
         String patientId = selectedAppointment.getPatientId();

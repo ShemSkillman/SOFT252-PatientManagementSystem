@@ -5,7 +5,7 @@
  */
 package PatientManagementSystem.Control.Secretary;
 
-import PatientManagementSystem.IObserver;
+import PatientManagementSystem.View.EventSystem.IObserver;
 import PatientManagementSystem.Control.Secretary.SecretaryMainMenu.*;
 import PatientManagementSystem.Model.ICommand;
 import PatientManagementSystem.Model.ModelMain;
@@ -26,6 +26,10 @@ public class ControlSecretaryMainMenu implements IObserver {
     private final ControlApproveRequestAction controlApproveRequestAction;
     private final ControlRejectRequestAction controlRejectRequestAction;
     private final ControlSecretaryLogOutAction controlSecretaryLogOutAction;
+    private final ControlDoctorAvailabilityAction controlDoctorAvailabilityAction;
+    private final ControlMedicineStockAction controlMedicineStockAction;
+    private final ControlRemovePatientAction controlRemovePatientAction;
+    
     
     ArrayList<ICommand> requests;
     
@@ -36,9 +40,12 @@ public class ControlSecretaryMainMenu implements IObserver {
         controlApproveRequestAction = new ControlApproveRequestAction(modelMain, viewSecretaryMainMenu);
         controlRejectRequestAction = new ControlRejectRequestAction(modelMain, viewSecretaryMainMenu);
         controlSecretaryLogOutAction = new ControlSecretaryLogOutAction(modelMain, viewSecretaryMainMenu);
+        controlDoctorAvailabilityAction = new ControlDoctorAvailabilityAction(modelMain, viewSecretaryMainMenu);
+        controlMedicineStockAction = new ControlMedicineStockAction(modelMain, viewSecretaryMainMenu);
+        controlRemovePatientAction = new ControlRemovePatientAction(modelMain, viewSecretaryMainMenu);
         
         viewSecretaryMainMenu.onSelectIndex.addObserver(this);     
-        modelMain.getModelPatientRequestSystem().onUpdateRequests.addObserver(this);
+        modelMain.getModelRequestSystem().onUpdateRequests.addObserver(this);
         
         refresh();
         
@@ -59,7 +66,7 @@ public class ControlSecretaryMainMenu implements IObserver {
     private void refresh() {
         int selectedIndex = viewSecretaryMainMenu.getSelectedRequestId();
         
-        requests = modelMain.getModelPatientRequestSystem().getAllRequests();
+        requests = modelMain.getModelRequestSystem().getAllRequests();
         
         if (requests.size() < 1)
         {

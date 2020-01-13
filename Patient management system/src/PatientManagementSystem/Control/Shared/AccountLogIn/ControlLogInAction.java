@@ -5,7 +5,7 @@
  */
 package PatientManagementSystem.Control.Shared.AccountLogIn;
 
-import PatientManagementSystem.IObserver;
+import PatientManagementSystem.View.EventSystem.IObserver;
 import PatientManagementSystem.Model.ModelMain;
 import PatientManagementSystem.Model.User.Role;
 import PatientManagementSystem.View.ViewLogIn;

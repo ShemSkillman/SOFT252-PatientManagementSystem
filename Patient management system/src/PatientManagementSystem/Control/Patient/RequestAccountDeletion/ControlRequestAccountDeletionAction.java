@@ -5,7 +5,7 @@
  */
 package PatientManagementSystem.Control.Patient.RequestAccountDeletion;
 
-import PatientManagementSystem.IObserver;
+import PatientManagementSystem.View.EventSystem.IObserver;
 import PatientManagementSystem.Model.Data.AccountSystem.Account;
 import PatientManagementSystem.Model.ModelMain;
 import PatientManagementSystem.View.Patient.ViewRequestAccountDeletion;
@@ -33,7 +33,7 @@ public class ControlRequestAccountDeletionAction implements IObserver {
         Account loggedInPatient = modelMain.getModelAccountSystem().getLoggedInAccount();
         String reason = viewRequestAccountDeletion.getReason();
         
-        modelMain.getModelPatientRequestSystem().requestAccountTermination(loggedInPatient, reason);
+        modelMain.getModelRequestSystem().requestAccountTermination(loggedInPatient, reason);
         
         viewRequestAccountDeletion.showMessage("Termination request sent", "Request for termination of account sent and will be reviewed shortly.");
     }
