@@ -32,6 +32,13 @@ public class Prescription {
         dateGiven = day + "/" + (month + 1) + "/" + year + " " + 
                 hour + ":" + minute;
     }
+    
+    public Prescription(String medicineName, int quantity, String dosage, String dateGiven) {
+        
+        this.medicine = new Medicine(medicineName, quantity);
+        this.dosage = dosage;
+        this.dateGiven = dateGiven;
+    }
 
     public String getMedicineName() {
         return medicine.getName();

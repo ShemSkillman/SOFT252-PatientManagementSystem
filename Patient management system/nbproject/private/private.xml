@@ -3,20 +3,37 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/shems/Documents/GitHub/SOFT252-PatientManagementSystem/Patient%20management%20system/src/PatientManagementSystem/View/Doctor/ViewPrescription.java</file>
+            <file>file:/C:/Users/shems/Documents/GitHub/SOFT252-PatientManagementSystem/Patient%20management%20system/src/PatientManagementSystem/View/Secretary/ViewDoctorAvailability.java</file>
+            <file>file:/C:/Users/shems/Documents/GitHub/SOFT252-PatientManagementSystem/Patient%20management%20system/src/PatientManagementSystem/Model/Data/RequestSystem/PrescriptionRequest.java</file>
+            <file>file:/C:/Users/shems/Documents/GitHub/SOFT252-PatientManagementSystem/Patient%20management%20system/src/PatientManagementSystem/Control/Secretary/RemovePatient/ControlRemovePatientAction.java</file>
             <file>file:/C:/Users/shems/Documents/GitHub/SOFT252-PatientManagementSystem/Patient%20management%20system/src/PatientManagementSystem/View/Secretary/ViewMedicineStock.java</file>
-            <file>file:/C:/Users/shems/Documents/GitHub/SOFT252-PatientManagementSystem/Patient%20management%20system/src/PatientManagementSystem/View/Doctor/ViewOrderMedicine.java</file>
-            <file>file:/C:/Users/shems/Documents/GitHub/SOFT252-PatientManagementSystem/Patient%20management%20system/src/PatientManagementSystem/Model/Data/ModelPrescriptionSystem.java</file>
-            <file>file:/C:/Users/shems/Documents/GitHub/SOFT252-PatientManagementSystem/Patient%20management%20system/src/PatientManagementSystem/View/Patient/ViewRequestDoctorAppointment.java</file>
-            <file>file:/C:/Users/shems/Documents/GitHub/SOFT252-PatientManagementSystem/Patient%20management%20system/src/PatientManagementSystem/Control/Doctor/ControlProposeAppointment.java</file>
+            <file>file:/C:/Users/shems/Documents/GitHub/SOFT252-PatientManagementSystem/Patient%20management%20system/src/PatientManagementSystem/Model/Data/ModelBookingSystem.java</file>
+            <file>file:/C:/Users/shems/Documents/GitHub/SOFT252-PatientManagementSystem/Patient%20management%20system/src/PatientManagementSystem/View/Secretary/ViewSecretaryMainMenu.java</file>
+            <file>file:/C:/Users/shems/Documents/GitHub/SOFT252-PatientManagementSystem/Patient%20management%20system/src/PatientManagementSystem/Control/Secretary/MedicineStock/ControlOrderMedicineAction.java</file>
+            <file>file:/C:/Users/shems/Documents/GitHub/SOFT252-PatientManagementSystem/Patient%20management%20system/src/PatientManagementSystem/Control/Secretary/ControlSecretaryMainMenu.java</file>
             <file>file:/C:/Users/shems/Documents/GitHub/SOFT252-PatientManagementSystem/Patient%20management%20system/src/PatientManagementSystem/Model/Data/RequestSystem/AppointmentRequest.java</file>
             <file>file:/C:/Users/shems/Documents/GitHub/SOFT252-PatientManagementSystem/Patient%20management%20system/src/PatientManagementSystem/Model/Data/ModelRequestSystem.java</file>
             <file>file:/C:/Users/shems/Documents/GitHub/SOFT252-PatientManagementSystem/Patient%20management%20system/src/PatientManagementSystem/Control/Patient/RequestDoctorAppointment/ControlRequestDoctorAppointmentAction.java</file>
             <file>file:/C:/Users/shems/Documents/GitHub/SOFT252-PatientManagementSystem/Patient%20management%20system/src/PatientManagementSystem/View/Patient/ViewRequestPatientAccount.java</file>
-            <file>file:/C:/Users/shems/Documents/GitHub/SOFT252-PatientManagementSystem/Patient%20management%20system/src/PatientManagementSystem/Control/Doctor/ControlOrderMedicine.java</file>
-            <file>file:/C:/Users/shems/Documents/GitHub/SOFT252-PatientManagementSystem/Patient%20management%20system/src/PatientManagementSystem/Control/Doctor/Prescription/ControlRequestPrescription.java</file>
             <file>file:/C:/Users/shems/Documents/GitHub/SOFT252-PatientManagementSystem/Patient%20management%20system/src/PatientManagementSystem/View/Doctor/ViewProposeAppointment.java</file>
             <file>file:/C:/Users/shems/Documents/GitHub/SOFT252-PatientManagementSystem/Patient%20management%20system/src/PatientManagementSystem/Control/Doctor/Prescription/ControlOrderNewMedicineAction.java</file>
+            <file>file:/C:/Users/shems/Documents/GitHub/SOFT252-PatientManagementSystem/Patient%20management%20system/src/PatientManagementSystem/Model/Data/ModelDoctorRatingSystem.java</file>
+            <file>file:/C:/Users/shems/Documents/GitHub/SOFT252-PatientManagementSystem/Patient%20management%20system/src/PatientManagementSystem/Control/Secretary/ControlMedicineStock.java</file>
+            <file>file:/C:/Users/shems/Documents/GitHub/SOFT252-PatientManagementSystem/Patient%20management%20system/src/PatientManagementSystem/Model/ModelMain.java</file>
+            <file>file:/C:/Users/shems/Documents/GitHub/SOFT252-PatientManagementSystem/Patient%20management%20system/src/PatientManagementSystem/Model/Data/PrescriptionSystem/Prescription.java</file>
+            <file>file:/C:/Users/shems/Documents/GitHub/SOFT252-PatientManagementSystem/Patient%20management%20system/src/PatientManagementSystem/View/Secretary/ViewRemovePatient.java</file>
+            <file>file:/C:/Users/shems/Documents/GitHub/SOFT252-PatientManagementSystem/Patient%20management%20system/src/PatientManagementSystem/View/Doctor/ViewPrescription.java</file>
+            <file>file:/C:/Users/shems/Documents/GitHub/SOFT252-PatientManagementSystem/Patient%20management%20system/src/PatientManagementSystem/View/Doctor/ViewOrderMedicine.java</file>
+            <file>file:/C:/Users/shems/Documents/GitHub/SOFT252-PatientManagementSystem/Patient%20management%20system/src/PatientManagementSystem/View/Doctor/ViewInspectPatientHistory.java</file>
+            <file>file:/C:/Users/shems/Documents/GitHub/SOFT252-PatientManagementSystem/Patient%20management%20system/src/PatientManagementSystem/Control/Secretary/ControlRemovePatient.java</file>
+            <file>file:/C:/Users/shems/Documents/GitHub/SOFT252-PatientManagementSystem/Patient%20management%20system/src/PatientManagementSystem/Model/Data/ModelPrescriptionSystem.java</file>
+            <file>file:/C:/Users/shems/Documents/GitHub/SOFT252-PatientManagementSystem/Patient%20management%20system/src/PatientManagementSystem/View/Doctor/ViewDoctorMainMenu.java</file>
+            <file>file:/C:/Users/shems/Documents/GitHub/SOFT252-PatientManagementSystem/Patient%20management%20system/src/PatientManagementSystem/Control/Secretary/ControlDoctorAvailability.java</file>
+            <file>file:/C:/Users/shems/Documents/GitHub/SOFT252-PatientManagementSystem/Patient%20management%20system/src/PatientManagementSystem/Model/Data/PrescriptionSystem/PatientMedicineRecord.java</file>
+            <file>file:/C:/Users/shems/Documents/GitHub/SOFT252-PatientManagementSystem/Patient%20management%20system/src/PatientManagementSystem/View/Patient/ViewRequestDoctorAppointment.java</file>
+            <file>file:/C:/Users/shems/Documents/GitHub/SOFT252-PatientManagementSystem/Patient%20management%20system/src/PatientManagementSystem/Control/Doctor/ControlProposeAppointment.java</file>
+            <file>file:/C:/Users/shems/Documents/GitHub/SOFT252-PatientManagementSystem/Patient%20management%20system/src/PatientManagementSystem/Control/Doctor/ControlOrderMedicine.java</file>
+            <file>file:/C:/Users/shems/Documents/GitHub/SOFT252-PatientManagementSystem/Patient%20management%20system/src/PatientManagementSystem/Control/Doctor/Prescription/ControlRequestPrescription.java</file>
             <file>file:/C:/Users/shems/Documents/GitHub/SOFT252-PatientManagementSystem/Patient%20management%20system/src/PatientManagementSystem/Control/Doctor/ProposeAppointment/ControlRequestAppointmentAction.java</file>
         </group>
     </open-files>

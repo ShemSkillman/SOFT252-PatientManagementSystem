@@ -5,14 +5,20 @@
  */
 package PatientManagementSystem.Control.Secretary;
 
+import PatientManagementSystem.Model.Data.AccountSystem.Account;
+import PatientManagementSystem.Model.Data.BookingSystem.Appointment;
 import PatientManagementSystem.Model.ModelMain;
+import PatientManagementSystem.Model.User.Role;
+import PatientManagementSystem.Model.User.User;
+import PatientManagementSystem.View.EventSystem.IObserver;
 import PatientManagementSystem.View.Secretary.ViewDoctorAvailability;
+import java.util.ArrayList;
 
 /**
  *
  * @author Shem
  */
-public class ControlDoctorAvailability {
+public class ControlDoctorAvailability implements IObserver {
     
     ModelMain modelMain;
     
@@ -24,12 +30,60 @@ public class ControlDoctorAvailability {
         
         this.modelMain = modelMain;
         viewDoctorAvailability = new ViewDoctorAvailability();     
+        modelMain.getModelAccountSystem().onUpdateAccounts.addObserver(this);
+        modelMain.getModelBookingSystem().onUpdateAppointments.addObserver(this);
+        
+        refresh();
         
         viewDoctorAvailability.setVisible(true);
     }
     
+    public void refresh() {
+        ArrayList<Account> doctorAccounts = modelMain.getModelAccountSystem().getAccountsOfTypeRole(Role.Doctor);
+        
+        ArrayList<String> doctorNames = new ArrayList();
+        
+        for (var doctorAccount : doctorAccounts)
+        {
+            User doctor = doctorAccount.getUser();
+            
+            String doctorName = doctorAccount.getId() + " " + doctor.getName() + 
+                    " " + doctor.getSurname();
+            
+            doctorNames.add(doctorName);
+        }
+        
+        viewDoctorAvailability.setDoctors(doctorNames);
+        
+        String doctorId = viewDoctorAvailability.getSelectedDoctorId();
+        
+        Account doctorAccount = modelMain.getModelAccountSystem().getAccount(doctorId);
+        ArrayList<Appointment> appointments = modelMain.getModelBookingSystem().getAppointmentsWithDoctor(doctorAccount);
+        
+        ArrayList<String> appointmentTimeAndDates = new ArrayList();
+        ArrayList<String> patientNames = new ArrayList();
+        
+        for (Appointment appointment : appointments)
+        {
+            appointmentTimeAndDates.add(appointment.getScheduledDateAndTime());
+            User patient = modelMain.getModelAccountSystem().getAccount(appointment.getPatientId()).getUser();
+            
+            String patientName = appointment.getPatientId() + " " + patient.getName() + " " + patient.getSurname();
+            patientNames.add(patientName);
+        }
+        
+        viewDoctorAvailability.fillBookingsTable(appointmentTimeAndDates, patientNames);
+    }
+    
     public void setVisible(boolean isVisible){
         
+        if (isVisible) refresh();
+        
         viewDoctorAvailability.setVisible(isVisible);
+    }
+    
+    @Override
+    public void update() {
+        refresh();
     }
 }

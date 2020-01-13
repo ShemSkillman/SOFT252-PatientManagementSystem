@@ -21,6 +21,11 @@ public class PatientMedicineRecord {
         prescriptions.add(prescription);
     }
     
+    public PatientMedicineRecord(String patientId , ArrayList<Prescription> prescriptions) {
+        this.patientId = patientId;
+        this.prescriptions = prescriptions;
+    }
+    
     public void addPrescription(Prescription prescription) {
         prescriptions.add(prescription);
     } 

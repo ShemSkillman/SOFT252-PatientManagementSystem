@@ -5,17 +5,53 @@
  */
 package PatientManagementSystem.View.Secretary;
 
+import PatientManagementSystem.Model.Data.BookingSystem.Appointment;
+import PatientManagementSystem.View.EventSystem.Event;
+import java.util.ArrayList;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Shem
  */
 public class ViewDoctorAvailability extends javax.swing.JFrame {
-
+    
+    public Event onSelectDoctor = new Event();
+    
     /**
      * Creates new form ViewDoctorAvailability
      */
     public ViewDoctorAvailability() {
         initComponents();
+    }
+    
+    public void setDoctors(ArrayList<String> doctorNames) {
+       
+        cboxDoctorNames.removeAllItems();
+        
+        for (var doctorName : doctorNames)
+        {
+            cboxDoctorNames.addItem(doctorName);
+        }
+    }
+    
+    public void fillBookingsTable(ArrayList<String> appointmentDateAndTimes, 
+            ArrayList<String> patientNames) {
+        
+        DefaultTableModel model = (DefaultTableModel)tblBookedAppointments.getModel();
+        model.setRowCount(patientNames.size());
+        tblBookedAppointments.setModel(model);
+        
+        for (int i = 0; i < patientNames.size(); i++)
+        {
+            tblBookedAppointments.getModel().setValueAt(appointmentDateAndTimes.get(i), i, 0);
+            tblBookedAppointments.getModel().setValueAt(patientNames.get(i), i, 1);
+        }
+    }
+    
+    public String getSelectedDoctorId() {
+        String name = (String)cboxDoctorNames.getSelectedItem();
+        return name.substring(0, 5);
     }
 
     /**
@@ -28,19 +64,25 @@ public class ViewDoctorAvailability extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        lblDoctor = new javax.swing.JLabel();
+        cboxDoctorNames = new javax.swing.JComboBox<>();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tblBookedAppointments = new javax.swing.JTable();
         jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Doctor Availability", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 14))); // NOI18N
 
-        jLabel1.setText("Doctor");
+        lblDoctor.setText("Doctor");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        cboxDoctorNames.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cboxDoctorNamesActionPerformed(evt);
+            }
+        });
+
+        tblBookedAppointments.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null},
                 {null, null},
@@ -66,7 +108,7 @@ public class ViewDoctorAvailability extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tblBookedAppointments);
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel2.setText("Booked appointments");
@@ -79,9 +121,9 @@ public class ViewDoctorAvailability extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel1)
+                        .addComponent(lblDoctor)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(cboxDoctorNames, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -94,8 +136,8 @@ public class ViewDoctorAvailability extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblDoctor)
+                    .addComponent(cboxDoctorNames, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel2)
                 .addGap(10, 10, 10)
@@ -122,6 +164,10 @@ public class ViewDoctorAvailability extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void cboxDoctorNamesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboxDoctorNamesActionPerformed
+        onSelectDoctor.invoke();
+    }//GEN-LAST:event_cboxDoctorNamesActionPerformed
 
     /**
      * @param args the command line arguments
@@ -159,11 +205,11 @@ public class ViewDoctorAvailability extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JComboBox<String> cboxDoctorNames;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JLabel lblDoctor;
+    private javax.swing.JTable tblBookedAppointments;
     // End of variables declaration//GEN-END:variables
 }

@@ -28,9 +28,7 @@ public class ControlOrderMedicineAction implements IObserver {
     // Gets inputs from text components on the form
     // Sends details to model to create the accout
     @Override
-    public void update() {
-        modelMain.secretaryMedicineStock();
-        
+    public void update() {        
         String medicine = viewMedicineStock.getSelectedMedicineName();
         int quantity = viewMedicineStock.getOrderQuantity();
         

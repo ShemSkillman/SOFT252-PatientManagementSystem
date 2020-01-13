@@ -5,17 +5,43 @@
  */
 package PatientManagementSystem.View.Secretary;
 
+import PatientManagementSystem.View.EventSystem.Event;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Shem
  */
 public class ViewRemovePatient extends javax.swing.JFrame {
 
+    public Event onRemovePatient = new Event();
+    
     /**
      * Creates new form ViewRemovePatient
      */
     public ViewRemovePatient() {
         initComponents();
+    }
+    
+    public void setPatients(ArrayList<String> patientNames) {
+        
+        cboxPatients.removeAllItems();
+        
+        for (var patientName : patientNames)
+        {
+            cboxPatients.addItem(patientName);
+        }
+        
+    }
+    
+    public String getSelectedPatientId() {
+        String name = (String)cboxPatients.getSelectedItem();
+        return name.substring(0, 5);
+    }
+    
+    public void showMessage(String title, String message) {
+        JOptionPane.showMessageDialog(null, message, title, JOptionPane.INFORMATION_MESSAGE);
     }
 
     /**
@@ -28,17 +54,22 @@ public class ViewRemovePatient extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jButton1 = new javax.swing.JButton();
+        lblPatient = new javax.swing.JLabel();
+        cboxPatients = new javax.swing.JComboBox<>();
+        btnRemovePatient = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Remove Patient", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 14))); // NOI18N
 
-        jLabel1.setText("Patient");
+        lblPatient.setText("Patient");
 
-        jButton1.setText("Remove patient");
+        btnRemovePatient.setText("Remove patient");
+        btnRemovePatient.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRemovePatientActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -48,12 +79,12 @@ public class ViewRemovePatient extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel1)
+                        .addComponent(lblPatient)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(cboxPatients, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGap(0, 168, Short.MAX_VALUE)
-                        .addComponent(jButton1)))
+                        .addComponent(btnRemovePatient)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -61,10 +92,10 @@ public class ViewRemovePatient extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblPatient)
+                    .addComponent(cboxPatients, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(39, 39, 39)
-                .addComponent(jButton1)
+                .addComponent(btnRemovePatient)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -87,6 +118,10 @@ public class ViewRemovePatient extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnRemovePatientActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemovePatientActionPerformed
+        onRemovePatient.invoke();
+    }//GEN-LAST:event_btnRemovePatientActionPerformed
 
     /**
      * @param args the command line arguments
@@ -124,9 +159,9 @@ public class ViewRemovePatient extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JButton btnRemovePatient;
+    private javax.swing.JComboBox<String> cboxPatients;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel lblPatient;
     // End of variables declaration//GEN-END:variables
 }

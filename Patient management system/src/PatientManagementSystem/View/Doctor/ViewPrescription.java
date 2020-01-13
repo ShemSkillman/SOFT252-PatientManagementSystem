@@ -161,7 +161,7 @@ public class ViewPrescription extends javax.swing.JFrame {
         jScrollPane1.setViewportView(tblPrescriptions);
 
         lblPatientPrescriptions.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        lblPatientPrescriptions.setText("Patient prescriptions");
+        lblPatientPrescriptions.setText("Current prescriptions for patient");
 
         lblNewPrescription.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         lblNewPrescription.setText("New prescription");

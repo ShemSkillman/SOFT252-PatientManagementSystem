@@ -9,7 +9,15 @@ import PatientManagementSystem.Model.Data.PrescriptionSystem.Medicine;
 import PatientManagementSystem.Model.Data.PrescriptionSystem.PatientMedicineRecord;
 import PatientManagementSystem.Model.Data.PrescriptionSystem.Prescription;
 import PatientManagementSystem.View.EventSystem.Event;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Scanner;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
 /**
  *
@@ -19,9 +27,142 @@ public class ModelPrescriptionSystem {
     
     public Event onUpdateMedicineStock = new Event();
     
-    ArrayList<Medicine> medicineStock = new ArrayList();
+    private File file = new File("PrescriptionSystemData.txt");
     
+    // Data to save
+    ArrayList<Medicine> medicineStock = new ArrayList();    
     ArrayList<PatientMedicineRecord> patientRecords = new ArrayList();
+    
+    private void saveData() {
+        JSONObject root = new JSONObject();     
+        
+        JSONArray medicineStockArray = new JSONArray();
+        
+        for (int i = 0; i < medicineStock.size(); i++)
+        {
+            Medicine medicine = medicineStock.get(i);
+            
+            JSONObject medicineObject = new JSONObject();
+            
+            String medicineName = medicine.getName();
+            String medicineQuantity = Integer.toString(medicine.getQuantity());
+            
+            medicineObject.put("medicineName", medicineName);
+            medicineObject.put("medicineQuantity", medicineQuantity);
+            
+            medicineStockArray.add(medicineObject);
+        }
+        
+        root.put("medicineStock", medicineStockArray);
+        
+        JSONArray patientRecordsArray = new JSONArray();
+        
+        for (int i = 0; i < patientRecords.size(); i++)
+        {
+            PatientMedicineRecord patientRecord = patientRecords.get(i);
+            JSONObject patientRecordObject = new JSONObject();
+            
+            patientRecordObject.put("patientId", patientRecord.getPatientId());
+            
+            ArrayList<Prescription> prescriptions = patientRecord.getPrescriptions();
+            
+            JSONArray prescriptionsArray = new JSONArray();
+            
+            for (int j = 0; j < prescriptions.size(); j++)
+            {
+                Prescription prescription = prescriptions.get(j);
+                JSONObject prescriptionObject = new JSONObject();
+                
+                prescriptionObject.put("medicineName", prescription.getMedicineName());
+                prescriptionObject.put("medicineQuantity", prescription.getMedicineQuantity());
+                prescriptionObject.put("medicineDosage", prescription.getDosage());
+                prescriptionObject.put("dateGiven", prescription.getDateGiven());
+                
+                prescriptionsArray.add(prescriptionObject);
+            }
+            
+            patientRecordObject.put("prescriptions", prescriptionsArray);
+            
+            patientRecordsArray.add(patientRecordObject);
+        }
+        
+        root.put("patientRecords", patientRecordsArray);
+        
+        try (PrintWriter writer = new PrintWriter(file)) {
+            writer.print(root.toJSONString());
+        }
+        catch (FileNotFoundException ex) {
+            System.out.println(ex.toString());
+        }
+    }    
+    
+    private void loadData() {
+        StringBuilder jsonIn = new StringBuilder();    
+        
+        try (Scanner reader = new Scanner(file)) {
+            while (reader.hasNextLine())
+            {
+                jsonIn.append(reader.nextLine());
+            }
+        }            
+        catch (FileNotFoundException ex) {
+            System.out.println(ex.toString());        }
+        
+        try {              
+        JSONParser parser = new JSONParser();        
+        JSONObject objRoot = (JSONObject)parser.parse(jsonIn.toString());    
+        
+        JSONArray medicineStockArray = (JSONArray)objRoot.get("medicineStock");
+        medicineStock = new ArrayList();
+        
+        for (int i = 0; i < medicineStockArray.size(); i++)
+        {
+            JSONObject objMedicine = (JSONObject)medicineStockArray.get(i);
+            
+            String medicineName = (String)objMedicine.get("medicineName");
+            int medicineQuantity = Integer.parseInt((String)objMedicine.get("medicineQuantity"));
+            
+            Medicine medicine = new Medicine(medicineName, medicineQuantity);
+            
+            medicineStock.add(medicine);
+        }
+        
+        JSONArray patientRecordsArray = (JSONArray)objRoot.get("patientRecords");
+        patientRecords = new ArrayList();
+        
+        for (int i = 0; i < patientRecordsArray.size(); i++)
+        {
+            JSONObject objPatientRecord = (JSONObject)patientRecordsArray.get(i);
+            String patientId = (String)objPatientRecord.get("patientId");
+            
+            JSONArray prescriptionsArray = (JSONArray)objPatientRecord.get("prescriptions");
+            ArrayList<Prescription> prescriptions = new ArrayList();
+            
+            for (int j = 0; j < prescriptionsArray.size(); j++)
+            {
+                JSONObject prescriptionObj = (JSONObject)prescriptionsArray.get(i);
+                
+                String medicineName = (String)prescriptionObj.get("medicineName");
+                int medicineQuantity = Integer.parseInt((String)prescriptionObj.get("medicineQuantity"));
+                String medicineDosage = (String)prescriptionObj.get("medicineDosage");
+                String medicineDateGiven = (String)prescriptionObj.get("dateGiven");
+                
+                Prescription prescription = new Prescription(medicineName, medicineQuantity, medicineDosage, medicineDateGiven);
+                
+                prescriptions.add(prescription);
+            }
+            
+            PatientMedicineRecord patientRecord = new PatientMedicineRecord(patientId, prescriptions);
+            
+            patientRecords.add(patientRecord);
+        }
+        
+        }
+        catch (ParseException ex)
+        {
+            System.out.println(ex.toString());
+        }
+    }
     
     public void givePrescription(String patientId, String medicineName, int quantity, String dosage)
     {
