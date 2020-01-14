@@ -138,7 +138,9 @@ public class ViewRemoveAccount extends javax.swing.JFrame {
         return (String)cboxAccountType.getSelectedItem();
     }
     
-    
+    public void enableRemoveAccount(boolean isEnabled) {
+        btnDeleteAccount.setEnabled(isEnabled);
+    }
     
     public void setListOfNames(ArrayList<String> names) {
         

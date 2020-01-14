@@ -153,6 +153,8 @@ public class ViewRateDoctor extends javax.swing.JFrame {
 
     public void setDoctors(ArrayList<String> DoctorNames) {
         
+        cboxDoctor.removeAllItems();
+        
         for (String Doctor : DoctorNames) 
         {
             cboxDoctor.addItem(Doctor);

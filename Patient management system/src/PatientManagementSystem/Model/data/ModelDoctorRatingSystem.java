@@ -187,6 +187,19 @@ public class ModelDoctorRatingSystem implements IObserverType<String> {
         return true;
     }
     
+    public void addDoctorSummary(String doctorId, String summary) {
+        
+        DoctorRating rating = findDoctorRating(doctorId);
+        
+        if (rating == null) return;
+        
+        rating.setFeedbackSummary(summary);
+        
+        saveData();
+        
+        onUpdateDoctorRatings.invoke();
+    }
+    
     public ArrayList<DoctorRating> getRatedDoctors()
     {
         return ratedDoctors;
@@ -200,10 +213,9 @@ public class ModelDoctorRatingSystem implements IObserverType<String> {
         // Doctor has no rating anyway
         if (doctorRating == null) return;
         
-        User doctor = modelAccountSystem.getAccount(doctorId).getUser();
-        
-        modelAccountHistoryTracker.recordAction("Removed doctor " + doctor.getName() + " "  
-        + doctor.getSurname() + " ratings from the system");
+        System.out.println("removed doctor ratings");
+        modelAccountHistoryTracker.recordAction("Removed  ratings of doctor with ID " + doctorId + " "
+                + " from the system");
         
         ratedDoctors.remove(doctorRating);   
         

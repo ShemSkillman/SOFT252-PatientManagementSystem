@@ -10,6 +10,7 @@ import PatientManagementSystem.Model.Data.ModelAccountSystem;
 import PatientManagementSystem.Model.User.User;
 import PatientManagementSystem.View.EventSystem.Event;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -32,6 +33,8 @@ public class ViewAdminDoctorRatings extends javax.swing.JFrame {
     
     public void setDoctorNames(ArrayList<String> names) {
         
+        cboxDoctorName.removeAllItems();
+        
         for (String name : names) 
         {
             cboxDoctorName.addItem(name);
@@ -51,6 +54,10 @@ public class ViewAdminDoctorRatings extends javax.swing.JFrame {
         if (cboxDoctorName.getItemCount() < 1) return null;
         String name = (String)cboxDoctorName.getSelectedItem();
         return name.substring(0, 5);
+    }
+    
+    public void enableSaveSummaryButton(boolean isEnabled) {
+        btnSaveSummary.setEnabled(isEnabled);
     }
     
     public void fillFeedbackTable(ArrayList<PatientFeedback> allFeedback, ModelAccountSystem accountSystem) {
@@ -74,6 +81,10 @@ public class ViewAdminDoctorRatings extends javax.swing.JFrame {
     
     public String getSummary() {
         return txtSummary.getText();
+    }
+    
+    public void showMessage(String title, String message) {
+        JOptionPane.showMessageDialog(null, message, title, JOptionPane.INFORMATION_MESSAGE);
     }
 
     /**

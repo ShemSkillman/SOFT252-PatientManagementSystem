@@ -42,6 +42,14 @@ public class ControlRemovePatient implements IObserver {
     private void refresh() {
         ArrayList<Account> patientAccounts = modelMain.getModelAccountSystem().getAccountsOfTypeRole(Role.Patient);
         
+        if (patientAccounts.size() < 1)
+        {
+            viewRemovePatient.enableRemovePatient(false);
+            return;
+        }
+        
+        viewRemovePatient.enableRemovePatient(true);
+        
         ArrayList<String> patientNames = new ArrayList();
         
         for (var account : patientAccounts)

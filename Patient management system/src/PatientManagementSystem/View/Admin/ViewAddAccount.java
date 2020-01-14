@@ -73,6 +73,7 @@ public class ViewAddAccount extends javax.swing.JFrame {
         lblAddress.setText("Address");
 
         txtAddress.setColumns(20);
+        txtAddress.setLineWrap(true);
         txtAddress.setRows(5);
         jScrollPane1.setViewportView(txtAddress);
 

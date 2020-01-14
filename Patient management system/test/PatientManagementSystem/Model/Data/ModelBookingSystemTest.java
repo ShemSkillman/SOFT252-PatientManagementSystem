@@ -26,10 +26,6 @@ public class ModelBookingSystemTest {
     public ModelBookingSystemTest() {
     }
     
-    @AfterAll
-    public static void tearDownClass() {
-    }
-    
     @BeforeEach
     public void setUp() {
         modelMain = new ModelMain();
@@ -42,10 +38,12 @@ public class ModelBookingSystemTest {
         bookingSystem.bookAppointment("P0054", "D0592", "13/06/2019");
         bookingSystem.bookAppointment("P0009", "D0125", "06/09/2019");
         bookingSystem.bookAppointment("P0432", "D0910", "13/02/2020");
+        
     }
 
     @Test
     public void testBookAppointment() {
+        
         System.out.println("Testing booking appointments");
         
         ArrayList<Appointment> appointments = bookingSystem.getAllAppointments();
@@ -55,19 +53,17 @@ public class ModelBookingSystemTest {
         Appointment appointment3 = appointments.get(2);
         
         assertEquals(appointment1.getPatientId(), "P0054");
-        assertEquals(appointment1.getDoctorId(), "D0125");
-        assertEquals(appointment1.getPatientId(), "P0054");
+        assertEquals(appointment1.getDoctorId(), "D0592");
+        assertEquals(appointment1.getScheduledDateAndTime(), "13/06/2019");
         
-    }
-
-    @Test
-    public void testGetAppointmentsWithDoctor() {
-        fail();
-    }
-
-    @Test
-    public void testGetAppointmentsForPatient() {
-        fail();
+        assertEquals(appointment2.getPatientId(), "P0009");
+        assertEquals(appointment2.getDoctorId(), "D0125");
+        assertEquals(appointment2.getScheduledDateAndTime(), "06/09/2019");
+        
+        assertEquals(appointment3.getPatientId(), "P0432");
+        assertEquals(appointment3.getDoctorId(), "D0910");
+        assertEquals(appointment3.getScheduledDateAndTime(), "13/02/2020");
+        
     }
     
 }

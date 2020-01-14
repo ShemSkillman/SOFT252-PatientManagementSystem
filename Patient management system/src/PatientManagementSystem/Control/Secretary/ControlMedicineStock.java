@@ -41,6 +41,14 @@ public class ControlMedicineStock implements IObserver {
         
         ArrayList<Medicine> medicines = modelMain.getModelPrescriptionSystem().getMedecineStock();
         
+        if (medicines.size() < 1)
+        {
+            viewMedicineStock.enableOrderMedicine(false);
+            return;
+        }
+        
+        viewMedicineStock.enableOrderMedicine(true);
+        
         viewMedicineStock.fillMedicineStockTable(medicines);
     }
     

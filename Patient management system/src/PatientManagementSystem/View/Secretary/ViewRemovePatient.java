@@ -40,6 +40,11 @@ public class ViewRemovePatient extends javax.swing.JFrame {
         return name.substring(0, 5);
     }
     
+    public void enableRemovePatient(boolean isEnabled) {
+        cboxPatients.setEnabled(isEnabled);
+        btnRemovePatient.setEnabled(isEnabled);
+    }
+    
     public void showMessage(String title, String message) {
         JOptionPane.showMessageDialog(null, message, title, JOptionPane.INFORMATION_MESSAGE);
     }

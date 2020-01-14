@@ -37,8 +37,8 @@ public class ControlRemoveAccountAction implements IObserver {
         
         modelMain.getModelAccountSystem().RemoveAccount(account);
         
-        viewRemoveAccount.showMessage("Account removed succesfully", "The " + account.getUser().getRole().toString() + " account with"
-                + " ID " + account.getId() + " has been removed from the system");
+        viewRemoveAccount.showMessage("Account removed succesfully", "The account with"
+                + " ID " + Id + " has been removed from the system");
         
     }
 }

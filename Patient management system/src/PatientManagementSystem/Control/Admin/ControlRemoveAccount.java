@@ -60,11 +60,19 @@ public class ControlRemoveAccount implements IObserver {
         else if (accountType.compareTo("Doctor") == 0)
         {
             accountsOfType = modelMain.getModelAccountSystem().getAccountsOfTypeRole(Role.Doctor);
-        }
+        }        
         
         ArrayList<String> names = modelMain.getModelAccountSystem().getAccountNames(accountsOfType);
         
         viewRemoveAccount.setListOfNames(names);
+        
+        if (accountsOfType.size() < 1)
+        {
+            viewRemoveAccount.enableRemoveAccount(false);
+            return;
+        }
+        
+        viewRemoveAccount.enableRemoveAccount(true);
     }
     
     public void setVisible(boolean isVisible){

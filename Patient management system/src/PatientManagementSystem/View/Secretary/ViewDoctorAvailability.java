@@ -51,6 +51,8 @@ public class ViewDoctorAvailability extends javax.swing.JFrame {
     
     public String getSelectedDoctorId() {
         String name = (String)cboxDoctorNames.getSelectedItem();
+        if (name == null) return null;
+        
         return name.substring(0, 5);
     }
 

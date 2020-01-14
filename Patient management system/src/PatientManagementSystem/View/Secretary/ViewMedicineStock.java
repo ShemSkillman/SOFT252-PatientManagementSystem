@@ -51,6 +51,12 @@ public class ViewMedicineStock extends javax.swing.JFrame {
         return (int)spinOrderQuantity.getValue();
     }
     
+    public void enableOrderMedicine(boolean isEnabled) {
+        btnOrderMedicine.setEnabled(isEnabled);
+        spinOrderQuantity.setEnabled(isEnabled);
+        cboxMedicines.setEnabled(isEnabled);
+    }
+    
     public void showMessage(String title, String message) {
         JOptionPane.showMessageDialog(null, message, title, JOptionPane.INFORMATION_MESSAGE);
     }

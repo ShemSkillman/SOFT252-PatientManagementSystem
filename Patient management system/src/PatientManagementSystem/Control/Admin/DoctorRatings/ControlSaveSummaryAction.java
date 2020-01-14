@@ -32,16 +32,11 @@ public class ControlSaveSummaryAction implements IObserver {
     @Override
     public void update() {
         
-        String summary = viewAdminDoctorRatings.getSummary();
-        
+        String summary = viewAdminDoctorRatings.getSummary();        
         String doctorId = viewAdminDoctorRatings.getSelectedDoctorId();
         
-        if (doctorId == null || summary == null) return;
+        modelMain.getModelDoctorRatingSystem().addDoctorSummary(doctorId, summary);
         
-        Account doctorAccount = modelMain.getModelAccountSystem().getAccount(doctorId);
-        
-        DoctorRating rating = modelMain.getModelDoctorRatingSystem().findDoctorRating(doctorAccount.getId());
-        rating.setFeedbackSummary(summary);
-        modelMain.getModelDoctorRatingSystem().onUpdateDoctorRatings.invoke();
+        viewAdminDoctorRatings.showMessage("Saved doctor summary", "Summary for doctor rating has been saved to the system.");
     }
 }

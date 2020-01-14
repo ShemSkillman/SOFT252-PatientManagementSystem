@@ -5,6 +5,7 @@
  */
 package PatientManagementSystem.Control.Admin;
 
+import PatientManagementSystem.Control.Admin.DoctorRatings.ControlSaveSummaryAction;
 import PatientManagementSystem.View.EventSystem.IObserver;
 import PatientManagementSystem.Model.Data.AccountSystem.Account;
 import PatientManagementSystem.Model.Data.DoctorRatingSystem.DoctorRating;
@@ -23,25 +24,33 @@ public class ControlAdminDoctorRatings implements IObserver {
     
     // Stores reference to window to hide/unhide
     private final ViewAdminDoctorRatings viewAdminDoctorRatings;  
+    private final ControlSaveSummaryAction controlSaveSummaryAction;
     
     // Creates window and hooks up control classes to main model to send requests
     public ControlAdminDoctorRatings(ModelMain modelMain){
         
         this.modelMain = modelMain;
         viewAdminDoctorRatings = new ViewAdminDoctorRatings();  
+        controlSaveSummaryAction = new ControlSaveSummaryAction(modelMain, viewAdminDoctorRatings);
         viewAdminDoctorRatings.onSelectNewDoctor.addObserver(this);
         modelMain.getModelDoctorRatingSystem().onUpdateDoctorRatings.addObserver(this);
         
-        setDoctorNames();
+        refresh();
         
         viewAdminDoctorRatings.setVisible(true);
     }
     
-    private void setDoctorNames() {
+    private void refresh() {
         ArrayList<DoctorRating> ratings = modelMain.getModelDoctorRatingSystem().getRatedDoctors();
         ArrayList<Account> accountsWithRating = new ArrayList<Account>();
         
-        if (ratings.size() < 1) return;
+        if (ratings.size() < 1) 
+        {
+            viewAdminDoctorRatings.enableSaveSummaryButton(false);
+            return;
+        }
+        
+        viewAdminDoctorRatings.enableSaveSummaryButton(true);
         
         for(int i = 0; i < ratings.size(); i++) 
         {
@@ -57,7 +66,7 @@ public class ControlAdminDoctorRatings implements IObserver {
     
     @Override
     public void update() {
-        setDoctorNames();
+        refresh();
     }
     
     private void updateDoctorInfo() {
@@ -79,7 +88,7 @@ public class ControlAdminDoctorRatings implements IObserver {
     
     public void setVisible(boolean isVisible){
         
-        if (isVisible) updateDoctorInfo();
+        if (isVisible) refresh();
         
         viewAdminDoctorRatings.setVisible(isVisible);
     }
