@@ -32,6 +32,12 @@ public class ModelPrescriptionSystem {
     // Data to save
     ArrayList<Medicine> medicineStock = new ArrayList();    
     ArrayList<PatientMedicineRecord> patientRecords = new ArrayList();
+
+    public ModelPrescriptionSystem() {
+        loadData();
+    }
+    
+    
     
     private void saveData() {
         JSONObject root = new JSONObject();     
@@ -179,6 +185,8 @@ public class ModelPrescriptionSystem {
             
         consumeMedicine(medicineName, quantity);
         
+        saveData();
+        
     }
     
     private PatientMedicineRecord searchRecords(String patientId) {
@@ -214,6 +222,8 @@ public class ModelPrescriptionSystem {
         medicineStock.add(medicine);        
         
         onUpdateMedicineStock.invoke();
+        
+        saveData();
     }
     
     public ArrayList<Medicine> getMedecineStock() {
@@ -255,6 +265,8 @@ public class ModelPrescriptionSystem {
         System.out.println("Medicine restocked: " + medicineToRestock + " new quantity: " + medicine.getQuantity());
         
         onUpdateMedicineStock.invoke();
+        
+        saveData();
     }
     
     public void consumeMedicine(String medicineToConsume, int amount) {
@@ -264,6 +276,8 @@ public class ModelPrescriptionSystem {
         medicine.consume(amount);
         
         onUpdateMedicineStock.invoke();
+        
+        saveData();
     }
     
 }

@@ -1,1 +1,0 @@
-{"doctorRatings":[{"summary":null,"averageFiveStarRating":"3","allFeedback":[{"patientId":"P0009","message":"qrqefae","fiveStarRating":"3"}],"doctorId":"D0007"}]}

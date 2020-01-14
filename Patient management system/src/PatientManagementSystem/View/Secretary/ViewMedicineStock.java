@@ -28,6 +28,8 @@ public class ViewMedicineStock extends javax.swing.JFrame {
     
     public void fillMedicineStockTable(ArrayList<Medicine> medicines)
     {
+        cboxMedicines.removeAllItems();
+        
         DefaultTableModel model = (DefaultTableModel)tblMedicineStock.getModel();
         model.setRowCount(medicines.size());
         tblMedicineStock.setModel(model);
